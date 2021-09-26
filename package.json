@@ -16,7 +16,6 @@
     "test": "tsdx test",
     "lint": "tsdx lint src test",
     "format": "tsdx lint src test --fix",
-    "format:hint":"echo \"format you code using: npm run format\"",
     "prepare": "tsdx build && husky install",
     "size": "size-limit",
     "analyze": "size-limit --why"
