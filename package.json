@@ -22,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "tsdx lint src test --fix"
+      "pre-commit": "tsdx lint src test --fix"
     }
   },
   "prettier": {
