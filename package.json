@@ -22,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo \"use npm run format : to format your code\""
+      "pre-commit": "echo \"to format your code: use npm run format\""
     }
   },
   "prettier": {
