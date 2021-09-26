@@ -22,7 +22,7 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "echo \"to format your code: use npm run format\""
+      "prepare-commit-msg": "tsdx lint src test"
     }
   },
   "prettier": {
