@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -14,7 +14,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
-    "lint": "tsdx lint",
+    "lint": "tsdx lint src test",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why"
@@ -44,7 +44,7 @@
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^5.0.3",
+    "@size-limit/preset-small-lib": "^4.5.5",
     "husky": "^7.0.2",
     "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
