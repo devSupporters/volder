@@ -3,7 +3,7 @@
 
 
 echo "------------------------"
-echo "🔍 lint your code by:  -"
+echo "🧹 lint your code by:  -"
 echo "> npm run lint          -"
 echo "------------------------"
 echo "🔧 format your code by:-"

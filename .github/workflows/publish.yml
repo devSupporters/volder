@@ -1,2 +1,28 @@
 name: Publish
 
+on:
+  release:
+    type: [published]
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+      - name: Use Node ${{ matrix.node }}
+      with:
+        node-version: ${{ matrix.node }}
+
+      - name: Install deps and build (with cache)
+        uses: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+      - name: Publish
+        run: npm publish --access public  
