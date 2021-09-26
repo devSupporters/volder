@@ -16,17 +16,10 @@
     "test": "tsdx test",
     "lint": "tsdx lint src test",
     "format": "tsdx lint src test --fix",
-    "prepare": "tsdx build",
+    "format:hint":"echo \"format you code using: npm run format\"",
+    "prepare": "tsdx build && husky install",
     "size": "size-limit",
     "analyze": "size-limit --why"
-  },
-  "husky": {
-    "hooks": {
-      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
-      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
-      "post-applypatch": "echo \"[Husky] post-applypatch\"",
-      "pre-commit": "echo \"[Husky] pre-commit\""
-    }
   },
   "prettier": {
     "printWidth": 80,
@@ -49,10 +42,10 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.5.5",
-    "husky": "^5.0.0",
+    "husky": "^7.0.0",
     "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^3.9.10"
   }
-} 
+}
