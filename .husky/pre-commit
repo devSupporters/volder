@@ -1,4 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run lint || echo "format your code : npm run format"
+
+echo "lint your code by" 
+echo "> npm run lint"
+echo "format your code by"
+echo "> npm run format"
