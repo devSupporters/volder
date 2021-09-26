@@ -29,16 +29,6 @@
   "name": "volder",
   "author": "salah alhashmi",
   "module": "dist/volder.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/volder.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/volder.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.5.5",
     "husky": "^7.0.0",
