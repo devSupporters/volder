@@ -24,5 +24,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        
       - name: Publish
         run: npm publish --access public  
+          env:
+            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
