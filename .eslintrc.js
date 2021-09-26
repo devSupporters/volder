@@ -7,5 +7,5 @@ module.exports = {
     "react": {
       "version": "999.999.999"
     }
-  },
+  }
 }
