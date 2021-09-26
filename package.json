@@ -49,10 +49,10 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.5.5",
-    "husky": "^7.0.2",
+    "husky": "^5.0.0",
     "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
-    "tslib": "^2.3.1", 
+    "tslib": "^2.3.1",
     "typescript": "^3.9.10"
   }
-}
+} 
