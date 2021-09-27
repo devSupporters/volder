@@ -13,13 +13,12 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test",
+    "test": "tsdx test --config jest.config.json",
     "lint": "tsdx lint src test",
     "format": "tsdx lint src test --fix",
     "prepare": "tsdx build && husky install",
     "size": "size-limit",
-    "analyze": "size-limit --why",
-    "coverage": "tsdx test --collect-coverage"
+    "analyze": "size-limit --why"
   },
   "prettier": {
     "printWidth": 80,
