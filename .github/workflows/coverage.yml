@@ -1,17 +1,32 @@
-orbs:
-  codecov: codecov/codecov@3.0.0
-jobs:
-  example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - codecov/upload:
-          file: /coverage/coverage-final.json 
-          flags: unittests 
-          token: ${{secrets.CODECOV_TOKEN}}
+name: Running Code Coverage
 
-workflows:
-  example-workflow:
-    jobs:
-      - example-job
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [13.x, 14.x, 15.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm run test --ci
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1

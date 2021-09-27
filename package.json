@@ -13,7 +13,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --config jest.config.json",
+    "test": "tsdx test --coverage",
     "lint": "tsdx lint src test",
     "format": "tsdx lint src test --fix",
     "prepare": "tsdx build && husky install",
@@ -31,6 +31,7 @@
   "module": "dist/volder.esm.js",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.5.5",
+    "codecov": "^3.8.3",
     "husky": "^7.0.0",
     "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
