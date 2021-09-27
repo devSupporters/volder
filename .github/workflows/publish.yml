@@ -1,20 +1,22 @@
 name: Publish
+
+
 on:
   release:
-    types: [published]
+    types: [created]
 jobs: 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
       - name: Use Node ${{ matrix.node }}
         with:
           node-version: ${{ matrix.node }}
           registry-url: https://registry.npmjs.org/
 
       - name: Install deps and build (with cache)
-        uses: npm install
+        run: npm install
 
       - name: Lint
         run: npm run lint
@@ -27,5 +29,5 @@ jobs:
 
       - name: Publish
         run: npm publish --access public  
-          env:
-            NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
