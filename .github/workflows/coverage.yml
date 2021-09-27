@@ -1,0 +1,17 @@
+orbs:
+  codecov: codecov/codecov@3.0.0
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - codecov/upload:
+          file: /coverage/coverage-final.json 
+          flags: unittests 
+          token: ${{secrets.CODECOV_TOKEN}}
+
+workflows:
+  example-workflow:
+    jobs:
+      - example-job
