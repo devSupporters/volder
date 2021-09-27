@@ -3,12 +3,12 @@
 
 
 echo "------------------------"
-echo "🧹 lint your code by:  -"
-echo "> npm run lint          -"
+echo "🧹 lint your code by:  |"
+echo "> npm run lint          |"
 echo "------------------------"
-echo "🔧 format your code by:-"
-echo "> npm run format        -"
+echo "🔧 format your code by:|"
+echo "> npm run format        |"
 echo "------------------------"
-echo "🧪 test you code by:   -"
-echo "> npm run test         -"
+echo "🧪 test you code by:   |"
+echo "> npm run test         |"
 echo "------------------------"
