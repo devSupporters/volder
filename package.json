@@ -18,7 +18,8 @@
     "format": "tsdx lint src test --fix",
     "prepare": "tsdx build && husky install",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "coverage": "tsdx test --collect-coverage"
   },
   "prettier": {
     "printWidth": 80,
