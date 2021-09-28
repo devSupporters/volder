@@ -1,5 +1,6 @@
 import {assertObject} from '../utils/assertObject';
 import {assertTypeProperty} from '../utils/assertConstructorFunction';
+import {setUpOptionWithConfigs} from './setUpOption';
 
 export const objectToMap  = (config:any) => {
     const generatedMap = new Map();
@@ -10,9 +11,9 @@ export const objectToMap  = (config:any) => {
         if(typeof config[option].type === 'undefined') throw new Error (`type is required at ${option} property`)
         else  assertTypeProperty(option)
 
-        
-        // set up object other function
-        // for every loop set new map data [string, {all configs for that prop}]
+        const configuredOption = setUpOptionWithConfigs(config[option]);
+        generatedMap.set(option, configuredOption);
     }
+
     return generatedMap;
 }
