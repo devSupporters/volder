@@ -1,5 +1,5 @@
 import {assertObject} from '../utils/assertObject';
-import {assertTypeProperty} from '../utils/assertTypeProperty';
+import {assertTypeProperty} from '../utils/assertConstructorFunction';
 
 export const objectToMap  = (config:any) => {
     const generatedMap = new Map();
