@@ -18,9 +18,11 @@ const person = new Volder({
     },
     male :{
         type:String,
+        min:1,
+        max:2,
         required:true
     } 
 })
-const result = person.validate({name:"welcome",age:-23})
+const result = person.validate({name:"welcome",age:-23,male:""})
 console.log(result[0])
 console.log(result[1]);

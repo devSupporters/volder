@@ -4,19 +4,19 @@ export const validator = (
   volderMap: Map<string, object>,
   input: object | any
 ) => {
-  const errors = {};
-  let validInput = true;
+  const errors:any = {};
+  let validInput:boolean = true;
 
-  volderMap.forEach((optionConfigs: object, optionName: string, _map) => {
+  volderMap.forEach((optionConfigs:any, optionName: string, _map) => {
 
     if (typeof input[optionName] !== 'undefined') {
-      const is_valid_input = inputValidator(input,optionName , optionConfigs, errors);
 
-      // set validInput to false if there error
+      const is_valid_input = inputValidator(input,optionName , optionConfigs, errors);
       if(is_valid_input === false && validInput === true) validInput = false;
+
+    } else if (optionConfigs.required === true) {
+      errors[optionName] = `${optionName} is required`
     }
-    // } else if}
-    // there are code for validate the input prop are required
   });
 
   return [validInput, errors];
