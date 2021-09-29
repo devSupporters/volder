@@ -1,7 +1,7 @@
 export const assertConstructorFunction = (input: any): void => {
-  const allTypes = [String, Number, Object, Array, Boolean];
+  const allConstructorFunctions = [String, Number, Object, Array, Boolean];
 
-  if (!allTypes.includes(input)) {
+  if (!allConstructorFunctions.includes(input)) {
     throw new TypeError(
       `Expected a constructor function like { String | Number | Object | Array | Boolean } but received a ${typeof input}`
     );
