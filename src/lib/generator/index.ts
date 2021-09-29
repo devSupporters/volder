@@ -12,7 +12,7 @@ export const objectToMap  = (config:any) => {
         else  assertConstructorFunction(config[option].type)
 
         const configuredOption = setUpOptionWithConfigs(config[option]);
-        // here you setup errors props 
+
         generatedMap.set(option, configuredOption);
     }
 
