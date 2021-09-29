@@ -3,19 +3,19 @@ export const inputValidator = ( input: any, key:string, validatorOption: any, va
 ////////////////////////////////// String //////////////////////////////////////////
         case String:
             if(input[key].constructor.name !== "String") {
-                validInput = false;
+                validInput = validInput && false;
                 errors[key] = `${key} should be a string`
                 break;
             }
 
             if(input[key].length < validatorOption.min) {
-                validInput = false;
+                validInput = validInput && false;
                 errors[key] = `${key} should be at least ${validatorOption.min} length`
                 break;
             }
 
             if(input[key].length > validatorOption.max) {
-                validInput = false;
+                validInput = validInput && false;
                 errors[key] = `${key} should be at most ${validatorOption.max} length`
                 break;
             }
@@ -23,18 +23,18 @@ export const inputValidator = ( input: any, key:string, validatorOption: any, va
 ////////////////////////////////// Number /////////////////////////////////////////////
         case Number:
             if(input[key].constructor.name !== "Number") {
-                validInput = false;
+                validInput = validInput && false;
                 errors[key] = `${key} should be a number`
             }
 
             if(input[key] < validatorOption.min) {
-                validInput = false;
+                validInput = validInput && false;
                 errors[key] = `${key} should be at least ${validatorOption.min}`
                 break;
             }
 
             if(input[key] > validatorOption.max) {
-                validInput = false;
+                validInput = validInput && false;
                 errors[key] = `${key} should be at most ${validatorOption.max}`
                 break;
             }

@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
+    "dev":"nodemon",
     "build": "tsdx build",
     "test": "tsdx test --coverage",
     "lint": "tsdx lint src test",
@@ -36,5 +37,8 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.13"
   }
 }
