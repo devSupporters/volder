@@ -5,9 +5,10 @@ export const validator = (
   input: object | any
 ) => {
   const errors = {};
-  let validInput = true;
+  let validInput:boolean = true;
 
   volderMap.forEach((value: object, key: string, _map) => {
+
     if (typeof input[key] !== 'undefined') {
       inputValidator(input,key , value, validInput, errors);
     }

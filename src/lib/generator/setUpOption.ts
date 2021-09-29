@@ -5,7 +5,7 @@ const minProp:string = 'min';
 const maxProp:string = 'max';
 
 export const setUpOptionWithConfigs = (option:any) => {
-    const defaultConfiguredOption:{min:number, max:typeof max} = {min, max};
+    const defaultConfiguredOption = {min, max, type:option.type};
 
     if(typeof option[minProp] !== 'undefined') {
         assertStringOrNumber(option[minProp], 'number');

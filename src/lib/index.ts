@@ -11,8 +11,9 @@ export class Volder {
     this.config = config;
     this.volderMap = objectToMap(this.config);
   }
+
   validate(input: object) {
     assertObject(input);
-    validator(this.volderMap, input);
+    return validator(this.volderMap, input);
   }
 }

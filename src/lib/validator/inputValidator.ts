@@ -1,8 +1,9 @@
 export const inputValidator = ( input: any, key:string, validatorOption: any, validInput:boolean, errors: any) => {
+    
     switch (validatorOption.type) {
 ////////////////////////////////// String //////////////////////////////////////////
         case String:
-            if(input[key].constructor.name !== "String") {
+            if(!(typeof input[key] === 'string' || input instanceof String)) {
                 validInput = validInput && false;
                 errors[key] = `${key} should be a string`
                 break;
@@ -10,13 +11,13 @@ export const inputValidator = ( input: any, key:string, validatorOption: any, va
 
             if(input[key].length < validatorOption.min) {
                 validInput = validInput && false;
-                errors[key] = `${key} should be at least ${validatorOption.min} length`
+                errors[key] = `${key} should be at least ${validatorOption.min} characters`
                 break;
             }
 
-            if(input[key].length > validatorOption.max) {
+            if(validatorOption.max !== null && input[key].length > validatorOption.max) {
                 validInput = validInput && false;
-                errors[key] = `${key} should be at most ${validatorOption.max} length`
+                errors[key] = `${key} should be at most ${validatorOption.max} characters`
                 break;
             }
             break;
@@ -33,7 +34,7 @@ export const inputValidator = ( input: any, key:string, validatorOption: any, va
                 break;
             }
 
-            if(input[key] > validatorOption.max) {
+            if(validatorOption.max !== null && input[key] > validatorOption.max) {
                 validInput = validInput && false;
                 errors[key] = `${key} should be at most ${validatorOption.max}`
                 break;
