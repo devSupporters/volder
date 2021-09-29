@@ -11,11 +11,16 @@ const person = new Volder({
     },
     age:{
         type: Number,
-        min:12,
-        max:13
+        min:-50,
+        max:13,
+        required:true
+
+    },
+    male :{
+        type:String,
+        required:true
     } 
 })
 const result = person.validate({name:"welcome",age:-23})
 console.log(result[0])
 console.log(result[1]);
-// console.log("welcome")

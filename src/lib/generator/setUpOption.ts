@@ -19,7 +19,7 @@ export const setUpOptionWithConfigs = (option: any) => {
   }
 
   if (typeof option[requiredProp] !== 'undefined') {
-    assertType(option[requiredProp], 'number', `${requiredProp} property`);
+    assertType(option[requiredProp], 'boolean', `${requiredProp} property`);
     defaultConfiguredOption.required = option[requiredProp];
   }
 
