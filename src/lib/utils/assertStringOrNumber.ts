@@ -1,4 +1,4 @@
-export const assertStringOrNumber = (input:(number | string | any), type: ('string' | 'number')) => {
+export const assertStringOrNumber = (input:(number | string | any), type: ('string' | 'number'),position:string) => {
   let ValidType;
   
   if (type ==='string') ValidType = typeof input === type || input instanceof String
@@ -11,6 +11,6 @@ export const assertStringOrNumber = (input:(number | string | any), type: ('stri
     if (invalidType === null) invalidType = 'null'
     else if (invalidType === 'object') invalidType = input.constructor.name;
 
-    throw new TypeError(`Expected a ${type} but received a ${invalidType}`);
+    throw new TypeError(`Expected a ${type} but received a ${invalidType} at ${position}`);
   }
 };

@@ -3,7 +3,7 @@ export const assertConstructorFunction = (input: any): void => {
 
   if (!allTypes.includes(input)) {
     throw new TypeError(
-      `Expected a constructor function like { String | Number | Object | Array | Boolean } but received a ${input}`
+      `Expected a constructor function like { String | Number | Object | Array | Boolean } but received a ${typeof input}`
     );
   }
 };
