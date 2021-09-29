@@ -1,8 +1,9 @@
 export const assertStringOrNumber = (input:(number | string | any), type: ('string' | 'number')) => {
   let ValidType;
   
-  if(type ==='string') ValidType = typeof input === type && input instanceof String;
-  else ValidType = typeof input === type && input instanceof Number;
+  if (type ==='string') ValidType = typeof input === type || input instanceof String
+
+  else if (type === 'number') ValidType = typeof input === type || input instanceof Number;
 
   if(!ValidType) {
     let invalidType:string = typeof input;

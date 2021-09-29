@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "dev":"nodemon",
+    "dev":"nodemon test.js",
     "build": "tsdx build",
     "test": "tsdx test --coverage",
     "lint": "tsdx lint src test",
