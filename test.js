@@ -7,7 +7,7 @@ const person = new Volder({
     name: {
         type:String,
         min:1,
-        max:12
+        max:12 
     },
     age:{
         type: Number,
