@@ -1,9 +1,18 @@
-import {objectToMap} from './generator/index';
+import { objectToMap } from './generator/index';
+import { validator } from './validator/index';
+import { assertObject } from './utils/assertObject';
 
 export class Volder {
-    constructor(private config:object) {
-        this.config = config;
-        console.log("welcome")
-        objectToMap(this.config)
-    }
+  readonly volderMap: Map<string, object>;
+
+  constructor(private config: object) {
+    assertObject(config);
+
+    this.config = config;
+    this.volderMap = objectToMap(this.config);
+  }
+  validate(input: object) {
+    assertObject(input);
+    validator(this.volderMap, input);
+  }
 }
