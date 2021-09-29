@@ -1,3 +1,3 @@
-export const min:number = 0;
+export const min:null | number = null;
 export const max:null | number = null;
-
+export const required:boolean = false;
