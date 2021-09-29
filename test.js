@@ -7,14 +7,15 @@ const person = new Volder({
     name: {
         type:String,
         min:1,
+        max:12
     },
     age:{
         type: Number,
         min:12,
-        max:"13"
+        max:13
     } 
 })
-const result = person.validate({name:"welcomesdfsdfsd",age:23})
+const result = person.validate({name:"ghslidhg7",age:13})
 console.log(result[0])
 console.log(result[1]);
 // console.log("welcome")

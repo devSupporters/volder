@@ -10,7 +10,8 @@ export const validator = (
   volderMap.forEach((value: object, key: string, _map) => {
 
     if (typeof input[key] !== 'undefined') {
-      inputValidator(input,key , value, validInput, errors);
+      const is_valid_input = inputValidator(input,key , value, errors);
+      if(is_valid_input === false && validInput === true) validInput = false;
     }
     // there are code for validate the input prop are required
   });

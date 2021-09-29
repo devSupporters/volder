@@ -1,43 +1,38 @@
-export const inputValidator = ( input: any, key:string, validatorOption: any, validInput:boolean, errors: any) => {
-    
+export const inputValidator = ( input: any, key:string, validatorOption: any, errors: any) => {
+
     switch (validatorOption.type) {
 ////////////////////////////////// String //////////////////////////////////////////
         case String:
             if(!(typeof input[key] === 'string' || input instanceof String)) {
-                validInput = validInput && false;
                 errors[key] = `${key} should be a string`
-                break;
+                return false;
             }
 
             if(input[key].length < validatorOption.min) {
-                validInput = validInput && false;
                 errors[key] = `${key} should be at least ${validatorOption.min} characters`
-                break;
+                return false
             }
 
             if(validatorOption.max !== null && input[key].length > validatorOption.max) {
-                validInput = validInput && false;
                 errors[key] = `${key} should be at most ${validatorOption.max} characters`
-                break;
+                return false;
             }
             break;
 ////////////////////////////////// Number /////////////////////////////////////////////
         case Number:
-            if(input[key].constructor.name !== "Number") {
-                validInput = validInput && false;
+            if(!(typeof input[key] === 'number' || input instanceof Number)) {
                 errors[key] = `${key} should be a number`
+                return false
             }
 
             if(input[key] < validatorOption.min) {
-                validInput = validInput && false;
                 errors[key] = `${key} should be at least ${validatorOption.min}`
-                break;
+                return false;
             }
 
             if(validatorOption.max !== null && input[key] > validatorOption.max) {
-                validInput = validInput && false;
                 errors[key] = `${key} should be at most ${validatorOption.max}`
-                break;
+                return false;
             }
             break;
 
@@ -62,4 +57,5 @@ export const inputValidator = ( input: any, key:string, validatorOption: any, va
         //     }
         //     break;
     }
+    return;
 };
