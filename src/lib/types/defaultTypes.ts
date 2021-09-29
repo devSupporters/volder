@@ -1,4 +1,4 @@
 export interface DefaultOptionConfigs {
-    min:number;
-    max:number;
+  min: number;
+  max: number;
 }

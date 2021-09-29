@@ -1,2 +1,2 @@
-import {Volder} from "./lib/index";
+import { Volder } from './lib/index';
 export default Volder;

@@ -1,24 +1,24 @@
-import {assertObject} from '../utils/assertObject';
-import {assertConstructorFunction} from '../utils/assertConstructorFunction';
-import {setUpOptionWithConfigs} from './setUpOption';
+import { assertObject } from '../utils/assertObject';
+import { assertConstructorFunction } from '../utils/assertConstructorFunction';
+import { setUpOptionWithConfigs } from './setUpOption';
 
-export const objectToMap  = (config:any) => {
-    const generatedMap = new Map();
-    
-    for(const option in config) {
-        
-        // here we can use just construcutor function
-        // without whole object with type property
+export const objectToMap = (config: any) => {
+  const generatedMap = new Map();
 
-        assertObject(config[option]);
+  for (const option in config) {
+    // here we can use just construcutor function
+    // without whole object with type property
 
-        if(typeof config[option].type === 'undefined') throw new Error (`type is required at ${option} property`)
-        else  assertConstructorFunction(config[option].type)
+    assertObject(config[option]);
 
-        const configuredOption = setUpOptionWithConfigs(config[option]);
+    if (typeof config[option].type === 'undefined')
+      throw new Error(`type is required at ${option} property`);
+    else assertConstructorFunction(config[option].type);
 
-        generatedMap.set(option, configuredOption);
-    }
+    const configuredOption = setUpOptionWithConfigs(config[option]);
 
-    return generatedMap;
-}
+    generatedMap.set(option, configuredOption);
+  }
+
+  return generatedMap;
+};
