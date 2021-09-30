@@ -2,7 +2,7 @@
   "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",  
   "files": [
     "dist",
     "src"
@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
+    "dev":"nodemon test.js",
     "build": "tsdx build",
     "test": "tsdx test --coverage",
     "lint": "tsdx lint src test",
@@ -31,11 +32,13 @@
   "module": "dist/volder.esm.js",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.5.5",
-    "codecov": "^3.8.3",
     "husky": "^7.0.0",
     "size-limit": "^5.0.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.13"
   }
 }

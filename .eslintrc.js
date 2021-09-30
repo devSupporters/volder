@@ -7,5 +7,9 @@ module.exports = {
     "react": {
       "version": "999.999.999"
     }
+  },
+  "rules": {
+    "no-new-wrappers":"off",
+    "no-new-object":"off"
   }
 }

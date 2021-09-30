@@ -1,3 +1,2 @@
-export const sum = (a: number, b: number) => {
-  return a + b;
-};
+import { Volder } from './lib/volder';
+export default Volder;
