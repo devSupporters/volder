@@ -9,7 +9,7 @@ export const objectToMap = (config: any) => {
     // here we can use just construcutor function
     // without whole object with type property
 
-    assertObject(config[option]); 
+    assertObject(config[option]);
 
     if (typeof config[option].type === 'undefined')
       throw new Error(`type is required at ${option} property`);
