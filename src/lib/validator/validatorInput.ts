@@ -1,4 +1,4 @@
-export const inputValidator = (
+export const validatorInput = (
   input: any,
   optionName: string,
   optionConfigs: any,

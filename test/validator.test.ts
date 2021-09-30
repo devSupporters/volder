@@ -1,5 +1,5 @@
 import { validator } from '../src/lib/validator/index';
-// import { inputValidator } from '../src/lib/validator/inputValidator';
+import { validatorInput } from '../src/lib/validator/validatorInput';
 import { Volder } from '../src/lib/volder';
 
 test('validator function should work correctly', () => {
@@ -24,3 +24,5 @@ test('validator function should work correctly', () => {
       age:"age is required"
   }])
 });
+
+test('inputValidator')
