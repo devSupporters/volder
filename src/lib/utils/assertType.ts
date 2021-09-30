@@ -1,7 +1,7 @@
 export const assertType = (
   input: number | string | boolean | any,
   type: 'string' | 'number' | 'boolean',
-  position: string
+  position: string 
 ) => {
   let ValidType;
 
@@ -15,7 +15,7 @@ export const assertType = (
   if (!ValidType) {
     let invalidType: string = typeof input;
 
-    if (invalidType === null) invalidType = 'null';
+    if (input === null) invalidType = 'null';
     else if (invalidType === 'object') invalidType = input.constructor.name;
 
     throw new TypeError(
