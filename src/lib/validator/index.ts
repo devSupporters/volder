@@ -15,9 +15,13 @@ export const validator = (
         optionConfigs,
         errors
       );
+
       if (is_valid_input === false && validInput === true) validInput = false;
-    } else if (optionConfigs.required === true) {
+    }  
+    
+    if (optionConfigs.required === true && typeof input[optionName] === 'undefined') {
       errors[optionName] = `${optionName} is required`;
+      validInput = false;
     }
   });
 
