@@ -20,5 +20,19 @@ test('objectToMap function should work correctly', () => {
 });
 
 test('setUpOptionWithConfigs function should work correctly', () => {
+    // Entring a correct values
+    const obj1 = {type:Number};
+    const obj2 = {type:String, required:true, min:12, max:30};
+
+    expect(setUpOptionWithConfigs(obj1)).toEqual({ min:null, max:null, type: Number, required:false});
+    expect(setUpOptionWithConfigs(obj2)).toEqual({type:String, required:true, min:12, max:30});
+
+    // Entering a wrong values
+    const wrongObj1 = {type:Number, min:"3"};
+    const wrongObj2 = {type:String, max:false};
+    const wrongObj3 = {type:Number, required:2};
     
+    expect(() => setUpOptionWithConfigs(wrongObj1)).toThrowError(new TypeError("Expected a number but received a string at min property"))
+    expect(() => setUpOptionWithConfigs(wrongObj2)).toThrowError(new TypeError('Expected a number but received a boolean at max property'))
+    expect(() => setUpOptionWithConfigs(wrongObj3)).toThrowError(new TypeError('Expected a boolean but received a number at required property'))
 })
