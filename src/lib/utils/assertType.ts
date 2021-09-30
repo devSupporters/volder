@@ -5,12 +5,9 @@ export const assertType = (
 ) => {
   let ValidType;
 
-  if (type === 'string')
-    ValidType = typeof input === type || input instanceof String;
-  else if (type === 'number')
-    ValidType = typeof input === type || input instanceof Number;
-  else if (type === 'boolean')
-    ValidType = typeof input === type || input instanceof Boolean;
+  if (type === 'string') ValidType = typeof input === type || input instanceof String;
+  if (type === 'number') ValidType = typeof input === type || input instanceof Number;
+  if (type === 'boolean') ValidType = typeof input === type || input instanceof Boolean;
 
   if (!ValidType) {
     let invalidType: string = typeof input;

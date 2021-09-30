@@ -39,6 +39,7 @@ test('assertType function work correctly', () => {
   expect(assertType('test','string','person')).toBeUndefined()
   expect(assertType(100,'number','house')).toBeUndefined()
   expect(assertType(true,'boolean','sea')).toBeUndefined()
+  expect(assertType(false,'boolean','bathroom')).toBeUndefined()
   expect(assertType(new String('test'),'string','sea')).toBeUndefined()
   expect(assertType(new Number(3),'number','sea')).toBeUndefined()
   expect(assertType(new Boolean(true),'boolean','sea')).toBeUndefined()
