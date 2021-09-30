@@ -3,14 +3,14 @@ import { assertObject } from '../src/lib/utils/assertObject';
 import { assertType } from '../src/lib/utils/assertType';
 
 test('assertConstrucotrFunction function work correctly', () => {
-  // Entering a correct inputes
+  // Entering a correct values
   expect(assertConstructorFunction(String)).toBeUndefined();
   expect(assertConstructorFunction(Number)).toBeUndefined();
   expect(assertConstructorFunction(Boolean)).toBeUndefined();
   expect(assertConstructorFunction(Array)).toBeUndefined();
   expect(assertConstructorFunction(Object)).toBeUndefined();
 
-  // Entering a wrong inputes
+  // Entering a wrong values
   const errorMessage = 'Expected a constructor function like { String | Number | Object | Array | Boolean } but received a ';
  
   expect(() => assertConstructorFunction('string')).toThrowError(new TypeError(errorMessage + 'string'));
@@ -21,12 +21,12 @@ test('assertConstrucotrFunction function work correctly', () => {
 });
  
 test('assertObject function work correctly', () => {
-  // Entering a correct inputes
+  // Entering a correct values
   expect(assertObject({})).toBeUndefined()
   expect(assertObject({name:'person',age:23})).toBeUndefined()
   expect(assertObject(new Object({value:23}))).toBeUndefined()
 
-  // Entering a wrong inputes
+  // Entering a wrong values
   expect(()=> assertObject(null)).toThrowError(new TypeError('Expected a object but received a null'))
   expect(()=> assertObject('test')).toThrowError(new TypeError('Expected a object but received a string'))
   expect(()=> assertObject([1, 2, 3])).toThrowError(new TypeError('Expected a object but received a Array'))
@@ -35,7 +35,7 @@ test('assertObject function work correctly', () => {
 });
 
 test('assertType function work correctly', () => {
-  // Entering a correct inputes
+  // Entering a correct values
   expect(assertType('test','string','person')).toBeUndefined()
   expect(assertType(100,'number','house')).toBeUndefined()
   expect(assertType(true,'boolean','sea')).toBeUndefined()
@@ -44,7 +44,7 @@ test('assertType function work correctly', () => {
   expect(assertType(new Number(3),'number','sea')).toBeUndefined()
   expect(assertType(new Boolean(true),'boolean','sea')).toBeUndefined()
 
-  // Entering a wrong inputes
+  // Entering a wrong values
   expect(() => assertType({name:"max"},'boolean','person')).toThrowError(new TypeError("Expected a boolean but received a Object at person"))
   expect(() => assertType(23,'string','sea')).toThrowError(new TypeError('Expected a string but received a number at sea'))
   expect(() => assertType('test','number','house')).toThrowError(new TypeError('Expected a number but received a string at house'))

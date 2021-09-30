@@ -1,7 +1,7 @@
 import { objectToMap } from '../src/lib/generator/index';
-// import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
+import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
 
-test('objectToMap should work correctly', () => {
+test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const obj1 = {
     name: { type: String, min: 3 },
@@ -18,3 +18,7 @@ test('objectToMap should work correctly', () => {
   // Entering a wrong values
   expect(()=> {objectToMap(obj2)}).toThrowError(new TypeError('type is required at position property'))
 });
+
+test('setUpOptionWithConfigs function should work correctly', () => {
+    
+})
