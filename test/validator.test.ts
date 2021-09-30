@@ -1,5 +1,4 @@
 import { validator } from '../src/lib/validator/index';
-import { validatorInput } from '../src/lib/validator/validatorInput';
 import { Volder } from '../src/lib/volder';
 
 test('validator function should work correctly', () => {
@@ -36,4 +35,4 @@ test('validator function should work correctly', () => {
   ]);
 });
 
-test('validatorInput function should work correctly', () => {});
+// write test for inputValidator function here:

@@ -17,7 +17,7 @@ test('assertConstrucotrFunction function work correctly', () => {
   expect(() => assertConstructorFunction('string')).toThrowError(
     new TypeError(errorMessage + 'string')
   );
-  expect(() => assertConstructorFunction({})).toThrowError(
+  expect(() => assertConstructorFunction({ name: 'max' })).toThrowError(
     new TypeError(errorMessage + 'object')
   );
   expect(() => assertConstructorFunction(null)).toThrowError(
@@ -33,7 +33,7 @@ test('assertConstrucotrFunction function work correctly', () => {
 
 test('assertObject function work correctly', () => {
   // Entering a correct values
-  expect(assertObject({})).toBeUndefined();
+  expect(assertObject({ result: 3 })).toBeUndefined();
   expect(assertObject({ name: 'person', age: 23 })).toBeUndefined();
   expect(assertObject(new Object({ value: 23 }))).toBeUndefined();
 

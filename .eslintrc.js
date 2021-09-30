@@ -9,6 +9,7 @@ module.exports = {
     }
   },
   "rules": {
-    "no-new-wrappers":"off"
+    "no-new-wrappers":"off",
+    "no-new-object":"off"
   }
 }
