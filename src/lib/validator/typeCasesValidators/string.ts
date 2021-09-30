@@ -9,23 +9,13 @@ export const stringCase = (
     return false;
   }
 
-  if (
-    optionConfigs.min !== null &&
-    input[optionName].length < optionConfigs.min
-  ) {
-    errors[
-      optionName
-    ] = `${optionName} should be at least ${optionConfigs.min} characters`;
+  if (optionConfigs.min !== null && input[optionName].length < optionConfigs.min) {
+    errors[optionName] = `${optionName} should be at least ${optionConfigs.min} characters`;
     return false;
   }
 
-  if (
-    optionConfigs.max !== null &&
-    input[optionName].length > optionConfigs.max
-  ) {
-    errors[
-      optionName
-    ] = `${optionName} should be at most ${optionConfigs.max} characters`;
+  if (optionConfigs.max !== null && input[optionName].length > optionConfigs.max) {
+    errors[optionName] = `${optionName} should be at most ${optionConfigs.max} characters`;
     return false;
   }
 };

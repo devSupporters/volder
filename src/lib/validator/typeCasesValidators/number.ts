@@ -10,9 +10,7 @@ export const numberCase = (
   }
 
   if (optionConfigs.min !== null && input[optionName] < optionConfigs.min) {
-    errors[
-      optionName
-    ] = `${optionName} should be at least ${optionConfigs.min}`;
+    errors[optionName] = `${optionName} should be at least ${optionConfigs.min}`;
     return false;
   }
 

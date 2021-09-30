@@ -1,11 +1,6 @@
 import { stringCase } from './typeCasesValidators/string';
 import { numberCase } from './typeCasesValidators/number';
-export const validatorInput = (
-  input: any,
-  optionName: string,
-  optionConfigs: any,
-  errors: any
-) => {
+export const validatorInput = (input: any, optionName: string, optionConfigs: any, errors: any) => {
   switch (optionConfigs.type) {
     case String:
       return stringCase(input, optionName, optionConfigs, errors);

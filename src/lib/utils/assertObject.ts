@@ -1,6 +1,5 @@
 export const assertObject = (input: any) => {
-  let isObject: boolean =
-    typeof input === 'object' && !Array.isArray(input) && input !== null;
+  let isObject: boolean = typeof input === 'object' && !Array.isArray(input) && input !== null;
 
   if (!isObject) {
     let invalidType: string = typeof input;
