@@ -5,7 +5,7 @@ test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const obj1 = {
     name: { type: String, min: 3 },
-    age: { type: Number, max: 100, required: true },
+    age: { type: Number, max: 100, required: true }
   };
   const obj2 = { position: { require: true } };
   const generatedMap = objectToMap(obj1);
@@ -16,13 +16,13 @@ test('objectToMap function should work correctly', () => {
     type: String,
     max: null,
     min: 3,
-    required: false,
+    required: false
   });
   expect(generatedMap.get('age')).toEqual({
     type: Number,
     max: 100,
     min: null,
-    required: true,
+    required: true
   });
 
   // Entering a wrong values
@@ -40,13 +40,13 @@ test('setUpOptionWithConfigs function should work correctly', () => {
     min: null,
     max: null,
     type: Number,
-    required: false,
+    required: false
   });
   expect(setUpOptionWithConfigs(obj2)).toEqual({
     type: String,
     required: true,
     min: 12,
-    max: 30,
+    max: 30
   });
 
   // Entering a wrong values

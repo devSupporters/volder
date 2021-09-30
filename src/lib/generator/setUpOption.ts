@@ -10,7 +10,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     min,
     max,
     type: optionConfigs.type,
-    required,
+    required
   };
   // check if min is smaller than max
   if (

@@ -4,7 +4,7 @@ import { Volder } from '../src/lib/volder';
 test('validator function should work correctly', () => {
   const { volderMap } = new Volder({
     name: { type: String, min: 10 },
-    age: { type: Number, max: 100, required: true },
+    age: { type: Number, max: 100, required: true }
   });
 
   const obj1 = { name: 'max and min and welcome', age: 90 };
@@ -17,21 +17,21 @@ test('validator function should work correctly', () => {
     false,
     {
       name: 'name should be at least 10 characters',
-      age: 'age should be at most 100',
-    },
+      age: 'age should be at most 100'
+    }
   ]);
   expect(validator(volderMap, obj3)).toEqual([
     false,
     {
       name: 'name should be a string',
-      age: 'age should be a number',
-    },
+      age: 'age should be a number'
+    }
   ]);
   expect(validator(volderMap, obj4)).toEqual([
     false,
     {
-      age: 'age is required',
-    },
+      age: 'age is required'
+    }
   ]);
 });
 
