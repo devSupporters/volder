@@ -4,7 +4,8 @@ test('Volder work correctly', () => {
   const volderSchema = new Volder({
     name: { type: String, min: 4, max: 10 },
     age: { type: Number, max: 100, required: true, min: 1 },
-    email: { type: String, min: 10, max: 150, require: true }
+    email: { type: String, min: 10, max: 150, required: true },
+    male: {type:Boolean, required: true}
   });
 
   const obj1 = { name: 'max cober', age: 23, email: 'welcome@gmail.com' };

@@ -10,11 +10,10 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const defaultConfiguredOption = { min, max, type: optionConfigs.type, required };
   // check if min is smaller than max
   if (
-    typeof optionConfigs[minProp] !== 'undefined' &&
-    typeof optionConfigs[maxProp] !== 'undefined' &&
+    optionConfigs.hasOwnProperty(minProp) &&
+    optionConfigs.hasOwnProperty(maxProp) &&
     optionConfigs[minProp] >= optionConfigs[maxProp]
-  )
-    throw Error('min property should be smaller than max property');
+  ) throw Error('min property should be smaller than max property');
 
   if (optionConfigs.hasOwnProperty(requiredProp)) {
     assertType(optionConfigs[requiredProp], 'boolean', `${requiredProp} property`);

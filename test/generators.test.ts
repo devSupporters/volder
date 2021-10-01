@@ -5,13 +5,15 @@ test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const obj1 = {
     name: { type: String, min: 3 },
-    age: { type: Number, max: 100, required: true }
+    age: { type: Number, max: 100, required: true },
+    hasChild : {type:Boolean, required:true}
   };
   const obj2 = { position: { require: true } };
   const generatedMap = objectToMap(obj1);
+
   expect(generatedMap.has('name')).toBe(true);
   expect(generatedMap.has('age')).toBe(true);
-
+  expect(generatedMap.has('hasChild')).toBe(true);
   expect(generatedMap.get('name')).toEqual({
     type: String,
     max: null,
@@ -24,6 +26,10 @@ test('objectToMap function should work correctly', () => {
     min: null,
     required: true
   });
+  expect(generatedMap.get('hasChild')).toEqual({
+    type:Boolean,
+    required:true
+  })
 
   // Entering a wrong values
   expect(() => {
@@ -35,6 +41,7 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   // Entring a correct values
   const obj1 = { type: Number };
   const obj2 = { type: String, required: true, min: 12, max: 30 };
+  const obj3 = {type:Boolean};
 
   expect(setUpOptionWithConfigs(obj1)).toEqual({
     min: null,
@@ -48,7 +55,9 @@ test('setUpOptionWithConfigs function should work correctly', () => {
     min: 12,
     max: 30
   });
-
+  expect(setUpOptionWithConfigs(obj3)).toEqual({
+    type: Boolean,
+  });
   // Entering a wrong values
   const wrongObj1 = { type: Number, min: '3' };
   const wrongObj2 = { type: String, max: false };
