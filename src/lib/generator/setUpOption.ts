@@ -20,6 +20,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     assertType(optionConfigs[requiredProp], 'boolean', `${requiredProp} property`);
     defaultConfiguredOption.required = optionConfigs[requiredProp];
   }
+  
   // avoid this property validators for some types (Boolean | Object)
   const avoidedTypes = [Boolean, Object];
   if(avoidedTypes.includes(optionConfigs[typeProp])) return defaultConfiguredOption;
