@@ -10,21 +10,14 @@ export const objectToMap = (config: (any | object)) => {
     // we need convert String => {type:String};;
 
     assertObject(config[option]);
-    // 
-    // if (typeof config[option].type === 'undefined')
-    //   throw new Error(`type is required at ${option} property`);
-    // else assertConstructorFunction(config[option].type);
 
-    // const configuredOption = setUpOptionWithConfigs(config[option]);
-
-    // generatedMap.set(option, configuredOption);
     if(config[option].hasOwnProperty('type')) {
+
       assertConstructorFunction(config[option].type);
       const configuredOption = setUpOptionWithConfigs(config[option]);
       generatedMap.set(option, configuredOption);
-    } else {
-      throw new Error(`type is required at ${option} property`);
-    }
+
+    } else throw new Error(`type is required at ${option} property`);
   }
 
   return generatedMap;
