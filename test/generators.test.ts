@@ -14,6 +14,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.has('name')).toBe(true);
   expect(generatedMap.has('age')).toBe(true);
   expect(generatedMap.has('hasChild')).toBe(true);
+  
   expect(generatedMap.get('name')).toEqual({
     type: String,
     max: null,
@@ -57,6 +58,7 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   });
   expect(setUpOptionWithConfigs(obj3)).toEqual({
     type: Boolean,
+    required: false
   });
   // Entering a wrong values
   const wrongObj1 = { type: Number, min: '3' };

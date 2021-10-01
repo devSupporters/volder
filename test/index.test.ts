@@ -5,7 +5,7 @@ test('Volder work correctly', () => {
     name: { type: String, min: 4, max: 10 },
     age: { type: Number, max: 100, required: true, min: 1 },
     email: { type: String, min: 10, max: 150, required: true },
-    male: {type:Boolean, required: true}
+    // male: {type:Boolean, required: true}
   });
 
   const obj1 = { name: 'max cober', age: 23, email: 'welcome@gmail.com' };

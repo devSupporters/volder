@@ -1,6 +1,6 @@
-import { stringCase } from './typeCasesValidators/string';
-import { numberCase } from './typeCasesValidators/number';
-import { booleanCase } from './typeCasesValidators/boolean';
+import { stringCase } from './typeCases/string';
+import { numberCase } from './typeCases/number';
+import { booleanCase } from './typeCases/boolean';
 
 export const validatorInput = (input: any, optionName: string, optionConfigs: any, errors: any) => {
   switch (optionConfigs.type) {
