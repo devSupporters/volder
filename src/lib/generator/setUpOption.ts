@@ -4,7 +4,7 @@ import { assertType } from '../utils/assertType';
 const minProp: string = 'min';
 const maxProp: string = 'max';
 const requiredProp: string = 'required';
-// const typeProp:string = 'type';
+const typeProp:string = 'type';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const defaultConfiguredOption = { min, max, type: optionConfigs.type, required };
@@ -20,7 +20,10 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     assertType(optionConfigs[requiredProp], 'boolean', `${requiredProp} property`);
     defaultConfiguredOption.required = optionConfigs[requiredProp];
   }
-
+  // avoid this property validators for some types (Boolean | Object)
+  const avoidedTypes = [Boolean, Object];
+  if(avoidedTypes.includes(optionConfigs[typeProp])) return defaultConfiguredOption;
+  
   if (optionConfigs.hasOwnProperty(minProp)) {
     assertType(optionConfigs[minProp], 'number', `${minProp} property`);
     defaultConfiguredOption.min = optionConfigs[minProp];
