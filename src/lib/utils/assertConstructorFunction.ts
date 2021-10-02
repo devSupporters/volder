@@ -1,5 +1,5 @@
 export const assertConstructorFunction = (input: any): void => {
-  const allConstructorFunctions = [String, Number, Object, Array, Boolean];
+  const allConstructorFunctions = [String, Number, Object, Array, Boolean, null];
 
   if (!allConstructorFunctions.includes(input)) {
     throw new TypeError(

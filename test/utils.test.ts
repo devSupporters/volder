@@ -20,9 +20,6 @@ test('assertConstrucotrFunction function work correctly', () => {
   expect(() => assertConstructorFunction({ name: 'max' })).toThrowError(
     new TypeError(errorMessage + 'object')
   );
-  expect(() => assertConstructorFunction(null)).toThrowError(
-    new TypeError(errorMessage + 'object')
-  );
   expect(() => assertConstructorFunction(undefined)).toThrowError(
     new TypeError(errorMessage + 'undefined')
   );
