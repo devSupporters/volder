@@ -4,8 +4,7 @@ export const stringCase = (
   optionConfigs: any,
   errors: any
 ): void | boolean => {
-  
-  const isString = typeof input[optionName] === 'string' || input instanceof String 
+  const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
 
   if (!isString) {
     errors[optionName] = `${optionName} should be a string`;

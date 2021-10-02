@@ -4,8 +4,7 @@ export const numberCase = (
   optionConfigs: any,
   errors: any
 ): void | boolean => {
-
-  const isNumber = typeof input[optionName] === 'number' || input instanceof Number 
+  const isNumber = typeof input[optionName] === 'number' || input[optionName] instanceof Number;
 
   if (!isNumber) {
     errors[optionName] = `${optionName} should be a number`;

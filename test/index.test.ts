@@ -9,7 +9,7 @@ test('Volder work correctly', () => {
   });
 
   const obj1 = { name: 'max cober', age: 23, email: 'welcome@gmail.com', male: true };
-  const obj2 = { name: 'max', age: 0, email: 'welcome@gmail.com' };
+  const obj2 = { name: 'max', age: new Number(0), email: 'welcome@gmail.com' };
   const obj3 = { name: 'max cober and some text', age: 230, email: 'gmail.com', male: false };
   const obj4 = { name: () => {}, age: false, male: 2 };
 
@@ -35,6 +35,7 @@ test('Volder work correctly', () => {
     {
       name: 'name should be a string',
       male: 'male should be a boolean (true or false)',
+      email: 'email is required',
       age: 'age should be a number'
     }
   ]);
