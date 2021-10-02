@@ -3,24 +3,40 @@ import { assertType } from '../utils/assertType';
 
 const minProp: string = 'min';
 const maxProp: string = 'max';
-const requiredProp = 'required';
+const requiredProp: string = 'required';
+const typeProp: string = 'type';
 
-export const setUpOptionWithConfigs = (option: any) => {
-  const defaultConfiguredOption = { min, max, type: option.type, required };
+export const setUpOptionWithConfigs = (optionConfigs: any) => {
+  const defaultConfiguredOption = { min, max, type: optionConfigs.type, required };
+  // check if min is smaller than max
+  if (
+    optionConfigs.hasOwnProperty(minProp) &&
+    optionConfigs.hasOwnProperty(maxProp) &&
+    optionConfigs[minProp] >= optionConfigs[maxProp]
+  )
+    throw Error('min property should be smaller than max property');
 
-  if (typeof option[minProp] !== 'undefined') {
-    assertType(option[minProp], 'number', `${minProp} property`);
-    defaultConfiguredOption.min = option[minProp];
+  if (optionConfigs.hasOwnProperty(requiredProp)) {
+    assertType(optionConfigs[requiredProp], 'boolean', `${requiredProp} property`);
+    defaultConfiguredOption.required = optionConfigs[requiredProp];
   }
 
-  if (typeof option[maxProp] !== 'undefined') {
-    assertType(option[maxProp], 'number', `${maxProp} property`);
-    defaultConfiguredOption.max = option[maxProp];
+  // avoid this property validators for some types (Boolean | Object)
+  const avoidedTypes = [Boolean, Object];
+  if (avoidedTypes.includes(optionConfigs[typeProp])) {
+    // removeing min and max properties from default configuration object
+    const { min, max, ...newDefaultConfigOption } = defaultConfiguredOption;
+    return newDefaultConfigOption;
   }
 
-  if (typeof option[requiredProp] !== 'undefined') {
-    assertType(option[requiredProp], 'boolean', `${requiredProp} property`);
-    defaultConfiguredOption.required = option[requiredProp];
+  if (optionConfigs.hasOwnProperty(minProp)) {
+    assertType(optionConfigs[minProp], 'number', `${minProp} property`);
+    defaultConfiguredOption.min = optionConfigs[minProp];
+  }
+
+  if (optionConfigs.hasOwnProperty(maxProp)) {
+    assertType(optionConfigs[maxProp], 'number', `${maxProp} property`);
+    defaultConfiguredOption.max = optionConfigs[maxProp];
   }
 
   return defaultConfiguredOption;
