@@ -9,12 +9,26 @@ test('validator function should work correctly', () => {
     male: { type: Boolean, required: true },
     items: { type: Array, min: 2, max: 10 },
     tools: { type: Object },
-    any: {type:null, required: true}
+    any: { type: null, required: true }
   });
 
-  const obj1 = { name: 'max and min and welcome', age: 90, male: true, tools: { machine: true }, any: [1] };
+  const obj1 = {
+    name: 'max and min and welcome',
+    age: 90,
+    male: true,
+    tools: { machine: true },
+    any: [1]
+  };
   const obj2 = { name: 'min', lastName: 'none of lastName', age: 102, items: [1] };
-  const obj3 = { name: 23, age: '', items: false, male: [], lastName: 23, tools: [1, 2, 3], any:"welcome" };
+  const obj3 = {
+    name: 23,
+    age: '',
+    items: false,
+    male: [],
+    lastName: 23,
+    tools: [1, 2, 3],
+    any: 'welcome'
+  };
   const obj4 = {
     name: 'welcome to volder npm package',
     items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
@@ -31,7 +45,7 @@ test('validator function should work correctly', () => {
       male: 'male is required',
       lastName: 'lastName should be at most 4 characters',
       items: 'items should be at least 2 items',
-      any:'any is required'
+      any: 'any is required'
     }
   ]);
   expect(validator(volderMap, obj3)).toEqual([

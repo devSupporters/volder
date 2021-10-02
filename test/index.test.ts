@@ -8,7 +8,7 @@ test('Volder work correctly', () => {
     male: { type: Boolean, required: true },
     tools: { type: Array, required: true, min: 3 },
     items: { type: Object, required: true },
-    any: {type:null}
+    any: { type: null }
   });
 
   const obj1 = {
@@ -19,8 +19,20 @@ test('Volder work correctly', () => {
     tools: [1, 2, 3],
     items: { one: 1, two: 2 }
   };
-  const obj2 = { name: 'max', age: new Number(0), email: 'welcome@gmail.com', items: 2, any:'welcome' };
-  const obj3 = { name: 'max cober and some text', age: 230, email: 'gmail.com', male: false, any : new Number(3)};
+  const obj2 = {
+    name: 'max',
+    age: new Number(0),
+    email: 'welcome@gmail.com',
+    items: 2,
+    any: 'welcome'
+  };
+  const obj3 = {
+    name: 'max cober and some text',
+    age: 230,
+    email: 'gmail.com',
+    male: false,
+    any: new Number(3)
+  };
   const obj4 = { name: () => {}, age: false, male: 2, tools: [1, 2], items: [1, 2, 3] };
 
   expect(volderSchema.validate(obj1)).toEqual([true, {}]);
