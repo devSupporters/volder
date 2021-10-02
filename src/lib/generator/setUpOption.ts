@@ -1,13 +1,14 @@
-import { min, max, required } from './defaultValues';
+import { min, max, required, trim } from './defaultValues';
 import { assertType } from '../utils/assertType';
 
 const minProp: string = 'min';
 const maxProp: string = 'max';
 const requiredProp: string = 'required';
 const typeProp: string = 'type';
+const trimProp: string = 'trim';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
-  const defaultConfiguredOption = { min, max, type: optionConfigs.type, required };
+  const defaultConfiguredOption:any = { min, max, type: optionConfigs[typeProp], required };
   // check if min is smaller than max
   if (
     optionConfigs.hasOwnProperty(minProp) &&
@@ -28,6 +29,12 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     const { min, max, ...newDefaultConfigOption } = defaultConfiguredOption;
     return newDefaultConfigOption;
   }
+
+  if(optionConfigs.hasOwnProperty(trimProp) && optionConfigs[typeProp] === String) {
+    assertType(optionConfigs[trimProp], 'boolean', `${trimProp} property`);
+    defaultConfiguredOption.trim = optionConfigs[trimProp];
+    
+  } else defaultConfiguredOption.trim = trim;
 
   if (optionConfigs.hasOwnProperty(minProp)) {
     assertType(optionConfigs[minProp], 'number', `${minProp} property`);
