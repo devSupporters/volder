@@ -4,11 +4,11 @@ import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
 test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const obj1 = {
-    name: { type: String, min: 3 },
+    name: { type: String, min: 3, trim: true },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
-    items:{type:Array, required:true, min:10, max:100},
-    properties:Object
+    items: { type: Array, required: true, min: 10, max: 100 },
+    properties: Object
   };
 
   const generatedMap = objectToMap(obj1);
@@ -21,7 +21,7 @@ test('objectToMap function should work correctly', () => {
 
   expect(generatedMap.get('name')).toEqual({
     type: String,
-    trim:false,
+    trim: true,
     max: null,
     min: 3,
     required: false
@@ -39,20 +39,21 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.get('items')).toEqual({
     type: Array,
     required: true,
-    min:10,
-    max:100
+    min: 10,
+    max: 100
   });
   expect(generatedMap.get('properties')).toEqual({
-    type: Object, 
-    required:false
+    type: Object,
+    required: false
   });
 
   // Entering a wrong values
   const obj2 = { position: { require: true } };
-
+  const obj3 = { name: 23 };
   expect(() => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type is required at position property'));
+  expect(()=> objectToMap(obj3)).toThrowError(new TypeError('Expected a (object | constructor function | null) but received a number'))
 });
 
 test('setUpOptionWithConfigs function should work correctly', () => {
@@ -70,7 +71,7 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   expect(setUpOptionWithConfigs(obj2)).toEqual({
     type: String,
     required: true,
-    trim:false,
+    trim: false,
     min: 12,
     max: 30
   });
