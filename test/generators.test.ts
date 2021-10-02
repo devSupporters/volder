@@ -53,7 +53,9 @@ test('objectToMap function should work correctly', () => {
   expect(() => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type is required at position property'));
-  expect(()=> objectToMap(obj3)).toThrowError(new TypeError('Expected a (object | constructor function | null) but received a number'))
+  expect(() => objectToMap(obj3)).toThrowError(
+    new TypeError('Expected a (object | constructor function | null) but received a number')
+  );
 });
 
 test('setUpOptionWithConfigs function should work correctly', () => {

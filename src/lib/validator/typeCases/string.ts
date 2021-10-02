@@ -11,7 +11,7 @@ export const stringCase = (
     return false;
   }
 
-  if(optionConfigs.trim) {
+  if (optionConfigs.trim) {
     input[optionName] = input[optionName].trim();
   }
 
