@@ -7,6 +7,6 @@ export const assertObject = (input: any, customMessage?: string) => {
     if (input === null) invalidType = 'null';
     else if (invalidType === 'object') invalidType = input.constructor.name;
 
-    throw new TypeError((customMessage || "Expected a object but received a ") + invalidType);
+    throw new TypeError((customMessage || 'Expected a object but received a ') + invalidType);
   }
 };

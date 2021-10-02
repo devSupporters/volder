@@ -8,7 +8,9 @@ test('Volder work correctly', () => {
     male: { type: Boolean, required: true },
     tools: { type: Array, required: true, min: 3 },
     items: { type: Object, required: true },
-    any: { type: null }
+    any: { type: null },
+    type: String,
+    nums: Number
   });
 
   const obj1 = {
@@ -17,23 +19,33 @@ test('Volder work correctly', () => {
     email: 'welcome@gmail.com',
     male: true,
     tools: [1, 2, 3],
-    items: { one: 1, two: 2 }
+    items: { one: 1, two: 2 },
+    nums: 23
   };
   const obj2 = {
     name: 'max',
     age: new Number(0),
     email: 'welcome@gmail.com',
     items: 2,
-    any: 'welcome'
+    any: 'welcome',
+    type: 'hello there'
   };
   const obj3 = {
+    type: 23,
     name: 'max cober and some text',
     age: 230,
     email: 'gmail.com',
     male: false,
     any: new Number(3)
   };
-  const obj4 = { name: () => {}, age: false, male: 2, tools: [1, 2], items: [1, 2, 3] };
+  const obj4 = {
+    nums: 'wrong',
+    name: () => {},
+    age: false,
+    male: 2,
+    tools: [1, 2],
+    items: [1, 2, 3]
+  };
 
   expect(volderSchema.validate(obj1)).toEqual([true, {}]);
   expect(volderSchema.validate(obj2)).toEqual([
@@ -49,6 +61,7 @@ test('Volder work correctly', () => {
   expect(volderSchema.validate(obj3)).toEqual([
     false,
     {
+      type: 'type should be a string',
       age: 'age should be at most 100',
       email: 'email should be at least 10 characters',
       tools: 'tools is required',
@@ -59,6 +72,7 @@ test('Volder work correctly', () => {
   expect(volderSchema.validate(obj4)).toEqual([
     false,
     {
+      nums: 'nums should be a number',
       name: 'name should be a string',
       male: 'male should be a boolean (true or false)',
       email: 'email is required',
