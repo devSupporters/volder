@@ -6,7 +6,7 @@ export const validator = (volderMap: Map<string, object>, input: object | any) =
 
   volderMap.forEach((optionConfigs: any, optionName: string, _map) => {
     // check if option is required
-    if (optionConfigs.require === true && !input.hasOwnProperty(optionName)) {
+    if (optionConfigs.required === true && !input.hasOwnProperty(optionName)) {
       errors[optionName] = `${optionName} is required`;
       validInput = validInput && false;
     }

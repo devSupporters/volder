@@ -25,8 +25,8 @@ test('validator function should work correctly', () => {
     {
       name: 'name should be at least 10 characters',
       age: 'age should be at most 100',
+      male:'male is required',
       lastName: 'lastName should be at most 4 characters',
-      male: 'male is required',
       items: 'items should be at least 2 items'
     }
   ]);
@@ -35,8 +35,8 @@ test('validator function should work correctly', () => {
     {
       name: 'name should be a string',
       age: 'age should be a number',
-      male: 'male should be a boolean',
-      items: 'items should be a array',
+      male: 'male should be a boolean (true or false)',
+      items: 'items should be an array',
       lastName: 'lastName should be a string'
     }
   ]);
