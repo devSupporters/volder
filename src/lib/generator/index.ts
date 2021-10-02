@@ -9,9 +9,12 @@ export const objectToMap = (config: any | object) => {
     assertObject(config[option]);
 
     if (config[option].hasOwnProperty('type')) {
-      assertConstructorFunction(config[option].type);
+      if(config[option].type !== null ) {
+        assertConstructorFunction(config[option].type);
+      }
       const configuredOption = setUpOptionWithConfigs(config[option]);
       generatedMap.set(option, configuredOption);
+
     } else throw new Error(`type is required at ${option} property`);
   }
 

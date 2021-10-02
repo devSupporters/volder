@@ -21,9 +21,10 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     defaultConfiguredOption.required = optionConfigs[requiredProp];
   }
 
-  // avoid this property validators for some types (Boolean | Object)
-  const avoidedTypes = [Boolean, Object];
+  // avoid this property validators for some types (Boolean | Object | null)
+  const avoidedTypes = [Boolean, Object, null];
   if (avoidedTypes.includes(optionConfigs[typeProp])) {
+    
     // removeing min and max properties from default configuration object
     const { min, max, ...newDefaultConfigOption } = defaultConfiguredOption;
     return newDefaultConfigOption;
