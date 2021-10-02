@@ -11,6 +11,10 @@ export const stringCase = (
     return false;
   }
 
+  if(optionConfigs.trim) {
+    input[optionName] = input[optionName].trim();
+  }
+
   if (optionConfigs.min !== null && input[optionName].length < optionConfigs.min) {
     errors[optionName] = `${optionName} should be at least ${optionConfigs.min} characters`;
     return false;

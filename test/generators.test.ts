@@ -6,17 +6,22 @@ test('objectToMap function should work correctly', () => {
   const obj1 = {
     name: { type: String, min: 3 },
     age: { type: Number, max: 100, required: true },
-    hasChild: { type: Boolean, required: true }
+    hasChild: { type: Boolean, required: true },
+    items:{type:Array, required:true, min:10, max:100},
+    properties:Object
   };
-  const obj2 = { position: { require: true } };
+
   const generatedMap = objectToMap(obj1);
 
   expect(generatedMap.has('name')).toBe(true);
   expect(generatedMap.has('age')).toBe(true);
   expect(generatedMap.has('hasChild')).toBe(true);
+  expect(generatedMap.has('items')).toBe(true);
+  expect(generatedMap.has('properties')).toBe(true);
 
   expect(generatedMap.get('name')).toEqual({
     type: String,
+    trim:false,
     max: null,
     min: 3,
     required: false
@@ -31,8 +36,20 @@ test('objectToMap function should work correctly', () => {
     type: Boolean,
     required: true
   });
+  expect(generatedMap.get('items')).toEqual({
+    type: Array,
+    required: true,
+    min:10,
+    max:100
+  });
+  expect(generatedMap.get('properties')).toEqual({
+    type: Object, 
+    required:false
+  });
 
   // Entering a wrong values
+  const obj2 = { position: { require: true } };
+
   expect(() => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type is required at position property'));
@@ -53,6 +70,7 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   expect(setUpOptionWithConfigs(obj2)).toEqual({
     type: String,
     required: true,
+    trim:false,
     min: 12,
     max: 30
   });
@@ -60,6 +78,7 @@ test('setUpOptionWithConfigs function should work correctly', () => {
     type: Boolean,
     required: false
   });
+
   // Entering a wrong values
   const wrongObj1 = { type: Number, min: '3' };
   const wrongObj2 = { type: String, max: false };

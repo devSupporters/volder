@@ -8,7 +8,7 @@ const typeProp: string = 'type';
 const trimProp: string = 'trim';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
-  const defaultConfiguredOption:any = { min, max, type: optionConfigs[typeProp], required };
+  const defaultConfiguredOption: any = { min, max, type: optionConfigs[typeProp], required };
   // check if min is smaller than max
   if (
     optionConfigs.hasOwnProperty(minProp) &&
@@ -30,11 +30,10 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     return newDefaultConfigOption;
   }
 
-  if(optionConfigs.hasOwnProperty(trimProp) && optionConfigs[typeProp] === String) {
+  if (optionConfigs.hasOwnProperty(trimProp) && optionConfigs[typeProp] === String) {
     assertType(optionConfigs[trimProp], 'boolean', `${trimProp} property`);
     defaultConfiguredOption.trim = optionConfigs[trimProp];
-    
-  } else defaultConfiguredOption.trim = trim;
+  } else if (optionConfigs[typeProp] === String) defaultConfiguredOption.trim = trim;
 
   if (optionConfigs.hasOwnProperty(minProp)) {
     assertType(optionConfigs[minProp], 'number', `${minProp} property`);

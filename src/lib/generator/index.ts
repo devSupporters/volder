@@ -6,9 +6,12 @@ export const objectToMap = (config: any | object) => {
   const generatedMap = new Map();
 
   for (const option in config) {
+    
     const types = [null, Boolean, Object, Number, String, Array];
+
     if (types.includes(config[option])) {
       config[option] = { type: config[option] };
+      
     } else {
       assertObject(
         config[option],
