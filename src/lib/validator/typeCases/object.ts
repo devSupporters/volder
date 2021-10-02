@@ -5,7 +5,7 @@ export const objectCase = (input: any, optionName: string, errors: any): boolean
     input[optionName] !== null;
 
   if (!isObject) {
-    errors[optionName] = `${optionName} should be a object`;
+    errors[optionName] = `${optionName} should be an object`;
     return false;
   }
 };
