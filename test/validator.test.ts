@@ -25,7 +25,7 @@ test('validator function should work correctly', () => {
     {
       name: 'name should be at least 10 characters',
       age: 'age should be at most 100',
-      male:'male is required',
+      male: 'male is required',
       lastName: 'lastName should be at most 4 characters',
       items: 'items should be at least 2 items'
     }

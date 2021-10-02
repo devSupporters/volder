@@ -2,6 +2,7 @@ import { stringCase } from './typeCases/string';
 import { numberCase } from './typeCases/number';
 import { booleanCase } from './typeCases/boolean';
 import { arrayCase } from './typeCases/array';
+import { objectCase } from './typeCases/object';
 
 export const validatorInput = (input: any, optionName: string, optionConfigs: any, errors: any) => {
   switch (optionConfigs.type) {
@@ -13,6 +14,7 @@ export const validatorInput = (input: any, optionName: string, optionConfigs: an
       return booleanCase(input, optionName, errors);
     case Array:
       return arrayCase(input, optionName, optionConfigs, errors);
-    // case Object:
+    case Object:
+      return objectCase(input, optionName, errors);
   }
 };
