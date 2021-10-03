@@ -26,13 +26,13 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   if (optionConfigs.hasOwnProperty(avoidProp) && optionConfigs[typeProp] === null) {
     const allowedTypes = [String, Object, Array, Number, Boolean];
     if (!Array.isArray(optionConfigs[avoidProp])) {
-      throw new TypeError(`avoid property should be an array at ${optionConfigs} option`);
+      throw new TypeError("avoid property should be an array");
     }
 
     optionConfigs[avoidProp].forEach((type: any) => {
       if (!allowedTypes.includes(type)) {
         throw new TypeError(
-          `Expected this types (String | Object | Array | Number | Boolean) but received ${type} at ${optionConfigs} option`
+          `Expected this types (String | Object | Array | Number | Boolean) but received type ${typeof type} which ${type}`
         );
       }
     });

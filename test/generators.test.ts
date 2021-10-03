@@ -8,6 +8,7 @@ test('objectToMap function should work correctly', () => {
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
+    any: { type: null, avoid: [String, Array] },
     properties: Object
   };
 
@@ -18,6 +19,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.has('hasChild')).toBe(true);
   expect(generatedMap.has('items')).toBe(true);
   expect(generatedMap.has('properties')).toBe(true);
+  expect(generatedMap.has('any')).toBe(true);
 
   expect(generatedMap.get('name')).toEqual({
     type: String,
@@ -46,16 +48,29 @@ test('objectToMap function should work correctly', () => {
     type: Object,
     required: false
   });
+  expect(generatedMap.get('any')).toEqual({
+    type: null,
+    avoid: [String, Array],
+    required:false
+  });
 
   // Entering a wrong values
   const obj2 = { position: { require: true } };
   const obj3 = { name: 23 };
+  const obj4 = { any: { type: null, avoid: 'welcome' } };
+  const obj5 = { any: { type: null, avoid: [23, 'he'] } };
   expect(() => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type is required at position property'));
   expect(() => objectToMap(obj3)).toThrowError(
     new TypeError('Expected a (object | constructor function | null) but received a number')
   );
+  expect(() => objectToMap(obj4)).toThrowError(
+    new TypeError('avoid property should be an array')
+  )
+  expect(() => objectToMap(obj5)).toThrowError(
+    new TypeError('Expected this types (String | Object | Array | Number | Boolean) but received type number which 23')
+  )
 });
 
 test('setUpOptionWithConfigs function should work correctly', () => {
