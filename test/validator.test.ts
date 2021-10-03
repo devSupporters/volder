@@ -9,7 +9,8 @@ test('validator function should work correctly', () => {
     male: { type: Boolean, required: true },
     items: { type: Array, min: 2, max: 10 },
     tools: { type: Object },
-    any: { type: null, required: true }
+    any: { type: null, required: true },
+    restrictedTypes: { type: null, avoid: [String, Number] }
   });
 
   const obj1 = {
@@ -17,9 +18,16 @@ test('validator function should work correctly', () => {
     age: 90,
     male: true,
     tools: { machine: true },
-    any: [1]
+    any: [1],
+    restrictedTypes: [1, 2, 3]
   };
-  const obj2 = { name: 'min', lastName: '      ', age: 102, items: [1] };
+  const obj2 = {
+    name: 'min',
+    lastName: '      ',
+    age: 102,
+    items: [1],
+    restrictedTypes: true
+  };
   const obj3 = {
     name: 23,
     age: '',
@@ -27,13 +35,15 @@ test('validator function should work correctly', () => {
     male: [],
     lastName: 23,
     tools: [1, 2, 3],
-    any: 'welcome'
+    any: 'welcome',
+    restrictedTypes: 1
   };
   const obj4 = {
     name: 'welcome to volder npm package',
     items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
     male: false,
-    tools: new Object({ home: true })
+    tools: new Object({ home: true }),
+    restrictedTypes: 'test'
   };
 
   expect(validator(volderMap, obj1)).toEqual([true, {}]);
@@ -56,7 +66,8 @@ test('validator function should work correctly', () => {
       male: 'male should be a boolean (true or false)',
       items: 'items should be an array',
       lastName: 'lastName should be a string',
-      tools: 'tools should be an object'
+      tools: 'tools should be an object',
+      restrictedTypes: 'Number type not allowed'
     }
   ]);
   expect(validator(volderMap, obj4)).toEqual([
@@ -64,7 +75,8 @@ test('validator function should work correctly', () => {
     {
       age: 'age is required',
       items: 'items should be at most 10 items',
-      any: 'any is required'
+      any: 'any is required',
+      restrictedTypes: 'String type not allowed'
     }
   ]);
 });

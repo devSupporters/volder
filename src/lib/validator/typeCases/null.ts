@@ -17,8 +17,8 @@ export const nullCase = (
         : typeOfInput === 'object' && Array.isArray(input[optionName])
         ? Array
         : Object;
-    if (optionConfigs.includes(inputConstructorFunction)) {
-      errors[optionName] = `${inputConstructorFunction} type not allowed`;
+    if (optionConfigs.avoid.includes(inputConstructorFunction)) {
+      errors[optionName] = `${inputConstructorFunction.name} type not allowed`;
       return false;
     }
   }

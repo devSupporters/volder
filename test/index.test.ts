@@ -9,6 +9,7 @@ test('Volder work correctly', () => {
     tools: { type: Array, required: true, min: 3 },
     items: { type: Object, required: true },
     any: { type: null },
+    restrictedTypes: { type: null, avoid: [Object, Boolean] },
     type: String,
     nums: Number
   });
@@ -28,7 +29,8 @@ test('Volder work correctly', () => {
     email: 'welcome@gmail.com',
     items: 2,
     any: 'welcome',
-    type: 'hello there'
+    type: 'hello there',
+    restrictedTypes: { name: 'max' }
   };
   const obj3 = {
     type: 23,
@@ -55,7 +57,8 @@ test('Volder work correctly', () => {
       age: 'age should be at least 1',
       male: 'male is required',
       tools: 'tools is required',
-      items: 'items should be an object'
+      items: 'items should be an object',
+      restrictedTypes: "Object type not allowed"
     }
   ]);
   expect(volderSchema.validate(obj3)).toEqual([

@@ -9,6 +9,7 @@ test('objectToMap function should work correctly', () => {
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
     any: { type: null, avoid: [String, Array] },
+    test: {type: null, avoid:[], required:true},
     properties: Object
   };
 
@@ -20,6 +21,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.has('items')).toBe(true);
   expect(generatedMap.has('properties')).toBe(true);
   expect(generatedMap.has('any')).toBe(true);
+  expect(generatedMap.has('test')).toBe(true);
 
   expect(generatedMap.get('name')).toEqual({
     type: String,
@@ -52,6 +54,10 @@ test('objectToMap function should work correctly', () => {
     type: null,
     avoid: [String, Array],
     required: false
+  });
+  expect(generatedMap.get('test')).toEqual({
+    type: null,
+    required: true
   });
 
   // Entering a wrong values
