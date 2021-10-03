@@ -58,7 +58,7 @@ test('Volder work correctly', () => {
       male: 'male is required',
       tools: 'tools is required',
       items: 'items should be an object',
-      restrictedTypes: "Object type not allowed"
+      restrictedTypes: 'Object type not allowed'
     }
   ]);
   expect(volderSchema.validate(obj3)).toEqual([

@@ -1,28 +1,15 @@
 import { min, max, required, trim } from './defaultValues';
 import { assertType } from '../utils/assertType';
 
-const minProp: string = 'min';
-const maxProp: string = 'max';
-const requiredProp: string = 'required';
-const typeProp: string = 'type';
-const trimProp: string = 'trim';
-
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
-  const defaultConfiguredOption: any = { min, max, type: optionConfigs[typeProp], required };
-  // check if min is smaller than max
-  if (
-    optionConfigs.hasOwnProperty(minProp) &&
-    optionConfigs.hasOwnProperty(maxProp) &&
-    optionConfigs[minProp] >= optionConfigs[maxProp]
-  )
-    throw Error('min property should be smaller than max property');
+  const defaultConfiguredOption: any = { min, max, type: optionConfigs.type, required };
 
-  if (optionConfigs.hasOwnProperty(requiredProp)) {
-    assertType(optionConfigs[requiredProp], 'boolean', `${requiredProp} property`);
-    defaultConfiguredOption.required = optionConfigs[requiredProp];
+  if (optionConfigs.hasOwnProperty('required')) {
+    assertType(optionConfigs.required, 'boolean', 'required property');
+    defaultConfiguredOption.required = optionConfigs.required;
   }
 
-  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs[typeProp] === null) {
+  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs.type === null) {
     const allowedTypes = [String, Object, Array, Number, Boolean];
     if (!Array.isArray(optionConfigs.avoid)) {
       throw new TypeError('avoid property should be an array');
@@ -42,26 +29,34 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
 
   // avoid this property validators for some types (Boolean | Object | null)
   const avoidedTypes = [Boolean, Object, null];
-  if (avoidedTypes.includes(optionConfigs[typeProp])) {
+  if (avoidedTypes.includes(optionConfigs.type)) {
     // removeing min and max properties from default configuration object
     const { min, max, ...newDefaultConfigOption } = defaultConfiguredOption;
     return newDefaultConfigOption;
   }
 
-  if (optionConfigs.hasOwnProperty(trimProp) && optionConfigs[typeProp] === String) {
-    assertType(optionConfigs[trimProp], 'boolean', `${trimProp} property`);
-    defaultConfiguredOption.trim = optionConfigs[trimProp];
-  } else if (optionConfigs[typeProp] === String) defaultConfiguredOption.trim = trim;
+  if (optionConfigs.hasOwnProperty('trim') && optionConfigs.type === String) {
+    assertType(optionConfigs.trim, 'boolean', 'trim property');
+    defaultConfiguredOption.trim = optionConfigs.trim;
+  } else if (optionConfigs.type === String) defaultConfiguredOption.trim = trim;
 
-  if (optionConfigs.hasOwnProperty(minProp)) {
-    assertType(optionConfigs[minProp], 'number', `${minProp} property`);
-    defaultConfiguredOption.min = optionConfigs[minProp];
+  if (optionConfigs.hasOwnProperty('min')) {
+    assertType(optionConfigs.min, 'number', 'min property');
+    defaultConfiguredOption.min = optionConfigs.min;
   }
 
-  if (optionConfigs.hasOwnProperty(maxProp)) {
-    assertType(optionConfigs[maxProp], 'number', `${maxProp} property`);
-    defaultConfiguredOption.max = optionConfigs[maxProp];
+  if (optionConfigs.hasOwnProperty('max')) {
+    assertType(optionConfigs.max, 'number', 'max property');
+    defaultConfiguredOption.max = optionConfigs.max;
   }
+
+  // check if min is smaller than max
+  if (
+    optionConfigs.hasOwnProperty('min') &&
+    optionConfigs.hasOwnProperty('max') &&
+    optionConfigs.min >= optionConfigs.max
+  )
+    throw Error('min property should be smaller than max property');
 
   return defaultConfiguredOption;
 };

@@ -9,7 +9,7 @@ test('objectToMap function should work correctly', () => {
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
     any: { type: null, avoid: [String, Array] },
-    test: {type: null, avoid:[], required:true},
+    test: { type: null, avoid: [], required: true },
     properties: Object
   };
 

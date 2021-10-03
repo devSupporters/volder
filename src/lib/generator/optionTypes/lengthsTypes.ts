@@ -1,3 +1,1 @@
-export const lengthTypesConfigureOptions = ():void => {
-
-}
+export const lengthTypesConfigureOptions = (): void => {};
