@@ -26,7 +26,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   if (optionConfigs.hasOwnProperty(avoidProp) && optionConfigs[typeProp] === null) {
     const allowedTypes = [String, Object, Array, Number, Boolean];
     if (!Array.isArray(optionConfigs[avoidProp])) {
-      throw new TypeError("avoid property should be an array");
+      throw new TypeError('avoid property should be an array');
     }
 
     optionConfigs[avoidProp].forEach((type: any) => {
@@ -36,8 +36,9 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
         );
       }
     });
-
-    defaultConfiguredOption[avoidProp] = optionConfigs[avoidProp];
+    if (optionConfigs[avoidProp].length) {
+      defaultConfiguredOption[avoidProp] = optionConfigs[avoidProp];
+    }
   }
 
   // avoid this property validators for some types (Boolean | Object | null)

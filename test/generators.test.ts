@@ -4,7 +4,7 @@ import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
 test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const obj1 = {
-    name: { type: String, min: 3, trim: true, avoid:[String, Number] },
+    name: { type: String, min: 3, trim: true, avoid: [String, Number] },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
@@ -51,7 +51,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.get('any')).toEqual({
     type: null,
     avoid: [String, Array],
-    required:false
+    required: false
   });
 
   // Entering a wrong values
@@ -65,12 +65,12 @@ test('objectToMap function should work correctly', () => {
   expect(() => objectToMap(obj3)).toThrowError(
     new TypeError('Expected a (object | constructor function | null) but received a number')
   );
-  expect(() => objectToMap(obj4)).toThrowError(
-    new TypeError('avoid property should be an array')
-  )
+  expect(() => objectToMap(obj4)).toThrowError(new TypeError('avoid property should be an array'));
   expect(() => objectToMap(obj5)).toThrowError(
-    new TypeError('Expected this types (String | Object | Array | Number | Boolean) but received type number which 23')
-  )
+    new TypeError(
+      'Expected this types (String | Object | Array | Number | Boolean) but received type number which 23'
+    )
+  );
 });
 
 test('setUpOptionWithConfigs function should work correctly', () => {
