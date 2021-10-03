@@ -6,7 +6,6 @@ const maxProp: string = 'max';
 const requiredProp: string = 'required';
 const typeProp: string = 'type';
 const trimProp: string = 'trim';
-const avoidProp: string = 'avoid';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const defaultConfiguredOption: any = { min, max, type: optionConfigs[typeProp], required };
@@ -23,21 +22,21 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     defaultConfiguredOption.required = optionConfigs[requiredProp];
   }
 
-  if (optionConfigs.hasOwnProperty(avoidProp) && optionConfigs[typeProp] === null) {
+  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs[typeProp] === null) {
     const allowedTypes = [String, Object, Array, Number, Boolean];
-    if (!Array.isArray(optionConfigs[avoidProp])) {
+    if (!Array.isArray(optionConfigs.avoid)) {
       throw new TypeError('avoid property should be an array');
     }
 
-    optionConfigs[avoidProp].forEach((type: any) => {
+    optionConfigs.avoid.forEach((type: any) => {
       if (!allowedTypes.includes(type)) {
         throw new TypeError(
           `Expected this types (String | Object | Array | Number | Boolean) but received type ${typeof type} which ${type}`
         );
       }
     });
-    if (optionConfigs[avoidProp].length) {
-      defaultConfiguredOption[avoidProp] = optionConfigs[avoidProp];
+    if (optionConfigs.avoid.length >= 1) {
+      defaultConfiguredOption.avoid = optionConfigs.avoid;
     }
   }
 
