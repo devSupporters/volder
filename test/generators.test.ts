@@ -4,7 +4,7 @@ import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
 test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const obj1 = {
-    name: { type: String, min: 3, trim: true },
+    name: { type: String, min: 3, trim: true, avoid:[String, Number] },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
