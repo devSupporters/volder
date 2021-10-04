@@ -1,15 +1,27 @@
 import { min, max, required, trim } from './defaultValues';
 import { assertType } from '../utils/assertType';
 import { configSpliter } from './configSpliter';
+import { assertConstructorFunction } from '../utils/assertConstructorFunction';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const defaultConfiguredOption: any = { min, max, type: optionConfigs.type, required };
-
+  if (optionConfigs.hasOwnProperty('type')) {
+    if (Array.isArray(optionConfigs.type)) {
+      configSpliter('type', 'any-type', optionConfigs, defaultConfiguredOption);
+    }
+    if (optionConfigs.type !== null) {
+      assertConstructorFunction(optionConfigs.type);
+    }
+  } else {
+    const option = Object.keys({ optionConfigs })[0];
+    throw new Error(`type property is required at ${option} option`);
+  }
+  
   if (optionConfigs.hasOwnProperty('required')) {
     if (Array.isArray(optionConfigs.required)) {
       configSpliter('required', 'boolean', optionConfigs, defaultConfiguredOption);
     } else {
-      assertType(optionConfigs.required, 'boolean', 'required property'); 
+      assertType(optionConfigs.required, 'boolean', 'required property');
       defaultConfiguredOption.required = optionConfigs.required;
     }
   }
@@ -46,7 +58,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   } else if (optionConfigs.type === String) defaultConfiguredOption.trim = trim;
 
   if (optionConfigs.hasOwnProperty('min')) {
-    if(Array.isArray(optionConfigs.min)) {
+    if (Array.isArray(optionConfigs.min)) {
       configSpliter('min', 'number', optionConfigs, defaultConfiguredOption);
     } else {
       assertType(optionConfigs.min, 'number', 'min property');
@@ -55,7 +67,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   }
 
   if (optionConfigs.hasOwnProperty('max')) {
-    if(Array.isArray(optionConfigs.max)) {
+    if (Array.isArray(optionConfigs.max)) {
       configSpliter('max', 'number', optionConfigs, defaultConfiguredOption);
     } else {
       assertType(optionConfigs.max, 'number', 'max property');
