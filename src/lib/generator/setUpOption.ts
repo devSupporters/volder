@@ -8,9 +8,8 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   if (optionConfigs.hasOwnProperty('required')) {
     if (Array.isArray(optionConfigs.required)) {
       configSpliter('required', 'boolean', optionConfigs, defaultConfiguredOption);
-      console.log('welcome');
     } else {
-      assertType(optionConfigs.required, 'boolean', 'required property'); // use this for else
+      assertType(optionConfigs.required, 'boolean', 'required property'); 
       defaultConfiguredOption.required = optionConfigs.required;
     }
   }

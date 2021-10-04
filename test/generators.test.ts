@@ -1,5 +1,6 @@
 import { objectToMap } from '../src/lib/generator/index';
 import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
+import { configSpliter } from '../src/lib/generator/configSpliter';
 
 test('objectToMap function should work correctly', () => {
   // Entering a correct values
@@ -121,4 +122,35 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   expect(() => setUpOptionWithConfigs(wrongObj4)).toThrowError(
     new Error('min property should be Equal or Smaller than max property')
   );
+});
+
+test('configSpliter should work correctly', () => {
+  const configs = {
+    min: [23],
+    required: [true, 'test for required is work']
+  };
+  let defaults = {};
+
+  configSpliter('min', 'number', configs, defaults);
+  configSpliter('required', 'boolean', configs, defaults);
+  expect(defaults).toEqual({
+    min:23,
+    required:true,
+    requiredErrorMessage:'test for required is work'
+  })
+
+  // Entering wrong values
+
+  const wrongConfigs = {
+    max:[], 
+    required:['test'],
+    min:[23, true],
+    trim:[true,'welcome', 'there']
+  }
+  defaults = {}; 
+  expect(() => configSpliter('max', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected Array with two items [configuredValue, customError] but received empty Array at max property"))
+  expect(() => configSpliter('required', 'boolean', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a boolean but received a string at required[0] property"))
+  expect(() => configSpliter('min', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a string but received a boolean at min[1] property"))
+  expect(() => configSpliter('trim', 'boolean', wrongConfigs, defaults)).toThrowError(new TypeError("invalid configuration at trim property"))
+  // expect(() => configSpliter('type', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected Array with two items [configuredValue, customError] but received empty Array at max property"))
 });
