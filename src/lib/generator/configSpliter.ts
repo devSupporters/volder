@@ -1,27 +1,27 @@
 import { assertType } from '../utils/assertType';
 
 export const configSpliter = (
-  optionName: string,
-  optionType: 'string' | 'number' | 'boolean',
+  optionConfigName: string,
+  optionConfigType: 'string' | 'number' | 'boolean', // there are array type you should chnage it 
   optionConfigs: any,
   defaultConfiguredOption: any
 ): void => {
-  if (optionConfigs[optionName].length <= 0) {
+  if (optionConfigs[optionConfigName].length <= 0) {
     throw Error(
-      `Expected Array with two items [configuredValue, customError] but received empty Array at ${optionName} property`
+      `Expected Array with two items [configuredValue, customError] but received empty Array at ${optionConfigName} property`
     );
-  } else if (optionConfigs[optionName].length === 1) {
+  } else if (optionConfigs[optionConfigName].length === 1) {
 
-    assertType(optionConfigs[optionName][0], optionType, `${optionName} property[0]`);
-    defaultConfiguredOption[optionName] = optionConfigs[optionName][0];
-  } else if (optionConfigs[optionName].length === 2) {
+    assertType(optionConfigs[optionConfigName][0], optionConfigType, `${optionConfigName} property[0]`);
+    defaultConfiguredOption[optionConfigName] = optionConfigs[optionConfigName][0];
+  } else if (optionConfigs[optionConfigName].length === 2) {
 
-    assertType(optionConfigs[optionConfigs][0], optionType, `${optionName} property[0]`);
-    assertType(optionConfigs[optionConfigs][1], 'string', `${optionName} property[1]`);
+    assertType(optionConfigs[optionConfigs][0], optionConfigType, `${optionConfigName} property[0]`);
+    assertType(optionConfigs[optionConfigs][1], 'string', `${optionConfigName} property[1]`);
 
-    defaultConfiguredOption[optionName] = optionConfigs[optionName][0];
-    defaultConfiguredOption[optionName + 'ErrorMessage'] = optionConfigs[optionName][1];
+    defaultConfiguredOption[optionConfigName] = optionConfigs[optionConfigName][0];
+    defaultConfiguredOption[optionConfigName + 'ErrorMessage'] = optionConfigs[optionConfigName][1];
   } else {
-      throw new TypeError(`invalid configuration at ${optionName} property`)
+      throw new TypeError(`invalid configuration at ${optionConfigName} property`)
   }
 };
