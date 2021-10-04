@@ -2,7 +2,7 @@ import { assertType } from '../utils/assertType';
 
 export const configSpliter = (
   optionConfigName: string,
-  optionConfigType: 'string' | 'number' | 'boolean' | 'any-type' | any, // there are array type you should chnage it 
+  optionConfigType: 'string' | 'number' | 'boolean' | 'any-type' | any, 
   optionConfigs: any,
   defaultConfiguredOption: any
 ): void => {

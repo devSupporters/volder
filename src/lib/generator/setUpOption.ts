@@ -10,7 +10,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
       configSpliter('type', 'any-type', optionConfigs, defaultConfiguredOption);
     }
     if (optionConfigs.type !== null) {
-      assertConstructorFunction(optionConfigs.type);
+      assertConstructorFunction(optionConfigs.type, " at type[0] property");
     }
   } else {
     throw new Error("type property is required");

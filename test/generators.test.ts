@@ -126,31 +126,39 @@ test('setUpOptionWithConfigs function should work correctly', () => {
 
 test('configSpliter should work correctly', () => {
   const configs = {
+    type:[String, 'any type arent string not work'],
     min: [23],
     required: [true, 'test for required is work']
   };
   let defaults = {};
-
+  configSpliter('type', 'any-type', configs, defaults);
   configSpliter('min', 'number', configs, defaults);
   configSpliter('required', 'boolean', configs, defaults);
   expect(defaults).toEqual({
+    type:String,
     min:23,
     required:true,
-    requiredErrorMessage:'test for required is work'
+    requiredErrorMessage:'test for required is work',
+    typeErrorMessage:'any type arent string not work'
   })
 
   // Entering wrong values
 
   const wrongConfigs = {
+    type:['hello', 'now body here'],
     max:[], 
     required:['test'],
     min:[23, true],
     trim:[true,'welcome', 'there']
+  }
+  const wrongConfigs1 = { 
+    type:[23]
   }
   defaults = {}; 
   expect(() => configSpliter('max', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected Array with two items [configuredValue, customError] but received empty Array at max property"))
   expect(() => configSpliter('required', 'boolean', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a boolean but received a string at required[0] property"))
   expect(() => configSpliter('min', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a string but received a boolean at min[1] property"))
   expect(() => configSpliter('trim', 'boolean', wrongConfigs, defaults)).toThrowError(new TypeError("invalid configuration at trim property"))
-  // expect(() => configSpliter('type', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected Array with two items [configuredValue, customError] but received empty Array at max property"))
+  expect(() => configSpliter('type', 'any-type', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a string but received a function at type[1] property"))
+  expect(() => configSpliter('type', 'any-type', wrongConfigs1, {})).toThrowError(new TypeError("Expected a string but received a string at type[0] property"))
 });
