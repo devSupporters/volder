@@ -107,6 +107,12 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   const obj1 = { type: Number };
   const obj2 = { type: String, required: true, min: 12, max: 30 };
   const obj3 = { type: Boolean };
+  const obj4 = {
+    type: [String],
+    required: [false, 'type not required'],
+    max: [11],
+    min: [1, 'smaller than 1']
+  };
 
   expect(setUpOptionWithConfigs(obj1)).toEqual({
     min: null,
@@ -124,6 +130,14 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   expect(setUpOptionWithConfigs(obj3)).toEqual({
     type: Boolean,
     required: false
+  });
+  expect(setUpOptionWithConfigs(obj4)).toEqual({
+    type: String,
+    required: false,
+    requiredErrorMessage:'type not required',
+    min:1,
+    max:11,
+    minErrorMessage:'smaller than 1'
   });
 
   // Entering a wrong values
