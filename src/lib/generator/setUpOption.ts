@@ -46,13 +46,21 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   } else if (optionConfigs.type === String) defaultConfiguredOption.trim = trim;
 
   if (optionConfigs.hasOwnProperty('min')) {
-    assertType(optionConfigs.min, 'number', 'min property');
-    defaultConfiguredOption.min = optionConfigs.min;
+    if(Array.isArray(optionConfigs.min)) {
+      configSpliter('min', 'number', optionConfigs, defaultConfiguredOption);
+    } else {
+      assertType(optionConfigs.min, 'number', 'min property');
+      defaultConfiguredOption.min = optionConfigs.min;
+    }
   }
 
   if (optionConfigs.hasOwnProperty('max')) {
-    assertType(optionConfigs.max, 'number', 'max property');
-    defaultConfiguredOption.max = optionConfigs.max;
+    if(Array.isArray(optionConfigs.max)) {
+      configSpliter('max', 'number', optionConfigs, defaultConfiguredOption);
+    } else {
+      assertType(optionConfigs.max, 'number', 'max property');
+      defaultConfiguredOption.max = optionConfigs.max;
+    }
   }
 
   // check if min is smaller than max
