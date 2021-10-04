@@ -1,7 +1,11 @@
-import { min, max, required, trim } from './defaultValues';
+import { min, max, required } from './defaultValues';
 import { assertType } from '../utils/assertType';
 import { configSpliter } from './configSpliter';
 import { assertConstructorFunction } from '../utils/assertConstructorFunction';
+import { nullTypeCase } from './optionConfigsTypes/null';
+import { noneNumberValueTypesCase } from './optionConfigsTypes/noneNumberValueTypes';
+// import { stringTypeCase } from './optionConfigsTypes/string';
+// import { numberValueTypesCase } from './optionConfigsTypes/numberValueTypes';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const defaultConfiguredOption: any = { min, max, required };
@@ -26,36 +30,23 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     }
   }
 
-  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs.type === null) {
-    const allowedTypes = [String, Object, Array, Number, Boolean];
-    if (!Array.isArray(optionConfigs.avoid)) {
-      throw new TypeError('avoid property should be an array');
-    }
-
-    optionConfigs.avoid.forEach((type: any) => {
-      if (!allowedTypes.includes(type)) {
-        throw new TypeError(
-          `Expected this types (String | Object | Array | Number | Boolean) but received type ${typeof type} which ${type}`
-        );
-      }
-    });
-    if (optionConfigs.avoid.length >= 1) {
-      defaultConfiguredOption.avoid = optionConfigs.avoid;
-    }
-  }
-
-  // avoid this property validators for some types (Boolean | Object | null)
-  const avoidedTypes = [Boolean, Object, null];
-  if (avoidedTypes.includes(optionConfigs.type)) {
-    // removeing min and max properties from default configuration object
-    const { min, max, ...newDefaultConfigOption } = defaultConfiguredOption;
-    return newDefaultConfigOption;
+  switch (optionConfigs.type) {
+    case null:
+    case Object:
+    case Boolean:
+      optionConfigs.type === null && nullTypeCase(optionConfigs, defaultConfiguredOption);
+      return noneNumberValueTypesCase(defaultConfiguredOption);
+    // case String:
+    // case Array:
+    // case Number:
+    //   optionConfigs.type == String && stringTypeCase(optionConfigs, defaultConfiguredOption);
+    //   numberValueTypesCase(optionConfigs, defaultConfiguredOption);
   }
 
   if (optionConfigs.hasOwnProperty('trim') && optionConfigs.type === String) {
     assertType(optionConfigs.trim, 'boolean', 'trim property');
     defaultConfiguredOption.trim = optionConfigs.trim;
-  } else if (optionConfigs.type === String) defaultConfiguredOption.trim = trim;
+  } else if (optionConfigs.type === String) defaultConfiguredOption.trim = false;
 
   if (optionConfigs.hasOwnProperty('min')) {
     if (Array.isArray(optionConfigs.min)) {
