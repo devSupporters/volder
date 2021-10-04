@@ -63,20 +63,20 @@ test('objectToMap function should work correctly', () => {
     required: true
   });
   expect(generatedMap.get('testCustomError')).toEqual({
-    type:String, 
-    min:2,
-    max:null, 
-    required:false, 
-    typeErrorMessage:'should be string',
-    minErrorMessage :'should 2 length'
-  })
+    type: String,
+    min: 2,
+    max: null,
+    required: false,
+    typeErrorMessage: 'should be string',
+    minErrorMessage: 'should 2 length'
+  });
   // Entering a wrong values
   const obj2 = { position: { require: true } };
   const obj3 = { name: 23 };
   const obj4 = { any: { type: null, avoid: 'welcome' } };
   const obj5 = { any: { type: null, avoid: [23, 'he'] } };
-  const obj6 = { test: {type:['string', String]}}
-  const obj7 = { test: {type:[32]}}
+  const obj6 = { test: { type: ['string', String] } };
+  const obj7 = { test: { type: [32] } };
 
   expect(() => {
     objectToMap(obj2);
@@ -150,7 +150,7 @@ test('configSpliter should work correctly', () => {
   const configs = {
     type: [String, 'any type arent string not work'],
     min: [23],
-    max:[10, 'bigger than 10'],
+    max: [10, 'bigger than 10'],
     required: [true, 'test for required is work']
   };
   let defaults = {};
@@ -162,10 +162,10 @@ test('configSpliter should work correctly', () => {
     type: String,
     min: 23,
     required: true,
-    max:10,
+    max: 10,
     requiredErrorMessage: 'test for required is work',
     typeErrorMessage: 'any type arent string not work',
-    maxErrorMessage:'bigger than 10'
+    maxErrorMessage: 'bigger than 10'
   });
 
   // Entering wrong values

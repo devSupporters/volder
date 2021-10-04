@@ -7,6 +7,7 @@ export const configSpliter = (
   optionConfigs: any,
   defaultConfiguredOption: any
 ): void => {
+  
   const optionProperty = optionConfigs[optionConfigName];
 
   if (optionProperty.length <= 0) {
@@ -14,7 +15,7 @@ export const configSpliter = (
       `Expected Array with two items [configuredValue, customError] but received empty Array at ${optionConfigName} property`
     );
   }
-  
+
   if (optionProperty.length > 0) {
     optionConfigType !== 'constructor-type'
       ? assertType(optionProperty[0], optionConfigType, `${optionConfigName}[0] property`)
@@ -24,7 +25,7 @@ export const configSpliter = (
   }
 
   if (optionProperty.length > 1) {
-    assertType(optionProperty[1], "string", `${optionConfigName}[1] property`)
+    assertType(optionProperty[1], 'string', `${optionConfigName}[1] property`);
     defaultConfiguredOption[optionConfigName + 'ErrorMessage'] = optionProperty[1];
   }
 };

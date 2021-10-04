@@ -5,7 +5,6 @@ export const objectToMap = (config: any | object) => {
   const generatedMap = new Map();
 
   for (const option in config) {
-
     // if option just constructor function or null
     const types = [null, Boolean, Object, Number, String, Array];
     if (types.includes(config[option])) {
@@ -17,8 +16,8 @@ export const objectToMap = (config: any | object) => {
       );
     }
 
-      const configuredOption = setUpOptionWithConfigs(config[option]);
-      generatedMap.set(option, configuredOption);
+    const configuredOption = setUpOptionWithConfigs(config[option]);
+    generatedMap.set(option, configuredOption);
   }
 
   return generatedMap;

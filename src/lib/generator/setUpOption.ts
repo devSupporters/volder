@@ -9,14 +9,12 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   if (optionConfigs.hasOwnProperty('type')) {
     if (Array.isArray(optionConfigs.type)) {
       configSpliter('type', 'constructor-type', optionConfigs, defaultConfiguredOption);
-
-    } else if (optionConfigs.type !== null){
+    } else if (optionConfigs.type !== null) {
       assertConstructorFunction(optionConfigs.type);
       defaultConfiguredOption.type = optionConfigs.type;
-    } else defaultConfiguredOption.type = optionConfigs.type
-
+    } else defaultConfiguredOption.type = optionConfigs.type;
   } else {
-    throw new Error("type property is required");
+    throw new Error('type property is required');
   }
 
   if (optionConfigs.hasOwnProperty('required')) {
