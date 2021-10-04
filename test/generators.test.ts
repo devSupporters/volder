@@ -68,7 +68,7 @@ test('objectToMap function should work correctly', () => {
   const obj5 = { any: { type: null, avoid: [23, 'he'] } };
   expect(() => {
     objectToMap(obj2);
-  }).toThrowError(new TypeError('type is required at position property'));
+  }).toThrowError(new TypeError('type property is required'));
   expect(() => objectToMap(obj3)).toThrowError(
     new TypeError('Expected a (object | constructor function | null) but received a number')
   );

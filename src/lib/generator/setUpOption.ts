@@ -13,10 +13,9 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
       assertConstructorFunction(optionConfigs.type);
     }
   } else {
-    const option = Object.keys({ optionConfigs })[0];
-    throw new Error(`type property is required at ${option} option`);
+    throw new Error("type property is required");
   }
-  
+
   if (optionConfigs.hasOwnProperty('required')) {
     if (Array.isArray(optionConfigs.required)) {
       configSpliter('required', 'boolean', optionConfigs, defaultConfiguredOption);
