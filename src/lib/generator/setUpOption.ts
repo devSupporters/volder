@@ -1,12 +1,18 @@
 import { min, max, required, trim } from './defaultValues';
 import { assertType } from '../utils/assertType';
+import { configSpliter } from './configSpliter';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const defaultConfiguredOption: any = { min, max, type: optionConfigs.type, required };
 
   if (optionConfigs.hasOwnProperty('required')) {
-    assertType(optionConfigs.required, 'boolean', 'required property');
-    defaultConfiguredOption.required = optionConfigs.required;
+    if (Array.isArray(optionConfigs.required)) {
+      configSpliter('required', 'boolean',optionConfigs , defaultConfiguredOption);
+      console.log('welcome');
+    } else {
+      assertType(optionConfigs.required, 'boolean', 'required property'); // use this for else
+      defaultConfiguredOption.required = optionConfigs.required;
+    }
   }
 
   if (optionConfigs.hasOwnProperty('avoid') && optionConfigs.type === null) {

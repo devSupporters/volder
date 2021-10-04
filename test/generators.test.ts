@@ -119,6 +119,6 @@ test('setUpOptionWithConfigs function should work correctly', () => {
     new TypeError('Expected a boolean but received a number at required property')
   );
   expect(() => setUpOptionWithConfigs(wrongObj4)).toThrowError(
-    new Error('min property should be smaller than max property')
+    new Error('min property should be Equal or Smaller than max property')
   );
 });
