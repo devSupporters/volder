@@ -1,4 +1,4 @@
-export const assertConstructorFunction = (input: any, addOneMessage:string = ''): void => {
+export const assertConstructorFunction = (input: any): void => {
   const allConstructorFunctions = [String, Number, Object, Array, Boolean];
 
   if (!allConstructorFunctions.includes(input)) {

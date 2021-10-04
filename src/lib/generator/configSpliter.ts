@@ -1,32 +1,30 @@
 import { assertType } from '../utils/assertType';
+import { assertConstructorFunction } from '../utils/assertConstructorFunction';
 
 export const configSpliter = (
   optionConfigName: string,
-  optionConfigType: 'string' | 'number' | 'boolean' | 'any-type' | any, 
+  optionConfigType: 'string' | 'number' | 'boolean' | 'constructor-type' | any,
   optionConfigs: any,
   defaultConfiguredOption: any
 ): void => {
-  
+  const optionProperty = optionConfigs[optionConfigName];
 
-  if (optionConfigs[optionConfigName].length <= 0) {
+  if (optionProperty.length <= 0) {
     throw TypeError(
       `Expected Array with two items [configuredValue, customError] but received empty Array at ${optionConfigName} property`
     );
-  } else if (optionConfigs[optionConfigName].length === 1) {
-    if(optionConfigType !== 'any-type') {
-      assertType(optionConfigs[optionConfigName][0], optionConfigType, `${optionConfigName}[0] property`);
-    }
-    defaultConfiguredOption[optionConfigName] = optionConfigs[optionConfigName][0];
-    
-  } else if (optionConfigs[optionConfigName].length === 2) {
-    if(optionConfigType !== 'any-type') {
-      assertType(optionConfigs[optionConfigName][0], optionConfigType, `${optionConfigName}[0] property`);
-    }
-    assertType(optionConfigs[optionConfigName][1], 'string', `${optionConfigName}[1] property`);
+  }
+  
+  if (optionProperty.length > 0) {
+    optionConfigType !== 'constructor-type'
+      ? assertType(optionProperty[0], optionConfigType, `${optionConfigName}[0] property`)
+      : assertConstructorFunction(optionProperty[0]);
 
-    defaultConfiguredOption[optionConfigName] = optionConfigs[optionConfigName][0];
-    defaultConfiguredOption[optionConfigName + 'ErrorMessage'] = optionConfigs[optionConfigName][1];
-  } else {
-      throw new TypeError(`invalid configuration at ${optionConfigName} property`)
+    defaultConfiguredOption[optionConfigName] = optionProperty[0];
+  }
+
+  if (optionProperty.length > 1) {
+    assertType(optionProperty[1], "string", `${optionConfigName}[1] property`)
+    defaultConfiguredOption[optionConfigName + 'ErrorMessage'] = optionProperty[1];
   }
 };

@@ -4,14 +4,17 @@ import { configSpliter } from './configSpliter';
 import { assertConstructorFunction } from '../utils/assertConstructorFunction';
 
 export const setUpOptionWithConfigs = (optionConfigs: any) => {
-  const defaultConfiguredOption: any = { min, max, type: optionConfigs.type, required };
+  const defaultConfiguredOption: any = { min, max, required };
+
   if (optionConfigs.hasOwnProperty('type')) {
     if (Array.isArray(optionConfigs.type)) {
-      configSpliter('type', 'any-type', optionConfigs, defaultConfiguredOption);
-    }
-    if (optionConfigs.type !== null) {
-      assertConstructorFunction(optionConfigs.type, " at type[0] property");
-    }
+      configSpliter('type', 'constructor-type', optionConfigs, defaultConfiguredOption);
+
+    } else if (optionConfigs.type !== null){
+      assertConstructorFunction(optionConfigs.type);
+      defaultConfiguredOption.type = optionConfigs.type;
+    } else defaultConfiguredOption.type = optionConfigs.type
+
   } else {
     throw new Error("type property is required");
   }

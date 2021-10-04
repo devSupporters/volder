@@ -11,6 +11,7 @@ test('objectToMap function should work correctly', () => {
     items: { type: Array, required: true, min: 10, max: 100 },
     any: { type: null, avoid: [String, Array] },
     test: { type: null, avoid: [], required: true },
+    testCustomError: { type: [String, 'should be string'], min: [2, 'should 2 length'] },
     properties: Object
   };
 
@@ -22,6 +23,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.has('items')).toBe(true);
   expect(generatedMap.has('properties')).toBe(true);
   expect(generatedMap.has('any')).toBe(true);
+  expect(generatedMap.has('testCustomError')).toBe(true);
   expect(generatedMap.has('test')).toBe(true);
 
   expect(generatedMap.get('name')).toEqual({
@@ -60,12 +62,22 @@ test('objectToMap function should work correctly', () => {
     type: null,
     required: true
   });
-
+  expect(generatedMap.get('testCustomError')).toEqual({
+    type:String, 
+    min:2,
+    max:null, 
+    required:false, 
+    typeErrorMessage:'should be string',
+    minErrorMessage :'should 2 length'
+  })
   // Entering a wrong values
   const obj2 = { position: { require: true } };
   const obj3 = { name: 23 };
   const obj4 = { any: { type: null, avoid: 'welcome' } };
   const obj5 = { any: { type: null, avoid: [23, 'he'] } };
+  const obj6 = { test: {type:['string', String]}}
+  const obj7 = { test: {type:[32]}}
+
   expect(() => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type property is required'));
@@ -76,6 +88,16 @@ test('objectToMap function should work correctly', () => {
   expect(() => objectToMap(obj5)).toThrowError(
     new TypeError(
       'Expected this types (String | Object | Array | Number | Boolean) but received type number which 23'
+    )
+  );
+  expect(() => objectToMap(obj6)).toThrowError(
+    new TypeError(
+      'Expected a constructor function like { String | Number | Object | Array | Boolean } but received a string'
+    )
+  );
+  expect(() => objectToMap(obj7)).toThrowError(
+    new TypeError(
+      'Expected a constructor function like { String | Number | Object | Array | Boolean } but received a number'
     )
   );
 });
@@ -126,39 +148,48 @@ test('setUpOptionWithConfigs function should work correctly', () => {
 
 test('configSpliter should work correctly', () => {
   const configs = {
-    type:[String, 'any type arent string not work'],
+    type: [String, 'any type arent string not work'],
     min: [23],
+    max:[10, 'bigger than 10'],
     required: [true, 'test for required is work']
   };
   let defaults = {};
-  configSpliter('type', 'any-type', configs, defaults);
+  configSpliter('type', 'constructor-type', configs, defaults);
   configSpliter('min', 'number', configs, defaults);
   configSpliter('required', 'boolean', configs, defaults);
+  configSpliter('max', 'number', configs, defaults);
   expect(defaults).toEqual({
-    type:String,
-    min:23,
-    required:true,
-    requiredErrorMessage:'test for required is work',
-    typeErrorMessage:'any type arent string not work'
-  })
+    type: String,
+    min: 23,
+    required: true,
+    max:10,
+    requiredErrorMessage: 'test for required is work',
+    typeErrorMessage: 'any type arent string not work',
+    maxErrorMessage:'bigger than 10'
+  });
 
   // Entering wrong values
 
   const wrongConfigs = {
-    type:['hello', 'now body here'],
-    max:[], 
-    required:['test'],
-    min:[23, true],
-    trim:[true,'welcome', 'there']
-  }
-  const wrongConfigs1 = { 
-    type:[23]
-  }
-  defaults = {}; 
-  expect(() => configSpliter('max', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected Array with two items [configuredValue, customError] but received empty Array at max property"))
-  expect(() => configSpliter('required', 'boolean', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a boolean but received a string at required[0] property"))
-  expect(() => configSpliter('min', 'number', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a string but received a boolean at min[1] property"))
-  expect(() => configSpliter('trim', 'boolean', wrongConfigs, defaults)).toThrowError(new TypeError("invalid configuration at trim property"))
-  expect(() => configSpliter('type', 'any-type', wrongConfigs, defaults)).toThrowError(new TypeError("Expected a string but received a function at type[1] property"))
-  expect(() => configSpliter('type', 'any-type', wrongConfigs1, {})).toThrowError(new TypeError("Expected a string but received a string at type[0] property"))
+    max: [],
+    required: ['test'],
+    min: [23, true],
+    trim: [{}, 'welcome']
+  };
+  defaults = {};
+
+  expect(() => configSpliter('max', 'number', wrongConfigs, defaults)).toThrowError(
+    new TypeError(
+      'Expected Array with two items [configuredValue, customError] but received empty Array at max property'
+    )
+  );
+  expect(() => configSpliter('required', 'boolean', wrongConfigs, defaults)).toThrowError(
+    new TypeError('Expected a boolean but received a string at required[0] property')
+  );
+  expect(() => configSpliter('min', 'number', wrongConfigs, defaults)).toThrowError(
+    new TypeError('Expected a string but received a boolean at min[1] property')
+  );
+  expect(() => configSpliter('trim', 'boolean', wrongConfigs, defaults)).toThrowError(
+    new TypeError('Expected a boolean but received a Object at trim[0] property')
+  );
 });
