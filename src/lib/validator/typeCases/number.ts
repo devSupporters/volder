@@ -11,12 +11,12 @@ export const numberCase = (
     return false;
   }
 
-  if (optionConfigs.min !== null && input[optionName] < optionConfigs.min) {
+  if (optionConfigs.hasOwnProperty('min')  && input[optionName] < optionConfigs.min) {
     errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min}`;
     return false;
   }
 
-  if (optionConfigs.max !== null && input[optionName] > optionConfigs.max) {
+  if (optionConfigs.hasOwnProperty('max')  && input[optionName] > optionConfigs.max) {
     errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max}`;
     return false;
   }

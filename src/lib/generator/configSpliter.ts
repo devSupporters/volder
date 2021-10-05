@@ -5,26 +5,25 @@ export const configSpliter = (
   optionConfigName: string,
   optionConfigType: 'string' | 'number' | 'boolean' | 'constructor-type' | any,
   optionConfigs: any,
-  defaultConfiguredOption: any
 ): void => {
 
-  const optionProperty = optionConfigs[optionConfigName];
+  const configProperty = optionConfigs[optionConfigName];
 
-  if (optionProperty.length === 0) {
+  if (configProperty.length === 0) {
     throw new TypeError(
       `Expected Array with two items [configuredValue, customError] but received empty Array at ${optionConfigName} property`
     );
     
   } else {
       optionConfigType !== 'constructor-type'
-        ? assertType(optionProperty[0], optionConfigType, `${optionConfigName}[0] property`)
-        : optionProperty[0] !== null && assertConstructorFunction(optionProperty[0]);
+        ? assertType(configProperty[0], optionConfigType, `${optionConfigName}[0] property`)
+        : configProperty[0] !== null && assertConstructorFunction(configProperty[0]);
         
-      defaultConfiguredOption[optionConfigName] = optionProperty[0];
+      optionConfigs[optionConfigName] = configProperty[0];
   
-    if (optionProperty.length > 1) {
-      assertType(optionProperty[1], 'string', `${optionConfigName}[1] property`);
-      defaultConfiguredOption[optionConfigName + 'ErrorMessage'] = optionProperty[1];
+    if (configProperty.length > 1) {
+      assertType(configProperty[1], 'string', `${optionConfigName}[1] property`);
+      optionConfigs[optionConfigName + 'ErrorMessage'] = configProperty[1];
     };
   };
 };

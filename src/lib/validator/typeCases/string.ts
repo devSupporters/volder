@@ -11,16 +11,16 @@ export const stringCase = (
     return false;
   }
 
-  if (optionConfigs.trim) {
+  if (optionConfigs.hasOwnProperty('trim') && optionConfigs.trim) {
     input[optionName] = input[optionName].trim();
   }
 
-  if (optionConfigs.min !== null && input[optionName].length < optionConfigs.min) {
+  if (optionConfigs.hasOwnProperty('min') && input[optionName].length < optionConfigs.min) {
     errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min} characters`;
     return false;
   }
 
-  if (optionConfigs.max !== null && input[optionName].length > optionConfigs.max) {
+  if (optionConfigs.hasOwnProperty('max') && input[optionName].length > optionConfigs.max) {
     errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max} characters`;
     return false;
   }

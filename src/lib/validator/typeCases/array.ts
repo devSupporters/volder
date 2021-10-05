@@ -11,12 +11,12 @@ export const arrayCase = (
     return false;
   }
 
-  if (optionConfigs.min !== null && input[optionName].length < optionConfigs.min) {
+  if (optionConfigs.hasOwnProperty('min') && input[optionName].length < optionConfigs.min) {
     errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min} items`;
     return false;
   }
 
-  if (optionConfigs.max !== null && input[optionName].length > optionConfigs.max) {
+  if (optionConfigs.hasOwnProperty('max')  && input[optionName].length > optionConfigs.max) {
     errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max} items`;
     return false;
   }
