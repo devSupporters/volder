@@ -18,7 +18,8 @@ export const configSpliter = (
   } else {
       optionConfigType !== 'constructor-type'
         ? assertType(optionProperty[0], optionConfigType, `${optionConfigName}[0] property`)
-        : assertConstructorFunction(optionProperty[0]);
+        : optionProperty[0] !== null && assertConstructorFunction(optionProperty[0]);
+        
       defaultConfiguredOption[optionConfigName] = optionProperty[0];
   
     if (optionProperty.length > 1) {

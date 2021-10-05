@@ -81,7 +81,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   if (
     optionConfigs.hasOwnProperty('min') &&
     optionConfigs.hasOwnProperty('max') &&
-    optionConfigs.min > optionConfigs.max
+    defaultConfiguredOption.min > defaultConfiguredOption.max
   ) {
     throw Error('min property should be Equal or Smaller than max property');
   }
