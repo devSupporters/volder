@@ -2,12 +2,16 @@ import Volder from '../src/index';
 
 test('Volder work correctly', () => {
   const volderSchema = new Volder({
-    name: { type: String, min: 4, max: 10 },
+    name: { type: String, min: 4, max: 10, trim: true },
     age: { type: Number, max: 100, required: true, min: 1 },
     email: { type: String, min: 10, max: 150, required: true },
     male: { type: Boolean, required: true },
     tools: { type: Array, required: true, min: 3 },
-    items: { type: Object, required: true }
+    items: { type: Object, required: true },
+    any: { type: null },
+    restrictedTypes: { type: null, avoid: [Object, Boolean] },
+    type: String,
+    nums: Number
   });
 
   const obj1 = {
@@ -16,11 +20,34 @@ test('Volder work correctly', () => {
     email: 'welcome@gmail.com',
     male: true,
     tools: [1, 2, 3],
-    items: { one: 1, two: 2 }
+    items: { one: 1, two: 2 },
+    nums: 23
   };
-  const obj2 = { name: 'max', age: new Number(0), email: 'welcome@gmail.com', items: 2 };
-  const obj3 = { name: 'max cober and some text', age: 230, email: 'gmail.com', male: false };
-  const obj4 = { name: () => {}, age: false, male: 2, tools: [1, 2], items: [1, 2, 3] };
+  const obj2 = {
+    name: '   max    ',
+    age: new Number(0),
+    email: 'welcome@gmail.com',
+    items: 2,
+    any: 'welcome',
+    type: 'hello there',
+    restrictedTypes: { name: 'max' }
+  };
+  const obj3 = {
+    type: 23,
+    name: 'max cober and some text',
+    age: 230,
+    email: 'gmail.com',
+    male: false,
+    any: new Number(3)
+  };
+  const obj4 = {
+    nums: 'wrong',
+    name: () => {},
+    age: false,
+    male: 2,
+    tools: [1, 2],
+    items: [1, 2, 3]
+  };
 
   expect(volderSchema.validate(obj1)).toEqual([true, {}]);
   expect(volderSchema.validate(obj2)).toEqual([
@@ -30,12 +57,14 @@ test('Volder work correctly', () => {
       age: 'age should be at least 1',
       male: 'male is required',
       tools: 'tools is required',
-      items: 'items should be an object'
+      items: 'items should be an object',
+      restrictedTypes: 'Object type not allowed'
     }
   ]);
   expect(volderSchema.validate(obj3)).toEqual([
     false,
     {
+      type: 'type should be a string',
       age: 'age should be at most 100',
       email: 'email should be at least 10 characters',
       tools: 'tools is required',
@@ -46,6 +75,7 @@ test('Volder work correctly', () => {
   expect(volderSchema.validate(obj4)).toEqual([
     false,
     {
+      nums: 'nums should be a number',
       name: 'name should be a string',
       male: 'male should be a boolean (true or false)',
       email: 'email is required',
@@ -55,3 +85,42 @@ test('Volder work correctly', () => {
     }
   ]);
 });
+
+test('volder custom errors', () => {
+  const volderSchema = new Volder({
+    name:{
+      type:[String, 'should be a string type'],
+      min:[4, 'min length is 4'],
+      max:[10, 'max length is 10'],
+      required:[true, 'should be there'],
+      trim:true
+    },
+    age:{
+      type:[Number, 'I am must be a number'],
+      required:[true, 'shoulde be a there']
+    },
+    other :{
+      type:[null, 'anything without string'],
+      avoid:[String]
+    }
+  })
+  expect(volderSchema.validate({
+    name:"i am max",
+    age:32
+  })).toEqual([true,{}])
+  expect(volderSchema.validate({
+    name:"123",
+    other:'string type'
+  })).toEqual([false,{
+    age:'shoulde be a there',
+    other:'anything without string',
+    name:'min length is 4'
+  }])
+  expect(volderSchema.validate({
+    name:'my name is max under the water',
+    age:'i am not a number'
+  })).toEqual([false, {
+    age:'I am must be a number',
+    name:'max length is 10'
+  }])
+})

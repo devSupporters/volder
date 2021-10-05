@@ -21,8 +21,13 @@ const person = new Volder({
         min:1,
         max:2,
         required:true
-    } 
+    },
+    anything:{
+        type:[null, 'not there'],
+        avoid:[String]
+    }
 })
-const result = person.validate({name:"welcome",age:-23,male:""})
+const result = person.validate({name:"welcome",age:-23,male:"", anything:[]})
+console.log(person.volderMap)
 console.log(result[0])
 console.log(result[1]);

@@ -1,18 +1,24 @@
 import { assertObject } from '../utils/assertObject';
-import { assertConstructorFunction } from '../utils/assertConstructorFunction';
 import { setUpOptionWithConfigs } from './setUpOption';
 
 export const objectToMap = (config: any | object) => {
   const generatedMap = new Map();
 
   for (const option in config) {
-    assertObject(config[option]);
+    
+    // if option just constructor function or null
+    const types = [null, Boolean, Object, Number, String, Array];
+    if (types.includes(config[option])) {
+      config[option] = { type: config[option] };
+    } else {
+      assertObject(
+        config[option],
+        'Expected a (object | constructor function | null) but received a '
+      );
+    }
 
-    if (config[option].hasOwnProperty('type')) {
-      assertConstructorFunction(config[option].type);
-      const configuredOption = setUpOptionWithConfigs(config[option]);
-      generatedMap.set(option, configuredOption);
-    } else throw new Error(`type is required at ${option} property`);
+    const configuredOption = setUpOptionWithConfigs(config[option]);
+    generatedMap.set(option, configuredOption);
   }
 
   return generatedMap;
