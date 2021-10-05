@@ -12,11 +12,11 @@ export const validatorInput = (input: any, optionName: string, optionConfigs: an
     case Number:
       return numberCase(input, optionName, optionConfigs, errors);
     case Boolean:
-      return booleanCase(input, optionName, errors);
+      return booleanCase(input, optionName, optionConfigs, errors);
     case Array:
       return arrayCase(input, optionName, optionConfigs, errors);
     case Object:
-      return objectCase(input, optionName, errors);
+      return objectCase(input, optionName,optionConfigs, errors);
     case null:
       return nullCase(input, optionName, optionConfigs, errors);
   }
