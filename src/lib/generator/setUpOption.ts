@@ -1,4 +1,4 @@
-import { min, max, required, trim } from './defaultValues';
+import { min, max, required } from './defaultValues';
 import { assertType } from '../utils/assertType';
 import { configSpliter } from './configSpliter';
 import { assertConstructorFunction } from '../utils/assertConstructorFunction';
@@ -28,7 +28,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
     }
   }
 
-  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs.type === null) {
+  if (optionConfigs.hasOwnProperty('avoid') && defaultConfiguredOption.type === null) {
     const allowedTypes = [String, Object, Array, Number, Boolean];
     if (!Array.isArray(optionConfigs.avoid)) {
       throw new TypeError('avoid property should be an array');
@@ -41,23 +41,24 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
         );
       }
     });
-    if (optionConfigs.avoid.length >= 1) {
+
+    if (optionConfigs.avoid.length > 0) {
       defaultConfiguredOption.avoid = optionConfigs.avoid;
     }
   }
 
   // avoid this property validators for some types (Boolean | Object | null)
   const avoidedTypes = [Boolean, Object, null];
-  if (avoidedTypes.includes(optionConfigs.type)) {
+  if (avoidedTypes.includes(defaultConfiguredOption.type)) {
     // removeing min and max properties from default configuration object
     const { min, max, ...newDefaultConfigOption } = defaultConfiguredOption;
     return newDefaultConfigOption;
   }
 
-  if (optionConfigs.hasOwnProperty('trim') && optionConfigs.type === String) {
+  if (optionConfigs.hasOwnProperty('trim') && defaultConfiguredOption.type === String) {
     assertType(optionConfigs.trim, 'boolean', 'trim property');
     defaultConfiguredOption.trim = optionConfigs.trim;
-  } else if (optionConfigs.type === String) defaultConfiguredOption.trim = trim;
+  }
 
   if (optionConfigs.hasOwnProperty('min')) {
     if (Array.isArray(optionConfigs.min)) {

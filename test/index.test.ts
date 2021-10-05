@@ -120,7 +120,7 @@ test('volder custom errors', () => {
     name:'my name is max under the water',
     age:'i am not a number'
   })).toEqual([false, {
-    age:'I am must be a numbe',
+    age:'I am must be a number',
     name:'max length is 10'
   }])
 })

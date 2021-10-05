@@ -123,7 +123,6 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   expect(setUpOptionWithConfigs(obj2)).toEqual({
     type: String,
     required: true,
-    trim: false,
     min: 12,
     max: 30
   });
