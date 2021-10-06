@@ -55,7 +55,7 @@ test('objectToMap function should work correctly', () => {
   });
   expect(generatedMap.get('test')).toEqual({
     type: null,
-    avoid:[],
+    avoid: [],
     required: true
   });
   expect(generatedMap.get('testCustomError')).toEqual({
@@ -116,7 +116,7 @@ test('setUpOptionWithConfigs function should work correctly', () => {
     max: 30
   });
   expect(setUpOptionWithConfigs(obj3)).toEqual({
-    type: Boolean,
+    type: Boolean
   });
   expect(setUpOptionWithConfigs(obj4)).toEqual({
     type: String,
