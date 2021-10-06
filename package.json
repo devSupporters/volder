@@ -28,9 +28,10 @@
     "singleQuote": true,
     "trailingComma": "none"
   },
+  "homepage": "https://github.com/devSupporters/volder",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/devSupporters/volder.git"
+    "url": "https://github.com/devSupporters/volder.git"
   },
   "name": "volder",
   "author": "salah alhashmi",
