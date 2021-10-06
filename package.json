@@ -35,7 +35,7 @@
   },
   "publishConfig": {
    "@alhashmicode:registry": "https://npm.pkg.github.com"
- }
+ },
   "name": "volder",
   "author": "salah alhashmi",
   "module": "dist/volder.esm.js",
