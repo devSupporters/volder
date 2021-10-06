@@ -18,7 +18,8 @@ export const nullCase = (
         ? Array
         : Object;
     if (optionConfigs.avoid.includes(inputConstructorFunction)) {
-      errors[optionName] = optionConfigs.typeErrorMessage || `${inputConstructorFunction.name} type not allowed`;
+      errors[optionName] =
+        optionConfigs.typeErrorMessage || `${inputConstructorFunction.name} type not allowed`;
       return false;
     }
   }

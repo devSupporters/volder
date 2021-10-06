@@ -16,7 +16,7 @@ export const validatorInput = (input: any, optionName: string, optionConfigs: an
     case Array:
       return arrayCase(input, optionName, optionConfigs, errors);
     case Object:
-      return objectCase(input, optionName,optionConfigs, errors);
+      return objectCase(input, optionName, optionConfigs, errors);
     case null:
       return nullCase(input, optionName, optionConfigs, errors);
   }

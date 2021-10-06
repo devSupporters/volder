@@ -88,39 +88,51 @@ test('Volder work correctly', () => {
 
 test('volder custom errors', () => {
   const volderSchema = new Volder({
-    name:{
-      type:[String, 'should be a string type'],
-      min:[4, 'min length is 4'],
-      max:[10, 'max length is 10'],
-      required:[true, 'should be there'],
-      trim:true
+    name: {
+      type: [String, 'should be a string type'],
+      min: [4, 'min length is 4'],
+      max: [10, 'max length is 10'],
+      required: [true, 'should be there'],
+      trim: true
     },
-    age:{
-      type:[Number, 'I am must be a number'],
-      required:[true, 'shoulde be a there']
+    age: {
+      type: [Number, 'I am must be a number'],
+      required: [true, 'shoulde be a there']
     },
-    other :{
-      type:[null, 'anything without string'],
-      avoid:[String]
+    other: {
+      type: [null, 'anything without string'],
+      avoid: [String]
     }
-  })
-  expect(volderSchema.validate({
-    name:"i am max",
-    age:32
-  })).toEqual([true,{}])
-  expect(volderSchema.validate({
-    name:"123",
-    other:'string type'
-  })).toEqual([false,{
-    age:'shoulde be a there',
-    other:'anything without string',
-    name:'min length is 4'
-  }])
-  expect(volderSchema.validate({
-    name:'my name is max under the water',
-    age:'i am not a number'
-  })).toEqual([false, {
-    age:'I am must be a number',
-    name:'max length is 10'
-  }])
-})
+  });
+  expect(
+    volderSchema.validate({
+      name: 'i am max',
+      age: 32
+    })
+  ).toEqual([true, {}]);
+  expect(
+    volderSchema.validate({
+      name: '123',
+      other: 'string type'
+    })
+  ).toEqual([
+    false,
+    {
+      age: 'shoulde be a there',
+      other: 'anything without string',
+      name: 'min length is 4'
+    }
+  ]);
+  expect(
+    volderSchema.validate({
+      name: 'my name is max under the water',
+      age: 'i am not a number'
+    })
+  ).toEqual([
+    false,
+    {
+      age: 'I am must be a number',
+      name: 'max length is 10'
+    }
+  ]);
+});
