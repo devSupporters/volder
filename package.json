@@ -1,6 +1,7 @@
 {
   "version": "1.1.1",
   "license": "MIT",
+  "description": "schema builder and validating",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -26,6 +27,10 @@
     "semi": true,
     "singleQuote": true,
     "trailingComma": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devSupporters/volder.git"
   },
   "name": "volder",
   "author": "salah alhashmi",
