@@ -34,7 +34,7 @@
     "url": "https://github.com/devSupporters/volder.git"
   },
   "publishConfig": {
-   "@alhashmicode:registry": "https://npm.pkg.github.com"
+   "registry": "https://registry.npmjs.org/volder"
  },
   "name": "volder",
   "author": "salah alhashmi",
