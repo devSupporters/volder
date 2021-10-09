@@ -19,7 +19,6 @@
     "lint": "tsdx lint src test",
     "format": "tsdx lint src test --fix",
     "prepare": "tsdx build && husky install",
-    "size": "size-limit",
     "analyze": "size-limit --why",
     "publish": "npm publish --access public"
   },
@@ -41,11 +40,9 @@
   "author": "salah alhashmi",
   "module": "dist/volder.esm.js",
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.5.5",
     "husky": "^7.0.0",
     "nodemon": "^2.0.13",
-    "size-limit": "^5.0.3",
-    "tsdx": "^0.14.1",
+    "tsdx": "^0.7.2",
     "tslib": "^2.3.1",
     "typescript": "^3.9.10"
   }
