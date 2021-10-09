@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "description": "schema builder and validating",
   "main": "dist/index.js",
@@ -21,7 +21,7 @@
     "prepare": "tsdx build && husky install",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "publish": "npm publish --access public" 
+    "publish": "npm publish --access public"
   },
   "prettier": {
     "printWidth": 100,
