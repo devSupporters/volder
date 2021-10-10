@@ -1,50 +1,50 @@
 {
-  "name": "volder",
-  "version": "1.1.2",
-  "description": "schema builder and validating",
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "lib",
-    "README.md",
-    "LICENCE",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "dev": "nodemon test.js",
-    "build": "tsdx build",
-    "test": "jest --coverage",
-    "pretty": "pretty-quick --check --ignore-path .gitignore",
-    "lint": "eslint src *.js && npm run pretty",
-    "format": "eslint src --fix && pretty-quick",
-    "prepare": "npm run build && husky install",
-    "publish": "npm publish --access public"
-  },
-  "homepage": "https://github.com/devSupporters/volder",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/devSupporters/volder.git"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
-  "keywords": [
-    "schema-builder",
-    "validator"
-  ],
-  "author": "salah alhashmi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/devSupporters/volder/issues"
-  },
-  "devDependencies": {
-    "eslint": "^8.0.0",
-    "husky": "^7.0.2",
-    "prettier": "^2.4.1",
-    "pretty-quick": "^3.1.1"
-  }
+    "name": "volder",
+    "version": "1.1.2",
+    "description": "schema builder and validating",
+    "main": "dist/index.js",
+    "files": [
+        "dist",
+        "lib",
+        "README.md",
+        "LICENCE",
+        "src"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
+    "scripts": {
+        "start": "tsdx watch",
+        "dev": "nodemon test.js",
+        "build": "tsdx build",
+        "test": "jest --coverage",
+        "pretty": "pretty-quick --check --ignore-path .gitignore --verbose",
+        "lint": "eslint src *.js && npm run pretty",
+        "format": "eslint src --fix && pretty-quick",
+        "prepare": "npm run build && husky install",
+        "publish": "npm publish --access public"
+    },
+    "homepage": "https://github.com/devSupporters/volder",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/devSupporters/volder.git"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "keywords": [
+        "schema-builder",
+        "validator"
+    ],
+    "author": "salah alhashmi",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/devSupporters/volder/issues"
+    },
+    "devDependencies": {
+        "eslint": "^8.0.0",
+        "husky": "^7.0.2",
+        "prettier": "^2.4.1",
+        "pretty-quick": "^3.1.1"
+    }
 }
