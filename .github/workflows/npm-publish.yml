@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 14
       - run: npm ci
-      - run: npm test
+      - run: npm test:ci
       - run: npm build
 
   publish-npm:
@@ -44,7 +44,7 @@ jobs:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
-      - run: npm test
+      - run: npm test:ci
       - run: npm build
       - run: npm publish 
         env:

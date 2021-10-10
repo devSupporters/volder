@@ -1,0 +1,5 @@
+dist
+coverage
+.husky
+node_modules
+playing.js

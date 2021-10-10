@@ -10,7 +10,7 @@ export const validator = (volderMap, input) => {
       errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
       validInput = validInput && false;
     }
-
+    
     // run validator if option input is exist
     if (input.hasOwnProperty(optionName)) {
       const is_valid_input = validatorInput(input, optionName, optionConfigs, errors);

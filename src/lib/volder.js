@@ -5,8 +5,7 @@ import { assertObject } from './utils/assertObject';
 export class Volder {
   constructor(config) {
     assertObject(config);
-
-    this.volderMap = objectToMap(this.config);
+    this.volderMap = objectToMap(config);
   }
 
   validate(input) {
