@@ -3,8 +3,11 @@
 .husky
 coverage
 test
+playing.js
 .eslintrc.json
+.eslintignore
 .gitignore
 .prettierrc
 .prettierignore
 babel.config.json
+rollup.config.js
