@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+
+echo "      +------------------------+"
+echo "      |🧹 lint your code by:   |"
+echo "      |> npm run lint          |"
+echo "      +------------------------+"
+echo "      |🔧 format your code by: |"
+echo "      |> npm run format        |"
+echo "      +------------------------+"
+echo "      |🧪 test you code by:    |"
+echo "      |> npm run test          |"
+echo "      +------------------------+"
