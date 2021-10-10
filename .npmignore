@@ -3,5 +3,8 @@
 .husky
 coverage
 test
-.eslintrc.js
+.eslintrc.json
 .gitignore
+.prettierrc
+.prettierignore
+babel.config.json
