@@ -5,7 +5,7 @@ import { arrayCase } from './typeCases/array';
 import { objectCase } from './typeCases/object';
 import { nullCase } from './typeCases/null';
 
-export const validatorInput = (input: any, optionName: string, optionConfigs: any, errors: any) => {
+export const validatorInput = (input, optionName, optionConfigs, errors) => {
   switch (optionConfigs.type) {
     case String:
       return stringCase(input, optionName, optionConfigs, errors);

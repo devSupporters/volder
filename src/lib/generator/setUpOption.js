@@ -2,7 +2,7 @@ import { assertType } from '../utils/assertType';
 import { configSpliter } from './configSpliter';
 import { assertConstructorFunction } from '../utils/assertConstructorFunction';
 
-export const setUpOptionWithConfigs = (optionConfigs: any) => {
+export const setUpOptionWithConfigs = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('type')) {
     if (Array.isArray(optionConfigs.type)) {
       configSpliter('type', 'constructor-type', optionConfigs);
@@ -27,7 +27,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
       throw new TypeError('avoid property should be an array');
     }
 
-    optionConfigs.avoid.forEach((type: any) => {
+    optionConfigs.avoid.forEach((type) => {
       if (!allowedTypes.includes(type)) {
         throw new TypeError(
           `Expected this types (String | Object | Array | Number | Boolean) but received type ${typeof type} which ${type}`
@@ -40,8 +40,7 @@ export const setUpOptionWithConfigs = (optionConfigs: any) => {
   const avoidedTypes = [Boolean, Object, null];
   if (avoidedTypes.includes(optionConfigs.type)) {
     // removeing min and max properties from default configuration object
-    const { min, max, ...newOptionConfigs } = optionConfigs;
-    return newOptionConfigs;
+    return optionConfigs;
   }
 
   if (optionConfigs.hasOwnProperty('trim') && optionConfigs.type === String) {

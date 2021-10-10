@@ -5,6 +5,9 @@
   "main": "dist/index.js",
   "files": [
     "dist",
+    "lib",
+    "README.md",
+    "LICENCE",
     "src"
   ],
   "engines": {
@@ -15,24 +18,18 @@
     "dev": "nodemon test.js",
     "build": "tsdx build",
     "test": "tsdx test --coverage",
-    "lint": "tsdx lint src test",
+    "lint": "eslint src",
     "format": "tsdx lint src test --fix",
-    "prepare": "husky install",
+    "prepare": "npm run build && husky install",
     "publish": "npm publish --access public"
   },
-  "homepage": "https://github.com/devSupporters/volder#readme",
+  "homepage": "https://github.com/devSupporters/volder",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/devSupporters/volder.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
-  },
-  "prettier": {
-    "printWidth": 100,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "none"
   },
   "keywords": [
     "schema-builder",
@@ -44,6 +41,8 @@
     "url": "https://github.com/devSupporters/volder/issues"
   },
   "devDependencies": {
-    "husky": "^7.0.2"
+    "eslint": "^8.0.0",
+    "husky": "^7.0.2",
+    "prettier": "^2.4.1"
   }
 }

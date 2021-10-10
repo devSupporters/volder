@@ -3,16 +3,13 @@ import { validator } from './validator/index';
 import { assertObject } from './utils/assertObject';
 
 export class Volder {
-  readonly volderMap: Map<string, object>;
-
-  constructor(private config: object) {
+  constructor(config) {
     assertObject(config);
 
-    this.config = config;
     this.volderMap = objectToMap(this.config);
   }
 
-  validate(input: object) {
+  validate(input) {
     assertObject(input);
     return validator(this.volderMap, input);
   }

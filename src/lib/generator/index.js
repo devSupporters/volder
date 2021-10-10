@@ -1,7 +1,7 @@
 import { assertObject } from '../utils/assertObject';
 import { setUpOptionWithConfigs } from './setUpOption';
 
-export const objectToMap = (config: any | object) => {
+export const objectToMap = (config) => {
   const generatedMap = new Map();
 
   for (const option in config) {
