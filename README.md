@@ -14,7 +14,7 @@ volder is a powerful JavaScript schema builder for value parsing and validation.
 - [Usage](#Usage)
 - [Custom error messages](#Custom-error-messages)
 - [Custom type validator](#Custom-type-validator)
-- [Nested schema](#Nested-schema)
+- [Nested schemas](#Nested-schemas)
 - [Options table](#Options-table)
 - [Contributing](#Contributing)
 
@@ -82,4 +82,24 @@ const user = new Volder({
   },
   password: isValidPassword
 });
+```
+
+## Nested schemas
+You Can Define Nested volder schemas by:
+```js
+import Volder from 'volder';
+
+const person = new Volder({
+  name: {
+    type: String,
+    min: 4,
+    trim:true,
+    required: true
+  },
+  age: {
+    type: Number,
+    max: 100
+  }
+});
+const [isValidPerson, errors] = person.validate({name:"lion", age:23})
 ```
