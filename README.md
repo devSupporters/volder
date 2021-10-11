@@ -10,12 +10,12 @@
 
 ## Contents
 
-- [Installation](#Installation)
-- [Usage](#Usage)
-- [Custom error messages](#Custom-error-messages)
-- [Custom type validator](#Custom-type-validator)
-- [Nested schemas](#Nested-schemas)
-- [Configs table](#Configs-table)
+- [⬇️ Installation](#Installation)
+- [🔍 Usage](#Usage)
+- [⚠️ Custom error messages](#Custom-error-messages)
+- [🖥️ Custom type validator](#Custom-type-validator)
+- [⚒️ Nested schemas](#Nested-schemas)
+- [🗒️ Configs table](#Configs-table)
 - [🤝 Contributing](#Contributing)
 
 ## Installation
