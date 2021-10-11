@@ -89,17 +89,11 @@ You Can Define Nested volder schemas by:
 ```js
 import Volder from 'volder';
 
-const person = new Volder({
-  name: {
-    type: String,
-    min: 4,
-    trim:true,
-    required: true
-  },
-  age: {
-    type: Number,
-    max: 100
-  }
+const person = new Volder({ name: String, age:  Number})
+const user = new Volder({
+  email:  { type: String, trim: true },
+  person: schema1
 });
-const [isValidPerson, errors] = person.validate({name:"lion", age:23})
+
+const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"test@test.com"})
 ```
