@@ -44,3 +44,25 @@ const [isValidPerson, errors] = person.validate({name:"lion", age:23})
  - return isValidPerson true if an object are valid otherwise false
  - if there are error or something wrong return errors object with his option name otherwise return empty object {} 
  - throw an error if validate function paramatere other than object
+
+## Custom error messages
+You Can Define you custom error messages by:
+
+```js
+const person = new Volder({
+  name: {
+    type: [String, "person name shoulde a string"],
+    min: [4, "must at least 4 characters"] ,
+    required: [true, "name is important"]
+  },
+  age: {
+    type: [Number, "your age can't be a string"],
+    max: [100, "age at most 100 years"]
+  },
+  other:  {
+    type: [null, "other can be anything than object and array"]
+    avoid:  [Object, Array],
+    required:false
+  }
+});
+```
