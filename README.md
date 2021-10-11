@@ -16,7 +16,7 @@
 - [Custom type validator](#Custom-type-validator)
 - [Nested schemas](#Nested-schemas)
 - [Configs table](#Configs-table)
-- [🤝 Contributing](#Contributing)
+- [🤝 Contributing](#🤝 Contributing)
 
 ## Installation
 `npm install --save volder`
