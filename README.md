@@ -21,7 +21,7 @@ volder is a powerful JavaScript schema builder for value parsing and validation.
 `npm install --save volder`
 
 ## Usage
-You define and create volder schema objects
+You can create and validate volder schema objects by:
 
 ```js
 import Volder from 'volder';
