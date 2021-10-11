@@ -102,9 +102,9 @@ const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"
 this table show you the **configs** you can set options
 | config | Description | default | only work on
 | --- | --- | --- | --- |
-| `type` | List all new or modified files | | |
-| `required` | Show file differences that haven't been staged |
-| `min` | List all new or modified files | | |
-| `max` | List all new or modified files | | |
-| `trim` | List all new or modified files | | |
-| `avoid` | List all new or modified files | | |
+| `type` |  | `undefined` | ```js String,Number, object```|
+| `required` |  |  `false`  ||
+| `min` || `undefined` | |
+| `max` |  | `undefined`| |
+| `trim` |  |  `false`||
+| `avoid` |  | `[]`| |
