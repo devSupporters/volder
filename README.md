@@ -109,7 +109,7 @@ this table show you the **configs** you can set options
 | `trim` | Transforms string values by removing leading and trailing whitespace |  `false`| `String`|
 | `avoid` | avoid the types you defined in array like `[Object, Array]` | `[]`| `null`|
 
-## Contributing 🤝
+## Contributing
 #### I appreciate to contributing in this repository
 
 ## 📝 License
