@@ -98,5 +98,5 @@ const user = new Volder({
 const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"test@test.com"})
 ```
 
-## Options table
+## Options Table
 
