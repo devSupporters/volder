@@ -4,7 +4,7 @@ import { booleanCase } from './typeCases/boolean';
 import { arrayCase } from './typeCases/array';
 import { objectCase } from './typeCases/object';
 import { nullCase } from './typeCases/null';
-import { functionCase } from './typeCases/function'
+import { functionCase } from './typeCases/function';
 
 export const validatorInput = (input, optionName, optionConfigs, errors) => {
   switch (optionConfigs.type) {

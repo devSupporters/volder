@@ -30,7 +30,7 @@ test('Volder work correctly', () => {
     items: 2,
     any: 'welcome',
     type: 'hello there',
-    restrictedTypes: { name: 'max' },
+    restrictedTypes: { name: 'max' }
   };
   const obj3 = {
     type: 23,
@@ -57,7 +57,7 @@ test('Volder work correctly', () => {
       age: 'age should be at least 1',
       male: 'male is required',
       tools: 'tools is required',
-      any: "any should be at most 3 characters",
+      any: 'any should be at most 3 characters',
       items: 'items should be an object',
       restrictedTypes: 'Object type not allowed'
     }
@@ -67,7 +67,7 @@ test('Volder work correctly', () => {
     {
       type: 'type should be a string',
       age: 'age should be at most 100',
-      any: "any should be at least 2",
+      any: 'any should be at least 2',
       email: 'email should be at least 10 characters',
       tools: 'tools is required',
       name: 'name should be at most 10 characters',
@@ -195,21 +195,30 @@ test('custom type function work correctly', () => {
 
 test('nested volders should work correctly', () => {
   const volder1 = new Volder({
-    name:{
-      type:[String, 'must String']
+    name: {
+      type: [String, 'must String']
     },
-    age:Number
-  })
+    age: Number
+  });
   const volder2 = new Volder({
-    person:volder1
-  })
-  expect(volder2.validate({person:{name:'max', age:23}})).toEqual([true,{
-    person:[true,{}]
-  }])
-  expect(volder2.validate({person:{name:23, age:'max'}})).toEqual([false,{
-    person:[false, {name:'must String', age:'age should be a number'}]
-  }])
-  expect(volder2.validate({person:"test"})).toEqual([false,{
-    person:'person should be an object'
-  }])
-})
+    person: volder1
+  });
+  expect(volder2.validate({ person: { name: 'max', age: 23 } })).toEqual([
+    true,
+    {
+      person: [true, {}]
+    }
+  ]);
+  expect(volder2.validate({ person: { name: 23, age: 'max' } })).toEqual([
+    false,
+    {
+      person: [false, { name: 'must String', age: 'age should be a number' }]
+    }
+  ]);
+  expect(volder2.validate({ person: 'test' })).toEqual([
+    false,
+    {
+      person: 'person should be an object'
+    }
+  ]);
+});

@@ -12,7 +12,7 @@ const volder1 = new Volder({
 
 const volder2 = new Volder({
   person: {
-    type:[volder1, "must an object"]
+    type: [volder1, 'must an object']
   }
 });
-console.log(volder2.validate({ person: ""}));
+console.log(volder2.validate({ person: '' }));
