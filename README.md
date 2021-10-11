@@ -100,11 +100,11 @@ const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"
 
 ## Configs Table
 this table show you the **configs** you can set options
-| config | Description | default | only work on
+| config | Description | default | only work in
 | --- | --- | --- | --- |
-| `type` |  | `undefined` | ```js String,Number, object```|
-| `required` |  |  `false`  ||
-| `min` || `undefined` | |
-| `max` |  | `undefined`| |
-| `trim` |  |  `false`||
-| `avoid` |  | `[]`| |
+| `type` |  | `undefined` | work in all options|
+| `required` |  |  `false`  | work in all options|
+| `min` || `undefined` | `String, Number, Array` or null if the input are that|
+| `max` |  | `undefined`|  `String, Number, Array` or null if the input are that|
+| `trim` |  |  `false`| `String`|
+| `avoid` |  | `[]`| `null`|
