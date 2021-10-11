@@ -115,5 +115,5 @@ this table show you the **configs** you can set options
 ## 📝 License
 
 Copyright © 2021 [salah alhashmi](https://github.com/alguerocode).<br />
-This project is [MIT](https://github.com/alhashmicode/setup-exreact/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/devSupporters/volder/blob/master/LICENSE) licensed.
 
