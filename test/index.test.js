@@ -8,7 +8,7 @@ test('Volder work correctly', () => {
     male: { type: Boolean, required: true },
     tools: { type: Array, required: true, min: 3 },
     items: { type: Object, required: true },
-    any: { type: null },
+    any: { type: null, min: 2, max: 3 },
     restrictedTypes: { type: null, avoid: [Object, Boolean] },
     type: String,
     nums: Number
@@ -30,7 +30,7 @@ test('Volder work correctly', () => {
     items: 2,
     any: 'welcome',
     type: 'hello there',
-    restrictedTypes: { name: 'max' }
+    restrictedTypes: { name: 'max' },
   };
   const obj3 = {
     type: 23,
@@ -38,7 +38,7 @@ test('Volder work correctly', () => {
     age: 230,
     email: 'gmail.com',
     male: false,
-    any: new Number(3)
+    any: new Number(1)
   };
   const obj4 = {
     nums: 'wrong',
@@ -57,6 +57,7 @@ test('Volder work correctly', () => {
       age: 'age should be at least 1',
       male: 'male is required',
       tools: 'tools is required',
+      any: "any should be at most 3 characters",
       items: 'items should be an object',
       restrictedTypes: 'Object type not allowed'
     }
@@ -66,6 +67,7 @@ test('Volder work correctly', () => {
     {
       type: 'type should be a string',
       age: 'age should be at most 100',
+      any: "any should be at least 2",
       email: 'email should be at least 10 characters',
       tools: 'tools is required',
       name: 'name should be at most 10 characters',
@@ -187,8 +189,6 @@ test('custom type function work correctly', () => {
   };
 
   expect(() => volderSchema.validate(obj3)).toThrowError(
-    new Error(
-      `Expect custom function return boolean but received string at invalid`
-    )
+    new Error(`Expect custom function return boolean but received string at invalid`)
   );
 });

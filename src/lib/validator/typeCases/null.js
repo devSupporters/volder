@@ -1,3 +1,7 @@
+import { arrayCase } from "./array";
+import { stringCase } from "./string";
+import { numberCase } from "./number";
+
 export const nullCase = (input, optionName, optionConfigs, errors) => {
     if (optionConfigs.hasOwnProperty('avoid')) {
         // extract input option name type
@@ -19,4 +23,11 @@ export const nullCase = (input, optionName, optionConfigs, errors) => {
             return false;
         }
     }
+    if (input[optionName].constructor.name === 'Array') {
+        return arrayCase(input, optionName, optionConfigs, errors);
+      } else if (input[optionName].constructor.name === 'String') {
+        return stringCase(input, optionName, optionConfigs, errors);
+      } else if (input[optionName].constructor.name === 'Number') {
+        return numberCase(input, optionName, optionConfigs, errors);
+      }
 };
