@@ -99,4 +99,4 @@ const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"
 ```
 
 ## Options Table
-
+this table show you the **configs** you can set options
