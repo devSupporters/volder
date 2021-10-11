@@ -102,8 +102,8 @@ const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"
 this table show you the **configs** you can set options
 | config | Description | default | only work in
 | --- | --- | --- | --- |
-| `type` |  | `undefined` | work in all options|
-| `required` |  |  `false`  | work in all options|
+| `type` | define the type of option, which are required to be set as `String, Number,Array, Object, Boolean, null, volder schema, Note that the null type is mean everything | `undefined` | work in all options|
+| `required` | Mark the option as required, which will not allow `false` as a value |  `false`  | work in all options|
 | `min` || `undefined` | `String, Number, Array` or null if the input are that|
 | `max` |  | `undefined`|  `String, Number, Array` or null if the input are that|
 | `trim` |  |  `false`| `String`|
