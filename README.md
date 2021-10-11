@@ -15,7 +15,8 @@ volder is a powerful JavaScript schema builder for value parsing and validation.
 - [Custom error messages](#Custom-error-messages)
 - [Custom type validator](#Custom-type-validator)
 - [Nested schema](#Nested-schema)
-- [Option table](#Option-table)
+- [Options table](#Options-table)
+- [Contributing](#Contributing)
 
 ## Installation
 `npm install --save volder`
