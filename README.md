@@ -108,3 +108,8 @@ this table show you the **configs** you can set options
 | `max` | Set a maximum number or length limit for the `String or Array or Number` type | `undefined`|  `String, Number, Array` or null if the input are that|
 | `trim` | Transforms string values by removing leading and trailing whitespace |  `false`| `String`|
 | `avoid` | avoid the types you defined in array like `[Object, Array]` | `[]`| `null`|
+
+## Contributing
+#### I appreciate to contributing in this repository
+
+## LICENSE
