@@ -56,13 +56,30 @@ const person = new Volder({
     required: [true, "name is important"]
   },
   age: {
-    type: [Number, "your age can't be a string"],
+    type: [Number, "your age can not be a string"],
     max: [100, "age at most 100 years"]
   },
   other:  {
-    type: [null, "other can be anything than object and array"]
+    type: [null, "'other' can be anything than object and array"]
     avoid:  [Object, Array],
     required:false
   }
+});
+```
+
+## Custom type validator
+You Can Define you custom types by adding a validator functions that returns a boolean:
+
+```js
+import isEmail from "package";
+import isValidPassword from "package";
+
+const user = new Volder({
+  username: String, // use this trick by just add type as option value
+  email: {
+    type: [isEmail, "Email is invalid"],
+    max: 100
+  },
+  password: isValidPassword
 });
 ```
