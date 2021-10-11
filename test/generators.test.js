@@ -14,7 +14,7 @@ test('objectToMap function should work correctly', () => {
     test: { type: null, avoid: [], required: true },
     testCustomError: { type: [String, 'should be string'], min: [2, 'should 2 length'] },
     properties: Object,
-    customFunction: { type:customFunction}
+    customFunction: { type: customFunction }
   };
 
   const generatedMap = objectToMap(obj1);
@@ -68,7 +68,7 @@ test('objectToMap function should work correctly', () => {
     minErrorMessage: 'should 2 length'
   });
   expect(generatedMap.get('customFunction')).toEqual({
-    type: customFunction,
+    type: customFunction
   });
   // Entering a wrong values
   const obj2 = { position: { require: true } };
@@ -82,7 +82,7 @@ test('objectToMap function should work correctly', () => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type property is required'));
   expect(() => objectToMap(obj3)).toThrowError(
-    new TypeError('Expected a (object | constructor function | null) but received a number')
+    new TypeError('Expected a (object | constructor function | null | volder instance) but received a number')
   );
   expect(() => objectToMap(obj4)).toThrowError(new TypeError('avoid property should be an array'));
   expect(() => objectToMap(obj5)).toThrowError(
@@ -92,12 +92,12 @@ test('objectToMap function should work correctly', () => {
   );
   expect(() => objectToMap(obj6)).toThrowError(
     new TypeError(
-      'Expected a constructor function like { String | Number | Object | Array | Boolean } but received a string'
+      'Expected a type ( String | Number | Object | Array | Boolean | null | function type | Volder instance) but received a string'
     )
   );
   expect(() => objectToMap(obj7)).toThrowError(
     new TypeError(
-      'Expected a constructor function like { String | Number | Object | Array | Boolean } but received a number'
+      'Expected a type ( String | Number | Object | Array | Boolean | null | function type | Volder instance) but received a number'
     )
   );
 });

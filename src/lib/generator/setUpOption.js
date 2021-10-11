@@ -1,12 +1,29 @@
 import { assertType } from '../utils/assertType';
 import { configSpliter } from './configSpliter';
-// import { assertConstructorFunction } from '../utils/assertConstructorFunction';
+import { assertObject } from '../utils/assertObject';
+import { isValidType } from '../utils/isValidType';
+import { Volder } from '../volder';
 
 export const setUpOptionWithConfigs = (optionConfigs) => {
+  // if option just constructor function or null or function
+  const types = [null, Boolean, Object, Number, String, Array];
+
+  if (
+    types.includes(optionConfigs) ||
+    typeof optionConfigs === 'function' ||
+    optionConfigs instanceof Volder
+  ) {
+    optionConfigs = { type: optionConfigs };
+  } else {
+    assertObject(
+      optionConfigs,
+      'Expected a (object | constructor function | null | volder instance) but received a '
+    );
+  }
+
   if (optionConfigs.hasOwnProperty('type')) {
-    if (Array.isArray(optionConfigs.type)) {
-      configSpliter('type', 'constructor-type', optionConfigs);
-    } 
+    Array.isArray(optionConfigs.type) && configSpliter('type', 'constructor-type', optionConfigs);
+    isValidType(optionConfigs.type);
   } else {
     throw new Error('type property is required');
   }

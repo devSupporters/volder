@@ -1,5 +1,5 @@
 import { assertType } from '../utils/assertType';
-import { assertConstructorFunction } from '../utils/assertConstructorFunction';
+import { isValidType } from '../utils/isValidType';
 
 export const configSpliter = (optionConfigName, optionConfigType, optionConfigs) => {
   const configProperty = optionConfigs[optionConfigName];
@@ -11,9 +11,7 @@ export const configSpliter = (optionConfigName, optionConfigType, optionConfigs)
   } else {
     optionConfigType !== 'constructor-type'
       ? assertType(configProperty[0], optionConfigType, `${optionConfigName}[0] property`)
-      : configProperty[0] !== null &&
-        typeof configProperty[0] !== 'function' &&
-        assertConstructorFunction(configProperty[0]);
+      : isValidType(configProperty[0]);
 
     optionConfigs[optionConfigName] = configProperty[0];
 

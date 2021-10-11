@@ -192,3 +192,24 @@ test('custom type function work correctly', () => {
     new Error(`Expect custom function return boolean but received string at invalid`)
   );
 });
+
+test('nested volders should work correctly', () => {
+  const volder1 = new Volder({
+    name:{
+      type:[String, 'must String']
+    },
+    age:Number
+  })
+  const volder2 = new Volder({
+    person:volder1
+  })
+  expect(volder2.validate({person:{name:'max', age:23}})).toEqual([true,{
+    person:[true,{}]
+  }])
+  expect(volder2.validate({person:{name:23, age:'max'}})).toEqual([false,{
+    person:[false, {name:'must String', age:'age should be a number'}]
+  }])
+  expect(volder2.validate({person:"test"})).toEqual([false,{
+    person:'person should be an object'
+  }])
+})

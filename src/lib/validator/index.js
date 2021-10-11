@@ -1,4 +1,5 @@
 import { validatorInput } from './validatorInput';
+import { Volder } from '../volder';
 
 export const validator = (volderMap, input) => {
   const errors = {};
@@ -10,11 +11,29 @@ export const validator = (volderMap, input) => {
       errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
       validInput = validInput && false;
     }
-    
-    // run validator if option input is exist
+
     if (input.hasOwnProperty(optionName)) {
-      const is_valid_input = validatorInput(input, optionName, optionConfigs, errors);
-      if (is_valid_input === false && validInput === true) validInput = false;
+      if (optionConfigs.type instanceof Volder) {
+        const isObject =
+          typeof input[optionName] === 'object' &&
+          !Array.isArray(input[optionName]) &&
+          input[optionName] !== null;
+
+        if (isObject) {
+          const [is_valid_input] = (errors[optionName] = validator(
+            optionConfigs.type.volderMap,
+            input[optionName]
+          ));
+          if (is_valid_input === false) validInput = false;
+        } else {
+          errors[optionName] =
+            optionConfigs.typeErrorMessage || `${optionName} should be an object`;
+          validInput = validInput && false;
+        }
+      } else {
+        const is_valid_input = validatorInput(input, optionName, optionConfigs, errors);
+        if (is_valid_input === false) validInput = false;
+      }
     }
   });
 

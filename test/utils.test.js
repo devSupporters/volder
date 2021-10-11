@@ -1,31 +1,26 @@
-import { assertConstructorFunction } from '../src/lib/utils/assertConstructorFunction';
+import { isValidType } from '../src/lib/utils/isValidType';
 import { assertObject } from '../src/lib/utils/assertObject';
 import { assertType } from '../src/lib/utils/assertType';
+import { Volder } from '../src/lib/volder';
 
 test('assertConstrucotrFunction function work correctly', () => {
   // Entering a correct values
-  expect(assertConstructorFunction(String)).toBeUndefined();
-  expect(assertConstructorFunction(Number)).toBeUndefined();
-  expect(assertConstructorFunction(Boolean)).toBeUndefined();
-  expect(assertConstructorFunction(Array)).toBeUndefined();
-  expect(assertConstructorFunction(Object)).toBeUndefined();
+  expect(isValidType(String)).toBe(true);
+  expect(isValidType(Number)).toBe(true);
+  expect(isValidType(Boolean)).toBe(true);
+  expect(isValidType(Array)).toBe(true);
+  expect(isValidType(Object)).toBe(true);
+  expect(isValidType(new Volder({}))).toBe(true);
+  expect(isValidType(null)).toBe(true);
 
   // Entering a wrong values
   const errorMessage =
-    'Expected a constructor function like { String | Number | Object | Array | Boolean } but received a ';
+    'Expected a type ( String | Number | Object | Array | Boolean | null | function type | Volder instance) but received a ';
 
-  expect(() => assertConstructorFunction('string')).toThrowError(
-    new TypeError(errorMessage + 'string')
-  );
-  expect(() => assertConstructorFunction({ name: 'max' })).toThrowError(
-    new TypeError(errorMessage + 'object')
-  );
-  expect(() => assertConstructorFunction(undefined)).toThrowError(
-    new TypeError(errorMessage + 'undefined')
-  );
-  expect(() => assertConstructorFunction(new Number(3))).toThrowError(
-    new TypeError(errorMessage + 'object')
-  );
+  expect(() => isValidType('string')).toThrowError(new TypeError(errorMessage + 'string'));
+  expect(() => isValidType({ name: 'max' })).toThrowError(new TypeError(errorMessage + 'object'));
+  expect(() => isValidType(undefined)).toThrowError(new TypeError(errorMessage + 'undefined'));
+  expect(() => isValidType(new Number(3))).toThrowError(new TypeError(errorMessage + 'object'));
 });
 
 test('assertObject function work correctly', () => {
