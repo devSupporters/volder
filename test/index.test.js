@@ -136,3 +136,59 @@ test('volder custom errors', () => {
     }
   ]);
 });
+
+test('custom type function work correctly', () => {
+  const isEmail = (input) => input.includes('@');
+  const trueValue = (input) => !!input;
+  const arrayOfItems = (input) => input.length >= 4;
+  const hasProperty = (input) => input.welcome === 'welcome';
+  const isNumber = (input) => input.constructor.name === 'Number';
+  const invalid = (input) => input.constructor.name;
+
+  const volderSchema = new Volder({
+    email: isEmail,
+    invalid,
+    mustBeTrue: { type: trueValue },
+    arrayOfItems: {
+      type: [arrayOfItems, 'must be 4 items'],
+      max: [5, 'must not bigger than 5']
+    },
+    haveProperty: {
+      type: hasProperty,
+      required: true
+    },
+    isNumber: isNumber
+  });
+  const obj1 = {
+    email: '@',
+    arrayOfItems: [1, 2, 3, 4],
+    haveProperty: { welcome: 'welcome' },
+    isNumber: 23
+  };
+  expect(volderSchema.validate(obj1)).toEqual([true, {}]);
+
+  const obj2 = {
+    email: 'invalid',
+    arrayOfItems: [1, 2, 3, 4, 5, 6],
+    isNumber: 'string'
+  };
+  expect(volderSchema.validate(obj2)).toEqual([
+    false,
+    {
+      email: 'email is invalid',
+      arrayOfItems: 'must not bigger than 5',
+      haveProperty: 'haveProperty is required',
+      isNumber: 'isNumber is invalid'
+    }
+  ]);
+
+  const obj3 = {
+    invalid: 'hello'
+  };
+
+  expect(() => volderSchema.validate(obj3)).toThrowError(
+    new Error(
+      `Expect custom function return boolean but received string at invalid`
+    )
+  );
+});

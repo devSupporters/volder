@@ -5,9 +5,10 @@ export const objectToMap = (config) => {
   const generatedMap = new Map();
 
   for (const option in config) {
-    // if option just constructor function or null
+
+    // if option just constructor function or null or function
     const types = [null, Boolean, Object, Number, String, Array];
-    if (types.includes(config[option])) {
+    if (types.includes(config[option]) || typeof config[option] === 'function') {
       config[option] = { type: config[option] };
     } else {
       assertObject(

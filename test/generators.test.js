@@ -4,6 +4,7 @@ import { configSpliter } from '../src/lib/generator/configSpliter';
 
 test('objectToMap function should work correctly', () => {
   // Entering a correct values
+  const customFunction = () => true;
   const obj1 = {
     name: { type: String, min: 3, trim: true },
     age: { type: Number, max: 100, required: true },
@@ -12,7 +13,8 @@ test('objectToMap function should work correctly', () => {
     any: { type: null, avoid: [String, Array] },
     test: { type: null, avoid: [], required: true },
     testCustomError: { type: [String, 'should be string'], min: [2, 'should 2 length'] },
-    properties: Object
+    properties: Object,
+    customFunction: { type:customFunction}
   };
 
   const generatedMap = objectToMap(obj1);
@@ -25,6 +27,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.has('any')).toBe(true);
   expect(generatedMap.has('testCustomError')).toBe(true);
   expect(generatedMap.has('test')).toBe(true);
+  expect(generatedMap.has('customFunction')).toBe(true);
 
   expect(generatedMap.get('name')).toEqual({
     type: String,
@@ -63,6 +66,9 @@ test('objectToMap function should work correctly', () => {
     min: 2,
     typeErrorMessage: 'should be string',
     minErrorMessage: 'should 2 length'
+  });
+  expect(generatedMap.get('customFunction')).toEqual({
+    type: customFunction,
   });
   // Entering a wrong values
   const obj2 = { position: { require: true } };

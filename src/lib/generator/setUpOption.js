@@ -6,7 +6,8 @@ export const setUpOptionWithConfigs = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('type')) {
     if (Array.isArray(optionConfigs.type)) {
       configSpliter('type', 'constructor-type', optionConfigs);
-    } else if (optionConfigs.type !== null) {
+    } 
+    if (optionConfigs.type !== null && typeof optionConfigs.type !== 'function') {
       assertConstructorFunction(optionConfigs.type);
     }
   } else {

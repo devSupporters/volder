@@ -22,8 +22,7 @@
     "pretty": "pretty-quick --check --ignore-path .gitignore --verbose",
     "lint": "eslint src *.js && npm run pretty",
     "format": "eslint src --fix && pretty-quick",
-    "prepare": "npm run build && husky install",
-    "publish": "npm publish --access public"
+    "prepare": "npm run build && husky install"
   },
   "jest": {
     "testPathIgnorePatterns": [

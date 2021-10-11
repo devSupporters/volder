@@ -4,6 +4,7 @@ import { booleanCase } from './typeCases/boolean';
 import { arrayCase } from './typeCases/array';
 import { objectCase } from './typeCases/object';
 import { nullCase } from './typeCases/null';
+import { functionCase } from './typeCases/function'
 
 export const validatorInput = (input, optionName, optionConfigs, errors) => {
   switch (optionConfigs.type) {
@@ -19,5 +20,8 @@ export const validatorInput = (input, optionName, optionConfigs, errors) => {
       return objectCase(input, optionName, optionConfigs, errors);
     case null:
       return nullCase(input, optionName, optionConfigs, errors);
+  }
+  if(typeof optionConfigs.type === 'function') {
+    return functionCase(input, optionName, optionConfigs, errors);
   }
 };
