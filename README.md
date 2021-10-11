@@ -15,7 +15,7 @@
 - [Custom error messages](#Custom-error-messages)
 - [Custom type validator](#Custom-type-validator)
 - [Nested schemas](#Nested-schemas)
-- [Options table](#Options-table)
+- [Configs table](#Configs-table)
 - [Contributing](#Contributing)
 
 ## Installation
@@ -98,5 +98,13 @@ const user = new Volder({
 const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"test@test.com"})
 ```
 
-## Options Table
+## Configs Table
 this table show you the **configs** you can set options
+| config | Description | default | only work on
+| --- | --- | --- | --- |
+| `type` | List all new or modified files | | |
+| `required` | Show file differences that haven't been staged |
+| `min` | List all new or modified files | | |
+| `max` | List all new or modified files | | |
+| `trim` | List all new or modified files | | |
+| `avoid` | List all new or modified files | | |
