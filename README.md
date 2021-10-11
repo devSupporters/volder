@@ -40,3 +40,6 @@ const person = new Volder({
 });
 const [isValidPerson, errors] = person.validate({name:"lion", age:23})
 ```
+ - return isValidPerson true if an object are valid otherwise false
+ - if there are error or something wrong return errors object with his option name otherwise return empty object {} 
+ - throw an error if validate function paramatere other than object
