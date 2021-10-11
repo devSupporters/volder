@@ -39,7 +39,9 @@
   },
   "keywords": [
     "schema-builder",
-    "validator"
+    "validator",
+    "validation",
+    "parser"
   ],
   "author": "salah alhashmi",
   "license": "MIT",

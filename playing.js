@@ -1,7 +1,8 @@
 // this file for testing by run:
-// > npm run build
-// > npm run dev
-import Volder from 'volder';
+// > npm run start # to run rollup --watch server - auto building - 
+// > npm run dev   # to run node server
+
+const Volder = require('./dist/index.cjs');
 
 const person = new Volder({
   name: {
