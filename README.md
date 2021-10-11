@@ -6,7 +6,7 @@
 [![Version](https://img.shields.io/npm/v/volder)](https://www.npmjs.com/package/volder)
 [![License](https://img.shields.io/npm/l/volder)](https://github.com/devSupporters/volder/blob/main/LICENSE)
 
-volder is a powerful JavaScript schema builder for value parsing and validation. Define a schema and validate values, volder schema are extremely simple to use, it has custom error messages, custom types, nested schemas.
+**volder** is a powerful JavaScript schema builder for value parsing and validation. Define a schema and validate values, volder schema are extremely simple to use, it has custom error messages, custom types, nested schemas.
 
 ## Contents
 
@@ -42,7 +42,7 @@ const person = new Volder({
 const [isValidPerson, errors] = person.validate({name:"lion", age:23})
 ```
  - return isValidPerson true if an object are valid otherwise false
- - if there are error or something wrong return errors object with his option name otherwise return empty object {} 
+ - if there are error or something wrong return errors object with his option name otherwise return empty object **{}** 
  - throw an error if validate function paramatere other than object
 
 ## Custom error messages
@@ -68,7 +68,7 @@ const person = new Volder({
 ```
 
 ## Custom type validator
-You Can Define you custom types by adding a validator functions that returns a boolean:
+You Can Define you custom types by adding a validator functions that returns a **boolean**:
 
 ```js
 import isEmail from "package";
@@ -97,3 +97,6 @@ const user = new Volder({
 
 const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"test@test.com"})
 ```
+
+## Options table
+
