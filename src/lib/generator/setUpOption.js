@@ -1,15 +1,12 @@
 import { assertType } from '../utils/assertType';
 import { configSpliter } from './configSpliter';
-import { assertConstructorFunction } from '../utils/assertConstructorFunction';
+// import { assertConstructorFunction } from '../utils/assertConstructorFunction';
 
 export const setUpOptionWithConfigs = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('type')) {
     if (Array.isArray(optionConfigs.type)) {
       configSpliter('type', 'constructor-type', optionConfigs);
     } 
-    if (optionConfigs.type !== null && typeof optionConfigs.type !== 'function') {
-      assertConstructorFunction(optionConfigs.type);
-    }
   } else {
     throw new Error('type property is required');
   }

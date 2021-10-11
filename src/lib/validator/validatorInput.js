@@ -20,8 +20,7 @@ export const validatorInput = (input, optionName, optionConfigs, errors) => {
       return objectCase(input, optionName, optionConfigs, errors);
     case null:
       return nullCase(input, optionName, optionConfigs, errors);
-  }
-  if(typeof optionConfigs.type === 'function') {
-    return functionCase(input, optionName, optionConfigs, errors);
+    default:
+      return functionCase(input, optionName, optionConfigs, errors);
   }
 };
