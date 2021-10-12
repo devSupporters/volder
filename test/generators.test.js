@@ -82,15 +82,11 @@ test('objectToMap function should work correctly', () => {
     objectToMap(obj2);
   }).toThrowError(new TypeError('type property is required'));
   expect(() => objectToMap(obj3)).toThrowError(
-    new TypeError(
-      'Expected a (object | constructor function | null | volder instance) but received a number'
-    )
+    new TypeError('Expected a (object | constructor function | null | volder instance) but received a number')
   );
   expect(() => objectToMap(obj4)).toThrowError(new TypeError('avoid property should be an array'));
   expect(() => objectToMap(obj5)).toThrowError(
-    new TypeError(
-      'Expected this types (String | Object | Array | Number | Boolean) but received type number which 23'
-    )
+    new TypeError('Expected this types (String | Object | Array | Number | Boolean) but received type number which 23')
   );
   expect(() => objectToMap(obj6)).toThrowError(
     new TypeError(

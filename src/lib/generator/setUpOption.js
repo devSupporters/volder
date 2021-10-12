@@ -8,17 +8,10 @@ export const setUpOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function or null or function
   const types = [null, Boolean, Object, Number, String, Array];
 
-  if (
-    types.includes(optionConfigs) ||
-    typeof optionConfigs === 'function' ||
-    optionConfigs instanceof Volder
-  ) {
+  if (types.includes(optionConfigs) || typeof optionConfigs === 'function' || optionConfigs instanceof Volder) {
     optionConfigs = { type: optionConfigs };
   } else {
-    assertObject(
-      optionConfigs,
-      'Expected a (object | constructor function | null | volder instance) but received a '
-    );
+    assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
 
   if (optionConfigs.hasOwnProperty('type')) {

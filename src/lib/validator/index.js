@@ -15,20 +15,14 @@ export const validator = (volderMap, input) => {
     if (input.hasOwnProperty(optionName)) {
       if (optionConfigs.type instanceof Volder) {
         const isObject =
-          typeof input[optionName] === 'object' &&
-          !Array.isArray(input[optionName]) &&
-          input[optionName] !== null;
+          typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
 
         if (isObject) {
-          const [is_valid_input, SchemaErrors] = validator(
-            optionConfigs.type.volderMap,
-            input[optionName]
-          );
+          const [is_valid_input, SchemaErrors] = validator(optionConfigs.type.volderMap, input[optionName]);
           if (Object.keys(SchemaErrors).length > 0) errors[optionName] = SchemaErrors;
           if (is_valid_input === false) validInput = false;
         } else {
-          errors[optionName] =
-            optionConfigs.typeErrorMessage || `${optionName} should be an object`;
+          errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be an object`;
           validInput = validInput && false;
         }
       } else {

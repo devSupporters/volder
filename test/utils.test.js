@@ -30,18 +30,10 @@ test('assertObject function work correctly', () => {
   expect(assertObject(new Object({ value: 23 }))).toBeUndefined();
 
   // Entering a wrong values
-  expect(() => assertObject(null)).toThrowError(
-    new TypeError('Expected a object but received a null')
-  );
-  expect(() => assertObject('test')).toThrowError(
-    new TypeError('Expected a object but received a string')
-  );
-  expect(() => assertObject([1, 2, 3])).toThrowError(
-    new TypeError('Expected a object but received a Array')
-  );
-  expect(() => assertObject(3)).toThrowError(
-    new TypeError('Expected a object but received a number')
-  );
+  expect(() => assertObject(null)).toThrowError(new TypeError('Expected a object but received a null'));
+  expect(() => assertObject('test')).toThrowError(new TypeError('Expected a object but received a string'));
+  expect(() => assertObject([1, 2, 3])).toThrowError(new TypeError('Expected a object but received a Array'));
+  expect(() => assertObject(3)).toThrowError(new TypeError('Expected a object but received a number'));
 });
 
 test('assertType function work correctly', () => {

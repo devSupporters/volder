@@ -6,11 +6,7 @@ export const functionCase = (input, optionName, optionConfigs, errors) => {
   const isValidType = optionConfigs.type(input[optionName]);
 
   if (typeof isValidType !== 'boolean')
-    throw new Error(
-      `Expect custom function return boolean but received ${typeof input[
-        optionName
-      ]} at ${optionName}`
-    );
+    throw new Error(`Expect custom function return boolean but received ${typeof input[optionName]} at ${optionName}`);
   if (!isValidType) {
     errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} is invalid`;
     return false;
