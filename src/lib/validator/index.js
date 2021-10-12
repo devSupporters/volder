@@ -20,10 +20,11 @@ export const validator = (volderMap, input) => {
           input[optionName] !== null;
 
         if (isObject) {
-          const [is_valid_input] = (errors[optionName] = validator(
+          const [is_valid_input, SchemaErrors] = validator(
             optionConfigs.type.volderMap,
             input[optionName]
-          ));
+          );
+          if (Object.keys(SchemaErrors).length > 0) errors[optionName] = SchemaErrors;
           if (is_valid_input === false) validInput = false;
         } else {
           errors[optionName] =

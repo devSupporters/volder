@@ -203,16 +203,11 @@ test('nested volders should work correctly', () => {
   const volder2 = new Volder({
     person: volder1
   });
-  expect(volder2.validate({ person: { name: 'max', age: 23 } })).toEqual([
-    true,
-    {
-      person: [true, {}]
-    }
-  ]);
+  expect(volder2.validate({ person: { name: 'max', age: 23 } })).toEqual([true, {}]);
   expect(volder2.validate({ person: { name: 23, age: 'max' } })).toEqual([
     false,
     {
-      person: [false, { name: 'must String', age: 'age should be a number' }]
+      person: { name: 'must String', age: 'age should be a number' }
     }
   ]);
   expect(volder2.validate({ person: 'test' })).toEqual([

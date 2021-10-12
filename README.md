@@ -1,4 +1,5 @@
 # volder
+
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg?style=flat-square)](https://codecov.io/gh/devSupporters/volder/)
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 [![Package Size](https://img.shields.io/bundlephobia/minzip/volder?label=package%20size)](https://www.npmjs.com/package/volder)
@@ -19,9 +20,11 @@
 - [🤝 Contributing](#Contributing)
 
 ## Installation
+
 `npm install --save volder`
 
 ## Usage
+
 You can create and validate volder schema objects by:
 
 ```js
@@ -31,7 +34,7 @@ const person = new Volder({
   name: {
     type: String,
     min: 4,
-    trim:true,
+    trim: true,
     required: true
   },
   age: {
@@ -39,13 +42,15 @@ const person = new Volder({
     max: 100
   }
 });
-const [isValidPerson, errors] = person.validate({name:"lion", age:23})
+const [isValidPerson, errors] = person.validate({ name: 'lion', age: 23 });
 ```
- - return isValidPerson true if an object are valid otherwise false
- - if there are error or something wrong return errors object with his option name otherwise return empty object **{}** 
- - throw an error if validate function paramatere other than object
+
+- return isValidPerson true if an object are valid otherwise false
+- if there are error or something wrong return errors object with his option name otherwise return empty object **{}**
+- throw an error if validate function paramatere other than object
 
 ## Custom error messages
+
 You Can Define you custom error messages by:
 
 ```js
@@ -68,16 +73,17 @@ const person = new Volder({
 ```
 
 ## Custom type validator
+
 You Can Define you custom types by adding a validator functions that returns a **boolean**:
 
 ```js
-import isEmail from "package";
-import isValidPassword from "package";
+import isEmail from 'package';
+import isValidPassword from 'package';
 
 const user = new Volder({
   username: String, // use this trick by just add type as option value
   email: {
-    type: [isEmail, "Email is invalid"],
+    type: [isEmail, 'Email is invalid'],
     max: 100
   },
   password: isValidPassword
@@ -85,35 +91,36 @@ const user = new Volder({
 ```
 
 ## Nested schemas
+
 You Can Define Nested volder schemas by:
+
 ```js
 import Volder from 'volder';
 
-const person = new Volder({ name: String, age:  Number})
+const person = new Volder({ name: String, age: Number });
 const user = new Volder({
-  email:  { type: String, trim: true },
+  email: { type: String, trim: true },
   person: schema1
 });
 
-const [isValid, errors] = person.validate({person:{name:"lion", age:23}, email:"test@test.com"})
+const [isValid, errors] = person.validate({
+  person: { name: 'lion', age: 23 },
+  email: 'test@test.com'
+});
 ```
 
 ## Configs Table
+
 this table show you the **configs** you can set options
 | config | Description | default | only work in
 | --- | --- | --- | --- |
-| `type` | define the type of option, which are required to be set as `String, Number,Array, Object, Boolean, null, volder schema, Note that the null type is means everything | `undefined` | work in all options|
-| `required` | Mark the option as required, which will not allow `false` as a value |  `false`  | work in all options|
-| `min` |Set a minimum number or length limit for the `String or Array or Number` type| `undefined` | `String, Number, Array` or null if the input are that|
-| `max` | Set a maximum number or length limit for the `String or Array or Number` type | `undefined`|  `String, Number, Array` or null if the input are that|
-| `trim` | Transforms string values by removing leading and trailing whitespace |  `false`| `String`|
-| `avoid` | avoid the types you defined in array like `[Object, Array]` | `[]`| `null`|
+| `type` | define the type of option, which are required to be set as `String, Number,Array, Object, Boolean, null, volder schema, Note that the null type is means everything | `undefined`| work in all options| |`required`| Mark the option as required, which will not allow`false`as a value | `false` | work in all options| |`min`|Set a minimum number or length limit for the`String or Array or Number`type|`undefined`|`String, Number, Array`or null if the input are that| |`max`| Set a maximum number or length limit for the`String or Array or Number`type |`undefined`| `String, Number, Array`or null if the input are that| |`trim`| Transforms string values by removing leading and trailing whitespace | `false`| `String`| | `avoid`| avoid the types you defined in array like`[Object, Array]`|`[]`| `null`|
 
 ## Contributing
+
 #### I appreciate to contributing in this repository
 
 ## 📝 License
 
 Copyright © 2021 [salah alhashmi](https://github.com/alguerocode).<br />
 This project is [MIT](https://github.com/devSupporters/volder/blob/master/LICENSE) licensed.
-
