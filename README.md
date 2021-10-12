@@ -114,7 +114,12 @@ const [isValid, errors] = person.validate({
 this table show you the **configs** you can set options
 | config | Description | default | only work in
 | --- | --- | --- | --- |
-| `type` | define the type of option, which are required to be set as `String, Number,Array, Object, Boolean, null, volder schema, Note that the null type is means everything | `undefined`| work in all options| |`required`| Mark the option as required, which will not allow`false`as a value | `false` | work in all options| |`min`|Set a minimum number or length limit for the`String or Array or Number`type|`undefined`|`String, Number, Array`or null if the input are that| |`max`| Set a maximum number or length limit for the`String or Array or Number`type |`undefined`| `String, Number, Array`or null if the input are that| |`trim`| Transforms string values by removing leading and trailing whitespace | `false`| `String`| | `avoid`| avoid the types you defined in array like`[Object, Array]`|`[]`| `null`|
+| `type` | define the type of option, which are required to be set as `String, Number,Array, Object, Boolean, null, volder schema, Note that the null type is means everything|`undefined`| work in all options| 
+|`required`| Mark the option as required, which will not allow`false`as a value | `false` | work in all options| 
+|`min`|Set a minimum number or length limit for the`String or Array or Number`type|`undefined`|`String, Number, Array`or null if the input are that| 
+|`max`| Set a maximum number or length limit for the`String or Array or Number`type |`undefined`| `String, Number, Array`or null if the input are that| 
+|`trim`| Transforms string values by removing leading and trailing whitespace | `false`| `String`| 
+|`avoid`| avoid the types you defined in array like`[Object, Array]`|`[]`| `null`|
 
 ## Contributing
 
