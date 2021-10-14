@@ -68,7 +68,7 @@ const person = new Volder({
   other:  {
     type: [null, "'other' can be anything than object and array"]
     avoid:  [Object, Array],
-    required:false
+    required: false
   }
 });
 ```
@@ -78,6 +78,7 @@ const person = new Volder({
 You Can Define you custom types by adding a validator functions that returns a **boolean**:
 
 ```js
+import Volder from 'volder';
 import isEmail from 'package';
 import isValidPassword from 'package';
 
@@ -98,10 +99,10 @@ You Can Define Nested volder schemas by:
 ```js
 import Volder from 'volder';
 
-const person = new Volder({ name: String, age: Number });
+const personSchema = new Volder({ name: String, age: Number });
 const user = new Volder({
   email: { type: String, trim: true },
-  person: schema1
+  person: personSchema
 });
 
 const [isValid, errors] = person.validate({
