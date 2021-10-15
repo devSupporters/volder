@@ -1,5 +1,5 @@
 import { validator } from '../src/lib/validator/index';
-import { Volder } from '../src/lib/volder';
+import { Volder } from '../src/index';
 
 test('validator function should work correctly', () => {
   const { volderMap } = new Volder({

@@ -1,4 +1,4 @@
-import Volder from '../src/index';
+import { Volder } from '../src/index';
 
 test('Volder work correctly', () => {
   const volderSchema = new Volder({

@@ -1,7 +1,7 @@
 import { isValidType } from '../src/lib/utils/isValidType';
 import { assertObject } from '../src/lib/utils/assertObject';
 import { assertType } from '../src/lib/utils/assertType';
-import { Volder } from '../src/lib/volder';
+import { Volder } from '../src/index';
 
 test('assertConstrucotrFunction function work correctly', () => {
   // Entering a correct values
