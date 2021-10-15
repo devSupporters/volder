@@ -7,7 +7,7 @@
 [![Version](https://img.shields.io/npm/v/volder?style=for-the-badge)](https://www.npmjs.com/package/volder)
 [![License](https://img.shields.io/npm/l/volder?style=for-the-badge)](https://github.com/devSupporters/volder/blob/main/LICENSE)
 
-**volder** is a powerful JavaScript schema builder for value parsing and validation. Define a schema and validate values, volder schema are extremely simple to use, it has custom error messages, custom types, nested schemas.
+**volder** is a powerful JavaScript schema builder and validating. Define a schema and validate values, volder schema are extremely simple to use, it has custom error messages, custom types, nested schemas.
 
 ## Contents
 
