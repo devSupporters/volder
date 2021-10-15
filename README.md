@@ -28,7 +28,7 @@
 You can create and validate volder schema objects by:
 
 ```js
-import Volder from 'volder';
+import { Volder } from 'volder';
 
 const person = new Volder({
   name: {
@@ -55,6 +55,8 @@ const [isValidPerson, errors] = person.validate({ name: 'lion', age: 23 });
 You Can Define you custom error messages by:
 
 ```js
+import { Volder } from 'volder';
+
 const person = new Volder({
   name: {
     type: [String, "person name shoulde a string"],
@@ -78,7 +80,7 @@ const person = new Volder({
 You Can Define you custom types by adding a validator functions that returns a **boolean**:
 
 ```js
-import Volder from 'volder';
+import { Volder } from 'volder';
 import isEmail from 'package';
 import isValidPassword from 'package';
 
@@ -97,7 +99,7 @@ const user = new Volder({
 You Can Define Nested volder schemas by:
 
 ```js
-import Volder from 'volder';
+import { Volder } from 'volder';
 
 const personSchema = new Volder({ name: String, age: Number });
 const user = new Volder({
