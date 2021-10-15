@@ -52,7 +52,7 @@ const person = new Volder({
 ```
 validate with values (Object) and return `Array` = `[isValid:Boolean, Errors:Object]` 
 ```js
-const [isValidPerson, errors] = person.validate({ name: 'lion', age: 23 });
+const [isValidPerson, errors] = person.validate({ name: 'lion', age: 23 }); => [true, {}]
 ```
 
 
