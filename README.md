@@ -30,9 +30,13 @@ $ yarn add react-toastify
 
 You can create and validate volder schema objects by:
 
+import volder schema constructor:
 ```js
 import { Volder } from 'volder';
+```
 
+create schema:
+```js
 const person = new Volder({
   name: {
     type: String,
@@ -45,8 +49,12 @@ const person = new Volder({
     max: 100
   }
 });
+```
+validate with values (Object) and return `Array` = `[isValid:Boolean, Errors:Object]` 
+```js
 const [isValidPerson, errors] = person.validate({ name: 'lion', age: 23 });
 ```
+
 
 - return isValidPerson true if an object are valid otherwise false
 - if there are error or something wrong return errors object with his option name otherwise return empty object **{}**
