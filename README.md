@@ -21,7 +21,9 @@
 
 ## Installation
 
-`npm install --save volder`
+```sh
+npm install --save volder
+```
 
 ## Usage
 
