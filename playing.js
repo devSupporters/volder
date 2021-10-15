@@ -2,7 +2,7 @@
 // > npm run start # to run rollup --watch server - auto building -
 // > npm run dev   # to run node server
 
-// const Volder = require('./dist/index.cjs');
+// const {Volder} = require('./dist/index.cjs.js');
 
 // const person = new Volder({
 //   name: {
@@ -12,6 +12,8 @@
 //   },
 //   age: {
 //     type: Number,
-//     max: 100
+//     max: 100,
+//     required:true
 //   }
 // });
+// console.log(person.validate({age:""}))
