@@ -21,8 +21,9 @@
 
 ## Installation
 
-```sh
-npm install --save volder
+```
+$ npm install --save react-toastify
+$ yarn add react-toastify
 ```
 
 ## Usage
