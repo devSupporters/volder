@@ -1,6 +1,6 @@
 # volder
 
-[![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg?style=flat-square)](https://codecov.io/gh/devSupporters/volder/)
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg?style=for-the-badge)](https://codecov.io/gh/devSupporters/volder/)
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 [![Package Size](https://img.shields.io/bundlephobia/minzip/volder?label=package%20size&style=for-the-badge)](https://www.npmjs.com/package/volder)
 [![Downloads](https://img.shields.io/npm/dm/volder?style=for-the-badge)](https://www.npmjs.com/package/volder)
