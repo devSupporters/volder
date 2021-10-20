@@ -1,11 +1,12 @@
 # volder
 
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg?style=for-the-badge)](https://codecov.io/gh/devSupporters/volder/)
-[![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 [![Package Size](https://img.shields.io/bundlephobia/minzip/volder?label=package%20size&style=for-the-badge)](https://www.npmjs.com/package/volder)
 [![Downloads](https://img.shields.io/npm/dm/volder?style=for-the-badge)](https://www.npmjs.com/package/volder)
 [![Version](https://img.shields.io/npm/v/volder?style=for-the-badge)](https://www.npmjs.com/package/volder)
 [![License](https://img.shields.io/npm/l/volder?style=for-the-badge)](https://github.com/devSupporters/volder/blob/main/LICENSE)
+[![Gitter](https://badges.gitter.im/voler-community/community.svg)](https://gitter.im/voler-community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 
 **volder** is a powerful JavaScript schema builder and validating. Define a schema and validate schema with data, volder schema are extremely simple to use, it has custom error messages, custom types, nested schemas.
 
