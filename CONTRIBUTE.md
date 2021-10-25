@@ -1,5 +1,5 @@
 # Contributing to Volder
-
+## this readme under development
 👍🎉 First off, thanks for taking the time to contribute! 🎉👍
 
 The following is a set of guidelines for contributing to Volder, which are hosted in the [Dev Supporters Community](https://github.com/devSupporters) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes in a pull request.
