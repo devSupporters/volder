@@ -9,7 +9,7 @@
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 
 **volder** is a powerful JavaScript schema builder and validating. Define a schema and validate schema with data, volder schema are extremely simple to use, it has custom error messages, custom types, nested schemas.
-
+## ⚠️ 2.0.0 in the road with more features and better documents 
 ## Contents
 
 - [⬇️ Installation](#Installation)
