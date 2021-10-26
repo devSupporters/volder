@@ -10,7 +10,7 @@ test('objectToMap function should work correctly', () => {
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
-    any: { type: null, avoid: [String, Array] },
+    any: { type: null, avoid: [String, Array, undefined] },
     test: { type: null, avoid: [], required: true },
     testCustomError: { type: [String, 'should be string'], min: [2, 'should 2 length'] },
     properties: Object,
@@ -54,7 +54,7 @@ test('objectToMap function should work correctly', () => {
   });
   expect(generatedMap.get('any')).toEqual({
     type: null,
-    avoid: [String, Array]
+    avoid: [String, Array, undefined]
   });
   expect(generatedMap.get('test')).toEqual({
     type: null,
@@ -183,9 +183,7 @@ test('configSpliter should work correctly', () => {
   };
 
   expect(() => configSpliter('max', 'number', wrongConfigs)).toThrowError(
-    new TypeError(
-      'Expected Array with two items [configuredValue, customError] but received empty Array at max property'
-    )
+    new TypeError('Expected Array with two items [configuredValue, customError] but received empty Array at max property')
   );
   expect(() => configSpliter('required', 'boolean', wrongConfigs)).toThrowError(
     new TypeError('Expected a boolean but received a string at required[0] property')

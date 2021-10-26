@@ -10,7 +10,8 @@ test('validator function should work correctly', () => {
     items: { type: Array, min: 2, max: 10 },
     tools: { type: Object },
     any: { type: null, required: true },
-    restrictedTypes: { type: null, avoid: [String, Number] }
+    restrictedTypes: { type: null, avoid: [String, Number] },
+    notAllowAvoidTypes: { type: [null, 'null and undefined not allowed'], avoid: [null, undefined] }
   });
 
   const obj1 = {
@@ -26,7 +27,8 @@ test('validator function should work correctly', () => {
     lastName: '      ',
     age: 102,
     items: [1],
-    restrictedTypes: true
+    restrictedTypes: true,
+    notAllowAvoidTypes: null
   };
   const obj3 = {
     name: 23,
@@ -36,7 +38,8 @@ test('validator function should work correctly', () => {
     lastName: 23,
     tools: [1, 2, 3],
     any: 'welcome',
-    restrictedTypes: 1
+    restrictedTypes: 1,
+    notAllowAvoidTypes: undefined
   };
   const obj4 = {
     name: 'welcome to volder npm package',
@@ -55,7 +58,8 @@ test('validator function should work correctly', () => {
       male: 'male is required',
       lastName: 'lastName should be at least 1 characters',
       items: 'items should be at least 2 items',
-      any: 'any is required'
+      any: 'any is required',
+      notAllowAvoidTypes: 'null and undefined not allowed'
     }
   ]);
   expect(validator(volderMap, obj3)).toEqual([
@@ -67,7 +71,8 @@ test('validator function should work correctly', () => {
       items: 'items should be an array',
       lastName: 'lastName should be a string',
       tools: 'tools should be an object',
-      restrictedTypes: 'Number type not allowed'
+      restrictedTypes: 'Number type not allowed',
+      notAllowAvoidTypes: 'null and undefined not allowed'
     }
   ]);
   expect(validator(volderMap, obj4)).toEqual([
