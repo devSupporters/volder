@@ -139,7 +139,7 @@ this table show you the **configs** you can set options
 
 ## Contributing
 
-#### I appreciate to contributing in this repository
+#### I appreciate to contributing in this repository [(go throw the guild lines)](/CONTRIBUTE.md)
 
 ## 📝 License
 
