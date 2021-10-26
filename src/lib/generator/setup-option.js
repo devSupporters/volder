@@ -1,10 +1,14 @@
 import { assertType } from '../utils/assert-type';
 import { configSpliter } from './config-spliter';
 import { assertObject } from '../utils/assert-object';
-import { isValidType } from '../utils/is-valid-type';
 import { Volder } from '../volder';
 
-export const setUpOptionWithConfigs = (optionConfigs) => {
+// configs;
+import { setupTypeConfig } from './configs/type';
+import { setupRequiredConfig } from './configs/required';
+import { setupAvoidConfig } from './configs/avoid';
+
+export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
   const types = [null, Boolean, Object, Number, String, Array];
 
@@ -15,35 +19,9 @@ export const setUpOptionWithConfigs = (optionConfigs) => {
     assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
 
-  if (optionConfigs.hasOwnProperty('type')) {
-    Array.isArray(optionConfigs.type) && configSpliter('type', 'constructor-type', optionConfigs);
-    isValidType(optionConfigs.type);
-  } else {
-    throw new Error('type property is required');
-  }
-
-  if (optionConfigs.hasOwnProperty('required')) {
-    if (Array.isArray(optionConfigs.required)) {
-      configSpliter('required', 'boolean', optionConfigs);
-    } else {
-      assertType(optionConfigs.required, 'boolean', 'required property');
-    }
-  }
-
-  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs.type === null) {
-    const allowedTypes = [String, Object, Array, Number, Boolean];
-    if (!Array.isArray(optionConfigs.avoid)) {
-      throw new TypeError('avoid property should be an array');
-    }
-
-    optionConfigs.avoid.forEach((type) => {
-      if (!allowedTypes.includes(type)) {
-        throw new TypeError(
-          `Expected this types (String | Object | Array | Number | Boolean) but received type ${typeof type} which ${type}`
-        );
-      }
-    });
-  }
+  setupTypeConfig(optionConfigs);
+  setupRequiredConfig(optionConfigs);
+  setupAvoidConfig(optionConfigs);
 
   // avoid this property validators for some types (Boolean | Object | null)
   const avoidedTypes = [Boolean, Object];

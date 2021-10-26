@@ -1,5 +1,5 @@
 import { objectToMap } from '../src/lib/generator/index';
-import { setUpOptionWithConfigs } from '../src/lib/generator/setup-option';
+import { setupOptionWithConfigs } from '../src/lib/generator/setup-option';
 import { configSpliter } from '../src/lib/generator/config-spliter';
 
 test('objectToMap function should work correctly', () => {
@@ -100,7 +100,7 @@ test('objectToMap function should work correctly', () => {
   );
 });
 
-test('setUpOptionWithConfigs function should work correctly', () => {
+test('setupOptionWithConfigs function should work correctly', () => {
   // Entring a correct values
   const obj1 = { type: Number };
   const obj2 = { type: String, required: true, min: 12, max: 30 };
@@ -112,17 +112,17 @@ test('setUpOptionWithConfigs function should work correctly', () => {
     min: [1, 'smaller than 1']
   };
 
-  expect(setUpOptionWithConfigs(obj1)).toEqual({ type: Number });
-  expect(setUpOptionWithConfigs(obj2)).toEqual({
+  expect(setupOptionWithConfigs(obj1)).toEqual({ type: Number });
+  expect(setupOptionWithConfigs(obj2)).toEqual({
     type: String,
     required: true,
     min: 12,
     max: 30
   });
-  expect(setUpOptionWithConfigs(obj3)).toEqual({
+  expect(setupOptionWithConfigs(obj3)).toEqual({
     type: Boolean
   });
-  expect(setUpOptionWithConfigs(obj4)).toEqual({
+  expect(setupOptionWithConfigs(obj4)).toEqual({
     type: String,
     required: false,
     requiredErrorMessage: 'type not required',
@@ -137,16 +137,16 @@ test('setUpOptionWithConfigs function should work correctly', () => {
   const wrongObj3 = { type: Number, required: 2 };
   const wrongObj4 = { type: Number, min: 10, max: 8 };
 
-  expect(() => setUpOptionWithConfigs(wrongObj1)).toThrowError(
+  expect(() => setupOptionWithConfigs(wrongObj1)).toThrowError(
     new TypeError('Expected a number but received a string at min property')
   );
-  expect(() => setUpOptionWithConfigs(wrongObj2)).toThrowError(
+  expect(() => setupOptionWithConfigs(wrongObj2)).toThrowError(
     new TypeError('Expected a number but received a boolean at max property')
   );
-  expect(() => setUpOptionWithConfigs(wrongObj3)).toThrowError(
+  expect(() => setupOptionWithConfigs(wrongObj3)).toThrowError(
     new TypeError('Expected a boolean but received a number at required property')
   );
-  expect(() => setUpOptionWithConfigs(wrongObj4)).toThrowError(
+  expect(() => setupOptionWithConfigs(wrongObj4)).toThrowError(
     new Error('min property should be Equal or Smaller than max property')
   );
 });

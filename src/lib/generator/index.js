@@ -1,10 +1,10 @@
-import { setUpOptionWithConfigs } from './setup-option';
+import { setupOptionWithConfigs } from './setup-option';
 
 export const objectToMap = (config) => {
   const generatedMap = new Map();
 
   for (const option in config) {
-    const configuredOption = setUpOptionWithConfigs(config[option]);
+    const configuredOption = setupOptionWithConfigs(config[option]);
     generatedMap.set(option, configuredOption);
   }
 
