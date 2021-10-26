@@ -1,4 +1,4 @@
-import { validatorInput } from './validatorInput';
+import { validatorInput } from './validator-input';
 import { Volder } from '../volder';
 
 export const validator = (volderMap, input) => {

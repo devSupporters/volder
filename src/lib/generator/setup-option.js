@@ -1,13 +1,14 @@
-import { assertType } from '../utils/assertType';
-import { configSpliter } from './configSpliter';
-import { assertObject } from '../utils/assertObject';
-import { isValidType } from '../utils/isValidType';
+import { assertType } from '../utils/assert-type';
+import { configSpliter } from './config-spliter';
+import { assertObject } from '../utils/assert-object';
+import { isValidType } from '../utils/is-valid-type';
 import { Volder } from '../volder';
 
 export const setUpOptionWithConfigs = (optionConfigs) => {
-  // if option just constructor function or null or function
+  // if option just constructor function | null | function | volder schema
   const types = [null, Boolean, Object, Number, String, Array];
 
+  // if option is just a type;
   if (types.includes(optionConfigs) || typeof optionConfigs === 'function' || optionConfigs instanceof Volder) {
     optionConfigs = { type: optionConfigs };
   } else {

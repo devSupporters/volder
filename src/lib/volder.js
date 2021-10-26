@@ -1,6 +1,6 @@
 import { objectToMap } from './generator/index';
 import { validator } from './validator/index';
-import { assertObject } from './utils/assertObject';
+import { assertObject } from './utils/assert-object';
 
 export class Volder {
   constructor(config) {

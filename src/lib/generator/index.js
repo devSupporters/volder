@@ -1,4 +1,4 @@
-import { setUpOptionWithConfigs } from './setUpOption';
+import { setUpOptionWithConfigs } from './setup-option';
 
 export const objectToMap = (config) => {
   const generatedMap = new Map();

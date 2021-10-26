@@ -1,5 +1,5 @@
-import { assertType } from '../utils/assertType';
-import { isValidType } from '../utils/isValidType';
+import { assertType } from '../utils/assert-type';
+import { isValidType } from '../utils/is-valid-type';
 
 export const configSpliter = (optionConfigName, optionConfigType, optionConfigs) => {
   const configProperty = optionConfigs[optionConfigName];
