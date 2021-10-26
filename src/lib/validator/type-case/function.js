@@ -12,6 +12,7 @@ export const functionCase = (input, optionName, optionConfigs, errors) => {
     return false;
   }
 
+  // return a input value to other validator if it match any of it:
   if (input[optionName].constructor.name === 'Array') {
     return arrayCase(input, optionName, optionConfigs, errors);
   } else if (input[optionName].constructor.name === 'String') {

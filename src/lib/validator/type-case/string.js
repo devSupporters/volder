@@ -5,7 +5,7 @@ export const stringCase = (input, optionName, optionConfigs, errors) => {
         errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be a string`;
         return false;
     }
-
+    
     if (optionConfigs.hasOwnProperty('trim') && optionConfigs.trim) {
         input[optionName] = input[optionName].trim();
     }

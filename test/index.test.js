@@ -189,7 +189,7 @@ test('custom type function work correctly', () => {
   };
 
   expect(() => volderSchema.validate(obj3)).toThrowError(
-    new Error(`Expect custom function return boolean but received string at invalid`)
+    new Error(`Expect custom function return a boolean but received string at invalid`)
   );
 });
 
