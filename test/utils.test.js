@@ -1,6 +1,6 @@
-import { isValidType } from '../src/lib/utils/isValidType';
-import { assertObject } from '../src/lib/utils/assertObject';
-import { assertType } from '../src/lib/utils/assertType';
+import { isValidType } from '../src/lib/utils/is-valid-type';
+import { assertObject } from '../src/lib/utils/assert-object';
+import { assertType } from '../src/lib/utils/assert-type';
 import { Volder } from '../src/index';
 
 test('assertConstrucotrFunction function work correctly', () => {

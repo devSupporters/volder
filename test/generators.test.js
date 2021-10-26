@@ -1,6 +1,6 @@
 import { objectToMap } from '../src/lib/generator/index';
-import { setUpOptionWithConfigs } from '../src/lib/generator/setUpOption';
-import { configSpliter } from '../src/lib/generator/configSpliter';
+import { setUpOptionWithConfigs } from '../src/lib/generator/setup-option';
+import { configSpliter } from '../src/lib/generator/config-spliter';
 
 test('objectToMap function should work correctly', () => {
   // Entering a correct values
