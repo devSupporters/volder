@@ -5,11 +5,17 @@ import { assertObject } from './utils/assert-object';
 export class Volder {
   constructor(config) {
     assertObject(config);
-    this.volderMap = objectToMap(config);
-  }
 
-  validate(input) {
-    assertObject(input);
-    return validator(this.volderMap, input);
+    this.volderMap = objectToMap(config);
+
+    this.validate = (input) => {
+      assertObject(input);
+      return validator(this.volderMap, input);
+    };
+
+    this.isValid = (input) => {
+      assertObject(input);
+      return validator(this.volderMap, input)[0];
+    };
   }
 }

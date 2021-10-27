@@ -216,4 +216,7 @@ test('nested volders should work correctly', () => {
       person: 'person should be an object'
     }
   ]);
+  expect(volder2.isValid({ person: { name: 'max', age: 23 } })).toBe(true);
+  expect(volder2.isValid({ person: { name: 23, age: 'max' } })).toBe(false);
+  expect(volder2.isValid({ person: 'test' })).toBe(false);
 });

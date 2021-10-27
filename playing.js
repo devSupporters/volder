@@ -16,4 +16,4 @@ const person = new Volder({
     required: true
   }
 });
-console.log(person.validate({ age: '' }));
+console.log(person.entries.return().done);

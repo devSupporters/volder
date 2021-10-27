@@ -18,16 +18,16 @@ export const validator = (volderMap, input) => {
           typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
 
         if (isObject) {
-          const [is_valid_input, SchemaErrors] = validator(optionConfigs.type.volderMap, input[optionName]);
+          const [validCurInput, SchemaErrors] = validator(optionConfigs.type.volderMap, input[optionName]);
           if (Object.keys(SchemaErrors).length > 0) errors[optionName] = SchemaErrors;
-          if (is_valid_input === false) validInput = false;
+          if (validCurInput === false) validInput = false;
         } else {
           errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be an object`;
           validInput = validInput && false;
         }
       } else {
-        const is_valid_input = validatorInput(input, optionName, optionConfigs, errors);
-        if (is_valid_input === false) validInput = false;
+        const validCurInput = validatorInput(input, optionName, optionConfigs, errors);
+        if (validCurInput === false) validInput = false;
       }
     }
   });
