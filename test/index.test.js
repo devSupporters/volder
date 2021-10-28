@@ -86,6 +86,10 @@ test('Volder work correctly', () => {
       items: 'items should be an object'
     }
   ]);
+  expect(volderSchema.isValid(obj1)).toBe(true);
+  expect(volderSchema.isValid(obj2)).toBe(false);
+  expect(volderSchema.isValid(obj3)).toBe(false);
+  expect(volderSchema.isValid(obj4)).toBe(false);
 });
 
 test('volder custom errors', () => {
@@ -167,6 +171,7 @@ test('custom type function work correctly', () => {
     haveProperty: { welcome: 'welcome' },
     isNumber: 23
   };
+  expect(volderSchema.isValid(obj1)).toBe(true);
   expect(volderSchema.validate(obj1)).toEqual([true, {}]);
 
   const obj2 = {
@@ -174,7 +179,8 @@ test('custom type function work correctly', () => {
     arrayOfItems: [1, 2, 3, 4, 5, 6],
     isNumber: 'string'
   };
-  
+
+  expect(volderSchema.isValid(obj2)).toBe(false);
   expect(volderSchema.validate(obj2)).toEqual([
     false,
     {
@@ -185,9 +191,7 @@ test('custom type function work correctly', () => {
     }
   ]);
 
-  const obj3 = {
-    invalid: 'hello'
-  };
+  const obj3 = { invalid: 'hello' };
 
   expect(() => volderSchema.validate(obj3)).toThrowError(
     new Error(`Expect custom function return a boolean but received string at invalid`)
