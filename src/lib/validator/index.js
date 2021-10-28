@@ -12,9 +12,7 @@ export const validator = (volderMap, input, collectErrors = true) => {
     if (optionConfigs.required === true && !input.hasOwnProperty(optionName)) {
       if (collectErrors) errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
       validCurInput = false;
-    }
-
-    if (input.hasOwnProperty(optionName)) {
+    } else if (input.hasOwnProperty(optionName)) {
       if (optionConfigs.type instanceof Volder) {
         const isObject = typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
 
@@ -29,9 +27,9 @@ export const validator = (volderMap, input, collectErrors = true) => {
         }
       } else validCurInput = validateInput(input, optionName, optionConfigs, errors, collectErrors);
 
-      // validCurInput sometimes equal undefined, so we need to strict equal to false;
-      if (validCurInput === false) validInput = false;
     }
+    // validCurInput sometimes equal undefined, so we need to strict equal to false;
+    if (validCurInput === false) validInput = false;
   });
 
   if (collectErrors) return [validInput, errors];

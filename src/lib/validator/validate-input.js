@@ -15,7 +15,7 @@ export const validateInput = (input, optionName, optionConfigs, errors, collectE
     case Boolean:
       return booleanCase(input, optionName, optionConfigs, errors, collectErrors);
     case Array:
-      return arrayCase(input, optionName, optionConfigs, errors);
+      return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
     case Object:
       return objectCase(input, optionName, optionConfigs, errors, collectErrors);
     case null:

@@ -14,10 +14,10 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
 
   // return a input value to other validator if it match any of it:
   if (input[optionName].constructor.name === 'Array') {
-    return arrayCase(input, optionName, optionConfigs, errors);
+    return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (input[optionName].constructor.name === 'String') {
-    return stringCase(input, optionName, optionConfigs, errors);
+    return stringCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (input[optionName].constructor.name === 'Number') {
-    return numberCase(input, optionName, optionConfigs, errors);
+    return numberCase(input, optionName, optionConfigs, errors, collectErrors);
   }
 };

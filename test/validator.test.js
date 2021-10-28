@@ -48,7 +48,13 @@ test('validator function should work correctly', () => {
     tools: new Object({ home: true }),
     restrictedTypes: 'test'
   };
-
+  const obj5 = {
+    name: 'max and min and welcome',
+    age: 90,
+    tools: { machine: true },
+    any: [1],
+    restrictedTypes: [1, 2, 3]
+  };
   expect(validator(volderMap, obj1)).toEqual([true, {}]);
   expect(validator(volderMap, obj2)).toEqual([
     false,
@@ -84,9 +90,16 @@ test('validator function should work correctly', () => {
       restrictedTypes: 'String type not allowed'
     }
   ]);
+  expect(validator(volderMap, obj5)).toEqual([
+    false,
+    {
+      male:'male is required'
+    }
+  ]);
   // without collect the errors;
   expect(validator(volderMap, obj1, false)).toBe(true);
   expect(validator(volderMap, obj2, false)).toBe(false);
   expect(validator(volderMap, obj3, false)).toBe(false);
   expect(validator(volderMap, obj4, false)).toBe(false);
+  expect(validator(volderMap, obj5, false)).toBe(false);
 });

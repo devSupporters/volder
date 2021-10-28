@@ -174,6 +174,7 @@ test('custom type function work correctly', () => {
     arrayOfItems: [1, 2, 3, 4, 5, 6],
     isNumber: 'string'
   };
+  
   expect(volderSchema.validate(obj2)).toEqual([
     false,
     {
