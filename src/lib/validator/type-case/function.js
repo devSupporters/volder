@@ -8,7 +8,10 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
   if (typeof isValidType !== 'boolean')
     throw new Error(`Expect custom function return a boolean but received ${typeof input[optionName]} at ${optionName}`);
   if (!isValidType) {
-    errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} is invalid`;
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} is invalid`;
+    }
+
     return false;
   }
 

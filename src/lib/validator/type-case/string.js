@@ -2,7 +2,10 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
 
   if (!isString) {
-    errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be a string`;
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be a string`;
+    }
+
     return false;
   }
 
@@ -11,12 +14,18 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
   }
 
   if (optionConfigs.hasOwnProperty('min') && input[optionName].length < optionConfigs.min) {
-    errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min} characters`;
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min} characters`;
+    }
+
     return false;
   }
 
   if (optionConfigs.hasOwnProperty('max') && input[optionName].length > optionConfigs.max) {
-    errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max} characters`;
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max} characters`;
+    }
+
     return false;
   }
 };

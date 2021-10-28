@@ -7,7 +7,10 @@ export const nullCase = (input, optionName, optionConfigs, errors, collectErrors
   if (optionConfigs.hasOwnProperty('avoid')) {
     const isAvoidedType = validateAvoid(input[optionName], optionConfigs.avoid);
     if (!isAvoidedType.valid) {
-      errors[optionName] = optionConfigs.typeErrorMessage || `${isAvoidedType.type} type not allowed`;
+      if (collectErrors) {
+        errors[optionName] = optionConfigs.typeErrorMessage || `${isAvoidedType.type} type not allowed`;
+      }
+
       return false;
     }
   }
