@@ -23,4 +23,6 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
   } else if (input[optionName].constructor.name === 'Number') {
     return numberCase(input, optionName, optionConfigs, errors, collectErrors);
   }
+
+  return true;
 };

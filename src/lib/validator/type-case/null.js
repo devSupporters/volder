@@ -22,4 +22,6 @@ export const nullCase = (input, optionName, optionConfigs, errors, collectErrors
   } else if (input[optionName].constructor.name === 'Number') {
     return numberCase(input, optionName, optionConfigs, errors, collectErrors);
   }
+
+  return true;
 };

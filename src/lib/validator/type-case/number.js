@@ -21,4 +21,6 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
     }
     return false;
   }
+
+  return true;
 };

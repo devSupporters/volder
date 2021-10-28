@@ -29,7 +29,7 @@ export const validator = (volderMap, input, collectErrors = true) => {
 
     }
     // validCurInput sometimes equal undefined, so we need to strict equal to false;
-    if (validCurInput === false) validInput = false;
+    if (!validCurInput) validInput = false;
   });
 
   if (collectErrors) return [validInput, errors];

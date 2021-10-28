@@ -27,4 +27,5 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
 
     return false;
   }
+  return true;
 };

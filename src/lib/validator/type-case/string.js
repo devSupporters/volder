@@ -28,4 +28,6 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
 
     return false;
   }
+
+  return true;
 };
