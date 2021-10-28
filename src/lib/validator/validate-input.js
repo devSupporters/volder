@@ -6,7 +6,7 @@ import { objectCase } from './type-case/object';
 import { nullCase } from './type-case/null';
 import { functionCase } from './type-case/function';
 
-export const validatorInput = (input, optionName, optionConfigs, errors) => {
+export const validateInput = (input, optionName, optionConfigs, errors) => {
   switch (optionConfigs.type) {
     case String:
       return stringCase(input, optionName, optionConfigs, errors);

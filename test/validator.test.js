@@ -1,4 +1,4 @@
-import { validator, isValid } from '../src/lib/validator/index';
+import { validator } from '../src/lib/validator/index';
 import { Volder } from '../src/index';
 
 test('validator function should work correctly', () => {
@@ -84,4 +84,9 @@ test('validator function should work correctly', () => {
       restrictedTypes: 'String type not allowed'
     }
   ]);
+  // without collect the errors;
+  expect(validator(volderMap, obj1, false)).toBe(true);
+  expect(validator(volderMap, obj2, false)).toBe(false);
+  expect(validator(volderMap, obj3, false)).toBe(false);
+  expect(validator(volderMap, obj4, false)).toBe(false);
 });
