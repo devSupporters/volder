@@ -2,7 +2,7 @@ import { arrayCase } from './array';
 import { stringCase } from './string';
 import { numberCase } from './number';
 
-export const functionCase = (input, optionName, optionConfigs, errors) => {
+export const functionCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isValidType = optionConfigs.type(input[optionName]);
 
   if (typeof isValidType !== 'boolean')

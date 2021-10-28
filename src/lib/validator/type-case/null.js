@@ -3,7 +3,7 @@ import { stringCase } from './string';
 import { numberCase } from './number';
 import { validateAvoid } from '../configs-validators/avoid';
 
-export const nullCase = (input, optionName, optionConfigs, errors) => {
+export const nullCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   if (optionConfigs.hasOwnProperty('avoid')) {
     const isAvoidedType = validateAvoid(input[optionName], optionConfigs.avoid);
     if (!isAvoidedType.valid) {

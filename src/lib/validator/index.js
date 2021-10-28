@@ -27,7 +27,7 @@ export const validator = (volderMap, input, collectErrors = true) => {
           if (collectErrors) errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be an object`;
           validCurInput = false;
         }
-      } else validCurInput = validateInput(input, optionName, optionConfigs, errors);
+      } else validCurInput = validateInput(input, optionName, optionConfigs, errors, collectErrors);
 
       // validCurInput sometimes equal undefined, so we need to strict equal to false;
       if (validCurInput === false) validInput = false;

@@ -1,4 +1,4 @@
-export const booleanCase = (input, optionName, optionConfigs, errors) => {
+export const booleanCase = (input, optionName, optionConfigs, errors, collectErrors) => {
     const isBoolean =
         typeof input[optionName] === 'boolean' || input[optionName] instanceof Boolean;
 

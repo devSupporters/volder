@@ -1,4 +1,4 @@
-export const numberCase = (input, optionName, optionConfigs, errors) => {
+export const numberCase = (input, optionName, optionConfigs, errors, collectErrors) => {
     const isNumber = typeof input[optionName] === 'number' || input[optionName] instanceof Number;
 
     if (!isNumber) {
