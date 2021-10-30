@@ -55,10 +55,10 @@ test('validator function should work correctly', () => {
     any: [1],
     restrictedTypes: [1, 2, 3]
   };
-  expect(validator(volderMap, obj1)).toEqual([true, {}]);
-  expect(validator(volderMap, obj2)).toEqual([
-    false,
-    {
+  expect(validator(volderMap, obj1)).toEqual({valid:true, errors:{}});
+  expect(validator(volderMap, obj2)).toEqual({
+    valid:false,
+    errors:{
       name: 'name should be at least 10 characters',
       age: 'age should be at most 100',
       male: 'male is required',
@@ -67,10 +67,10 @@ test('validator function should work correctly', () => {
       any: 'any is required',
       notAllowAvoidTypes: 'null and undefined not allowed'
     }
-  ]);
-  expect(validator(volderMap, obj3)).toEqual([
-    false,
-    {
+  });
+  expect(validator(volderMap, obj3)).toEqual({
+    valid:false,
+    errors:{
       name: 'name should be a string',
       age: 'age should be a number',
       male: 'male should be a boolean (true or false)',
@@ -80,22 +80,22 @@ test('validator function should work correctly', () => {
       restrictedTypes: 'Number type not allowed',
       notAllowAvoidTypes: 'null and undefined not allowed'
     }
-  ]);
-  expect(validator(volderMap, obj4)).toEqual([
-    false,
-    {
+  });
+  expect(validator(volderMap, obj4)).toEqual({
+    valid:false,
+    errors:{
       age: 'age is required',
       items: 'items should be at most 10 items',
       any: 'any is required',
       restrictedTypes: 'String type not allowed'
     }
-  ]);
-  expect(validator(volderMap, obj5)).toEqual([
-    false,
-    {
+  });
+  expect(validator(volderMap, obj5)).toEqual({
+    valid:false,
+    errors:{
       male:'male is required'
     }
-  ]);
+  });
   // without collect the errors;
   expect(validator(volderMap, obj1, false)).toBe(true);
   expect(validator(volderMap, obj2, false)).toBe(false);

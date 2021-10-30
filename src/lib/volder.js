@@ -13,7 +13,7 @@ export class Volder {
       return validator(this.volderMap, input);
     };
 
-    this.isValid = (input) => {
+    this.valid = (input) => {
       assertObject(input);
       return validator(this.volderMap, input, false);
     };

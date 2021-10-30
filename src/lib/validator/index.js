@@ -3,7 +3,7 @@ import { Volder } from '../volder';
 
 export const validator = (volderMap, input, collectErrors = true) => {
   const errors = {};
-  let validInput = true;
+  let valid = true;
 
   volderMap.forEach((optionConfigs, optionName) => {
     let validCurInput = true;
@@ -18,9 +18,11 @@ export const validator = (volderMap, input, collectErrors = true) => {
 
         if (isObject) {
           const validationResult = validator(optionConfigs.type.volderMap, input[optionName], collectErrors);
-
-          if (collectErrors && Object.keys(validationResult[1]).length > 0) errors[optionName] = validationResult[1];
-          validCurInput = collectErrors ? validationResult[0] : validationResult;
+          
+          validCurInput = collectErrors ? validationResult.valid : validationResult;
+          
+          if (collectErrors && Object.keys(validationResult.errors).length > 0) errors[optionName] = validationResult.errors;
+          
         } else {
           if (collectErrors) errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be an object`;
           validCurInput = false;
@@ -29,9 +31,9 @@ export const validator = (volderMap, input, collectErrors = true) => {
 
     }
     // validCurInput sometimes equal undefined, so we need to strict equal to false;
-    if (!validCurInput) validInput = false;
+    if (!validCurInput) valid = false;
   });
 
-  if (collectErrors) return [validInput, errors];
-  else return validInput;
+  if (collectErrors) return { valid, errors };
+  else return valid;
 };
