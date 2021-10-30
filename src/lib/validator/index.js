@@ -37,6 +37,6 @@ export const validator = (volderMap, input, collectErrors = true) => {
     if (!validCurInput) valid = false;
   });
 
-  if (collectErrors) return { valid, errors, value: clonedInput };
+  if (collectErrors) return { valid, errors, value: valid ? clonedInput : {} };
   else return valid;
 };

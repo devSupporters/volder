@@ -55,7 +55,7 @@ test('validator function should work correctly', () => {
     any: [1],
     restrictedTypes: [1, 2, 3]
   };
-  expect(validator(volderMap, obj1)).toEqual({valid:true, errors:{}});
+  expect(validator(volderMap, obj1)).toEqual({valid:true, errors:{}, value:obj1});
   expect(validator(volderMap, obj2)).toEqual({
     valid:false,
     errors:{
@@ -66,7 +66,8 @@ test('validator function should work correctly', () => {
       items: 'items should be at least 2 items',
       any: 'any is required',
       notAllowAvoidTypes: 'null and undefined not allowed'
-    }
+    },
+    value:{}
   });
   expect(validator(volderMap, obj3)).toEqual({
     valid:false,
@@ -79,7 +80,8 @@ test('validator function should work correctly', () => {
       tools: 'tools should be an object',
       restrictedTypes: 'Number type not allowed',
       notAllowAvoidTypes: 'null and undefined not allowed'
-    }
+    },
+    value:{}
   });
   expect(validator(volderMap, obj4)).toEqual({
     valid:false,
@@ -88,13 +90,15 @@ test('validator function should work correctly', () => {
       items: 'items should be at most 10 items',
       any: 'any is required',
       restrictedTypes: 'String type not allowed'
-    }
+    },
+    value:{}
   });
   expect(validator(volderMap, obj5)).toEqual({
     valid:false,
     errors:{
       male:'male is required'
-    }
+    },
+    value:{}
   });
   // without collect the errors;
   expect(validator(volderMap, obj1, false)).toBe(true);

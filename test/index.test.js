@@ -49,7 +49,7 @@ test('Volder Schme work correctly', () => {
     items: [1, 2, 3]
   };
 
-  expect(volderSchema.validate(obj1)).toEqual({ valid: true, errors: {} });
+  expect(volderSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
   expect(volderSchema.validate(obj2)).toEqual({
     valid: false,
     errors: {
@@ -60,7 +60,8 @@ test('Volder Schme work correctly', () => {
       any: 'any should be at most 3 characters',
       items: 'items should be an object',
       restrictedTypes: 'Object type not allowed'
-    }
+    },
+    value: {}
   });
   expect(volderSchema.validate(obj3)).toEqual({
     valid: false,
@@ -72,7 +73,8 @@ test('Volder Schme work correctly', () => {
       tools: 'tools is required',
       name: 'name should be at most 10 characters',
       items: 'items is required'
-    }
+    },
+    value: {}
   });
   expect(volderSchema.validate(obj4)).toEqual({
     valid: false,
@@ -84,7 +86,8 @@ test('Volder Schme work correctly', () => {
       tools: 'tools should be at least 3 items',
       age: 'age should be a number',
       items: 'items should be an object'
-    }
+    },
+    value: {}
   });
   expect(volderSchema.valid(obj1)).toBe(true);
   expect(volderSchema.valid(obj2)).toBe(false);
@@ -110,36 +113,27 @@ test('volder custom errors', () => {
       avoid: [String]
     }
   });
-  expect(
-    volderSchema.validate({
-      name: 'i am max',
-      age: 32
-    })
-  ).toEqual({ valid: true, errors: {} });
-  expect(
-    volderSchema.validate({
-      name: '123',
-      other: 'string type'
-    })
-  ).toEqual({
+
+  const obj1 = { name: 'i am max', age: 32 };
+  const obj2 = { name: '123', other: 'string type' };
+  const obj3 = { name: 'my name is max under the water', age: 'i am not a number' };
+  expect(volderSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
+  expect(volderSchema.validate(obj2)).toEqual({
     valid: false,
     errors: {
       age: 'shoulde be a there',
       other: 'anything without string',
       name: 'min length is 4'
-    }
+    },
+    value: {}
   });
-  expect(
-    volderSchema.validate({
-      name: 'my name is max under the water',
-      age: 'i am not a number'
-    })
-  ).toEqual({
+  expect(volderSchema.validate(obj3)).toEqual({
     valid: false,
     errors: {
       age: 'I am must be a number',
       name: 'max length is 10'
-    }
+    },
+    value: {}
   });
 });
 
@@ -171,16 +165,13 @@ test('custom type function work correctly', () => {
     haveProperty: { welcome: 'welcome' },
     isNumber: 23
   };
-  expect(volderSchema.valid(obj1)).toBe(true);
-  expect(volderSchema.validate(obj1)).toEqual({ valid: true, errors: {} });
-
   const obj2 = {
     email: 'invalid',
     arrayOfItems: [1, 2, 3, 4, 5, 6],
     isNumber: 'string'
   };
+  expect(volderSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
 
-  expect(volderSchema.valid(obj2)).toBe(false);
   expect(volderSchema.validate(obj2)).toEqual({
     valid: false,
     errors: {
@@ -188,8 +179,12 @@ test('custom type function work correctly', () => {
       arrayOfItems: 'must not bigger than 5',
       haveProperty: 'haveProperty is required',
       isNumber: 'isNumber is invalid'
-    }
+    },
+    value: {}
   });
+
+  expect(volderSchema.valid(obj1)).toBe(true);
+  expect(volderSchema.valid(obj2)).toBe(false);
 
   const obj3 = { invalid: 'hello' };
 
@@ -208,18 +203,24 @@ test('nested volders should work correctly', () => {
   const volder2 = new Volder({
     person: volder1
   });
-  expect(volder2.validate({ person: { name: 'max', age: 23 } })).toEqual({ valid: true, errors: {} });
+  expect(volder2.validate({ person: { name: 'max', age: 23 } })).toEqual({
+    valid: true,
+    errors: {},
+    value: { person: { name: 'max', age: 23 } }
+  });
   expect(volder2.validate({ person: { name: 23, age: 'max' } })).toEqual({
     valid: false,
     errors: {
       person: { name: 'must String', age: 'age should be a number' }
-    }
+    },
+    value: {}
   });
   expect(volder2.validate({ person: 'test' })).toEqual({
     valid: false,
     errors: {
       person: 'person should be an object'
-    }
+    },
+    value: {}
   });
   expect(volder2.valid({ person: { name: 'max', age: 23 } })).toBe(true);
   expect(volder2.valid({ person: { name: 23, age: 'max' } })).toBe(false);
