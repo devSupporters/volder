@@ -1,6 +1,6 @@
 import { validateInput } from './validate-input';
 import { Volder } from '../volder';
-import { deepClone } from '../utils/deepClone';
+import { deepClone } from '../utils/deep-clone';
 
 export const validator = (volderMap, input, collectErrors = true) => {
   const clonedInput = deepClone(input);
