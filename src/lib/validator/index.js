@@ -4,7 +4,7 @@ import { Volder } from '../volder';
 export const validator = (volderMap, input, collectErrors = true) => {
   const errors = {};
   let valid = true;
-
+  
   volderMap.forEach((optionConfigs, optionName) => {
     let validCurInput = true;
 

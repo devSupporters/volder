@@ -8,13 +8,13 @@ export const nullCase = (input, optionName, optionConfigs, errors, collectErrors
     const isAvoidedType = validateAvoid(input[optionName], optionConfigs.avoid);
     if (!isAvoidedType.valid) {
       if (collectErrors) {
-        errors[optionName] = optionConfigs.typeErrorMessage || `${isAvoidedType.type} type not allowed`;
+        errors[optionName] = optionConfigs.typeErrorMessage || `${isAvoidedType.type?.name} type not allowed`;
       }
 
       return false;
     }
   }
-
+  
   if (input[optionName].constructor.name === 'Array') {
     return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (input[optionName].constructor.name === 'String') {
