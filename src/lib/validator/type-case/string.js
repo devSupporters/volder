@@ -11,6 +11,11 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
 
   if (optionConfigs.hasOwnProperty('trim') && optionConfigs.trim) {
     input[optionName] = input[optionName].trim();
+
+    // check input = 0 & config min != 0 & required = true;
+    if (input[optionName].length === 0 && optionConfigs.min !== 0 && optionConfigs.required === true) {
+      errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
+    }
   }
 
   if (optionConfigs.hasOwnProperty('min') && input[optionName].length < optionConfigs.min) {

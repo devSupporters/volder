@@ -64,10 +64,10 @@ test('assertType function work correctly', () => {
   );
 });
 
-test("deepCone should work correctly", () => {
-  const obj1 = {name:"alguerocde", age:23};
-  const obj2 = {...obj1, user:{email:"test@test.com", password:"sdhgfosd232"}};
-  const obj3 = {...obj1, user: {...obj2.user}, array:[1,23,23,23, {...obj1}]};
+test('deepCone should work correctly', () => {
+  const obj1 = { name: 'alguerocde', age: 23, address: null };
+  const obj2 = { ...obj1, user: { email: 'test@test.com', password: 'sdhgfosd232', address: null } };
+  const obj3 = { ...obj1, user: { ...obj2.user }, array: [1, 23, 23, 23, null, { ...obj1 }] };
 
   expect(deepClone(obj1)).toEqual(obj1);
   expect(deepClone(obj2)).toEqual(obj2);
@@ -79,5 +79,4 @@ test("deepCone should work correctly", () => {
 
   expect(deepClone(obj2).user).not.toBe(obj2.user);
   expect(deepClone(obj3).array).not.toBe(obj3.array);
-
-})
+});
