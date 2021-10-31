@@ -4,7 +4,7 @@ test('String type validation', () => {
   const StrSchema = new Volder({
     strType: String,
     strRequired: { type: String, required: true },
-    strTrim: { type: String, trim: true, required: true },
+    strTrim: { type: String, trim: true, min: 3, required: true },
     strMin: { type: String, min: 2 },
     strMax: { type: String, max: 10 }
   });
@@ -14,7 +14,7 @@ test('String type validation', () => {
   const obj3 = {};
   const obj4 = { strMin: '1' };
   const obj5 = { strMax: '1234456789823' };
-  const obj6 = { strTrim: '                         ' };
+  const obj6 = { strTrim: '                         ', strRequired: 'exists' };
 
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -59,20 +59,18 @@ test('String type validation', () => {
   expect(StrSchema.validate(obj6)).toEqual({
     valid: false,
     errors: {
-      strRequired: 'strRequired is required',
-
+      // strRequired: 'strRequired is required',
       strTrim: 'strTrim is required'
     },
     value: {}
   });
 
-
   const StrSchemaCustomMessage = new Volder({
-    strType:  { type:[String, "str not a string"] },
-    strRequired: { type: String, required: [true, "strRequired must exists"] },
-    strTrim: { type: String, trim: true, required: [true, "should be required"] },
-    strMin: { type: String, min: [2, "string min not valid"] },
-    strMax: { type: String, max: [10, "string max not valid"] }
+    strType: { type: [String, 'str not a string'] },
+    strRequired: { type: String, required: [true, 'strRequired must exists'] },
+    strTrim: { type: String, trim: true, required: [true, 'should be required']},
+    strMin: { type: String, min: [2, 'string min not valid'] },
+    strMax: { type: String, max: [10, 'string max not valid'] }
   });
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
@@ -115,6 +113,8 @@ test('String type validation', () => {
     },
     value: {}
   });
+
+  delete obj6.strRequired;
   expect(StrSchemaCustomMessage.validate(obj6)).toEqual({
     valid: false,
     errors: {
@@ -124,6 +124,4 @@ test('String type validation', () => {
     },
     value: {}
   });
-
-
 });
