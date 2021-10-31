@@ -12,12 +12,10 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
   if (optionConfigs.hasOwnProperty('trim') && optionConfigs.trim) {
     input[optionName] = input[optionName].trim();
 
-    if (input[optionName].length === 0 && optionConfigs.required === true) {
-      if (optionConfigs.min !== 0) { 
-        errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
+    if (input[optionName].length === 0 && optionConfigs.required === true && optionConfigs.min !== 0) {
+      errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
 
-        return false;
-      }
+      return false;
     }
   }
 
