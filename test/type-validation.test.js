@@ -433,8 +433,8 @@ test('null type validation', () => {
 
   const NullSchemaErrorMessage = new Volder({
     nullType: null,
-    nullRequired: { type: null, required: [true, "null required must exists"] },
-    nullAvoid: { type: [null, "null string boolean type not valid"], avoid: [null, String, Boolean] }
+    nullRequired: { type: null, required: [true, 'null required must exists'] },
+    nullAvoid: { type: [null, 'null string boolean type not valid'], avoid: [null, String, Boolean] }
   });
 
   expect(NullSchemaErrorMessage.validate(obj1)).toEqual({
@@ -445,7 +445,7 @@ test('null type validation', () => {
   expect(NullSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
     errors: {
-      nullRequired:"null required must exists"
+      nullRequired: 'null required must exists'
     },
     value: {}
   });
@@ -454,7 +454,64 @@ test('null type validation', () => {
   expect(NullSchemaErrorMessage.validate(obj3)).toEqual({
     valid: false,
     errors: {
-      nullAvoid: "null string boolean type not valid"
+      nullAvoid: 'null string boolean type not valid'
+    },
+    value: {}
+  });
+});
+
+test('custom function type validation', () => {
+  const includesGmail = (input) => input.includes('gmail');
+  const CustomFunctionSchema = new Volder({
+    funcType: includesGmail,
+    funcRequired: { type: includesGmail, required: true }
+  });
+
+  const obj1 = { funcType: 'i am have gmail', funcRequired: 'i have gmail' };
+  const obj2 = { funcType: 'not have', funcRequired: 'i have gmail' };
+  const obj3 = {};
+
+  expect(CustomFunctionSchema.validate(obj1)).toEqual({
+    valid: true,
+    errors: {},
+    value: obj1
+  });
+  expect(CustomFunctionSchema.validate(obj2)).toEqual({
+    valid: false,
+    errors: {
+      funcType: 'funcType is invalid'
+    },
+    value: {}
+  });
+  expect(CustomFunctionSchema.validate(obj3)).toEqual({
+    valid: false,
+    errors: {
+      funcRequired: 'funcRequired is required'
+    },
+    value: {}
+  });
+
+  const CustomFunctionSchemaErrorMessage = new Volder({
+    funcType: { type: [includesGmail, 'should include gmail'] },
+    funcRequired: { type: includesGmail, required: [true, 'must exists'] }
+  });
+
+  expect(CustomFunctionSchemaErrorMessage.validate(obj1)).toEqual({
+    valid: true,
+    errors: {},
+    value: obj1
+  });
+  expect(CustomFunctionSchemaErrorMessage.validate(obj2)).toEqual({
+    valid: false,
+    errors: {
+      funcType: 'should include gmail'
+    },
+    value: {}
+  });
+  expect(CustomFunctionSchemaErrorMessage.validate(obj3)).toEqual({
+    valid: false,
+    errors: {
+      funcRequired: 'must exists'
     },
     value: {}
   });
