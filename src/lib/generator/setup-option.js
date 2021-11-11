@@ -20,11 +20,12 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
-
-  // case [array , instance, null, constructor function, object, number, boolean ]
+  
   switch (optionConfigs.type) {
-    // case Boolean:
-    // case Object:
+    case Boolean:
+      break;
+    case Object:
+      break;
     case String:
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
@@ -48,10 +49,12 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       break;
   }
 
+
+
   // check if min is smaller than max
   if (optionConfigs.hasOwnProperty('min') && optionConfigs.hasOwnProperty('max') && optionConfigs.min > optionConfigs.max) {
     throw Error('min property should be Equal or Smaller than max property');
   }
-  
+
   return optionConfigs;
 };
