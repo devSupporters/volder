@@ -12,7 +12,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
   const types = [null, Boolean, Object, Number, String, Array];
 
-  // if option is just a type;
+  // if option is just a type
   if (types.includes(optionConfigs) || typeof optionConfigs === 'function' || optionConfigs instanceof Volder) {
     optionConfigs = { type: optionConfigs };
   } else {
