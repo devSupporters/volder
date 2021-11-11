@@ -4,8 +4,8 @@ test('String type validation', () => {
   const StrSchema = new Volder({
     strType: String,
     strRequired: { type: String, required: true },
-    strTrim: { type: String, trim: true, min: 3, required: true },
-    strMin: { type: String, min: 2 },
+    strTrim: { type: String, trim: true, minLength: 3, required: true },
+    strMin: { type: String, minLength: 2 },
     strMax: { type: String, max: 10 }
   });
 
@@ -38,7 +38,7 @@ test('String type validation', () => {
   expect(StrSchema.validate(obj4)).toEqual({
     valid: false,
     errors: {
-      strMin: 'strMin should be at least 2 characters'
+      strMin: 'strMin should be at least 2 length'
     },
     value: {}
   });
@@ -61,7 +61,7 @@ test('String type validation', () => {
     strType: { type: [String, 'str not a string'] },
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
     strTrim: { type: String, trim: true, required: [true, 'should be required'] },
-    strMin: { type: String, min: [2, 'string min not valid'] },
+    strMin: { type: String, minLength: [2, 'string min not valid'] },
     strMax: { type: String, max: [10, 'string max not valid'] }
   });
 

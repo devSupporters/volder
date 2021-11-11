@@ -3,8 +3,8 @@ import { Volder } from '../src/index';
 
 test('validator function should work correctly', () => {
   const { volderMap } = new Volder({
-    name: { type: String, min: 10 },
-    lastName: { type: String, max: 4, trim: true, min: 1 },
+    name: { type: String, minLength: 10 },
+    lastName: { type: String, max: 4, trim: true, minLength: 1 },
     age: { type: Number, max: 100, required: true },
     male: { type: Boolean, required: true },
     items: { type: Array, min: 2, max: 10 },
@@ -59,10 +59,10 @@ test('validator function should work correctly', () => {
   expect(validator(volderMap, obj2)).toEqual({
     valid:false,
     errors:{
-      name: 'name should be at least 10 characters',
+      name: 'name should be at least 10 length',
       age: 'age should be at most 100',
       male: 'male is required',
-      lastName: 'lastName should be at least 1 characters',
+      lastName: 'lastName should be at least 1 length',
       items: 'items should be at least 2 items',
       any: 'any is required',
       notAllowAvoidTypes: 'null and undefined not allowed'

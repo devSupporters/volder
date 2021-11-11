@@ -1,12 +1,16 @@
-import { configSpliter } from "../config-spliter";
-import { assertType } from "../../utils/assert-type";
+import { configSpliter } from '../config-spliter';
+import { assertType } from '../../utils/assert-type';
 
-export const setupMinConfig = (optionConfigs) => {
-  if (optionConfigs.hasOwnProperty('min')) {
-    if (Array.isArray(optionConfigs.min)) {
-      configSpliter('min', 'number', optionConfigs);
+export const setupMinConfig = (optionConfigs, notNumber = true) => {
+
+  if (optionConfigs.hasOwnProperty('min') || optionConfigs.hasOwnProperty('minLength')) {
+
+    const minValue = notNumber ? optionConfigs.min : optionConfigs.minLength;
+
+    if (Array.isArray(minValue)) {
+      configSpliter(notNumber ? 'min' : 'minLength' , 'number', optionConfigs);
     } else {
-      assertType(optionConfigs.min, 'number', 'min property');
+      assertType(minValue, 'number', notNumber ? 'min property' : 'minLength property');
     }
   }
-}
+};

@@ -6,13 +6,13 @@ test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const customFunction = () => true;
   const obj1 = {
-    name: { type: String, min: 3, trim: true },
+    name: { type: String, minLength: 3, trim: true },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, min: 10, max: 100 },
     any: { type: null, avoid: [String, Array, undefined] },
     test: { type: null, avoid: [], required: true },
-    testCustomError: { type: [String, 'should be string'], min: [2, 'should 2 length'] },
+    testCustomError: { type: [String, 'should be string'], minLength: [2, 'should 2 length'] },
     properties: Object,
     customFunction: { type: customFunction }
   };
@@ -32,7 +32,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.get('name')).toEqual({
     type: String,
     trim: true,
-    min: 3
+    minLength: 3
   });
   expect(generatedMap.get('age')).toEqual({
     type: Number,
@@ -63,9 +63,9 @@ test('objectToMap function should work correctly', () => {
   });
   expect(generatedMap.get('testCustomError')).toEqual({
     type: String,
-    min: 2,
+    minLength: 2,
     typeErrorMessage: 'should be string',
-    minErrorMessage: 'should 2 length'
+    minLengthErrorMessage: 'should 2 length'
   });
   expect(generatedMap.get('customFunction')).toEqual({
     type: customFunction
@@ -103,20 +103,20 @@ test('objectToMap function should work correctly', () => {
 test('setupOptionWithConfigs function should work correctly', () => {
   // Entring a correct values
   const obj1 = { type: Number };
-  const obj2 = { type: String, required: true, min: 12, max: 30 };
+  const obj2 = { type: String, required: true, minLength: 12, max: 30 };
   const obj3 = { type: Boolean };
   const obj4 = {
     type: [String],
     required: [false, 'type not required'],
     max: [11],
-    min: [1, 'smaller than 1']
+    minLength: [1, 'smaller than 1']
   };
 
   expect(setupOptionWithConfigs(obj1)).toEqual({ type: Number });
   expect(setupOptionWithConfigs(obj2)).toEqual({
     type: String,
     required: true,
-    min: 12,
+    minLength: 12,
     max: 30
   });
   expect(setupOptionWithConfigs(obj3)).toEqual({
@@ -126,9 +126,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
     type: String,
     required: false,
     requiredErrorMessage: 'type not required',
-    min: 1,
+    minLength: 1,
     max: 11,
-    minErrorMessage: 'smaller than 1'
+    minLengthErrorMessage: 'smaller than 1'
   });
 
   // Entering a wrong values
@@ -154,18 +154,18 @@ test('setupOptionWithConfigs function should work correctly', () => {
 test('configSpliter should work correctly', () => {
   const configs = {
     type: [String, 'any type arent string not work'],
-    min: [23],
+    minLength: [23],
     max: [10, 'bigger than 10'],
     required: [true, 'test for required is work']
   };
 
   configSpliter('type', 'constructor-type', configs);
-  configSpliter('min', 'number', configs);
+  configSpliter('minLength', 'number', configs);
   configSpliter('required', 'boolean', configs);
   configSpliter('max', 'number', configs);
   expect(configs).toEqual({
     type: String,
-    min: 23,
+    minLength: 23,
     required: true,
     max: 10,
     requiredErrorMessage: 'test for required is work',
@@ -178,7 +178,7 @@ test('configSpliter should work correctly', () => {
   const wrongConfigs = {
     max: [],
     required: ['test'],
-    min: [23, true],
+    minLength: [23, true],
     trim: [{}, 'welcome']
   };
 
@@ -188,8 +188,8 @@ test('configSpliter should work correctly', () => {
   expect(() => configSpliter('required', 'boolean', wrongConfigs)).toThrowError(
     new TypeError('Expected a boolean but received a string at required[0] property')
   );
-  expect(() => configSpliter('min', 'number', wrongConfigs)).toThrowError(
-    new TypeError('Expected a string but received a boolean at min[1] property')
+  expect(() => configSpliter('minLength', 'number', wrongConfigs)).toThrowError(
+    new TypeError('Expected a string but received a boolean at minLength[1] property')
   );
   expect(() => configSpliter('trim', 'boolean', wrongConfigs)).toThrowError(
     new TypeError('Expected a boolean but received a Object at trim[0] property')

@@ -19,9 +19,9 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     }
   }
 
-  if (optionConfigs.hasOwnProperty('min') && input[optionName].length < optionConfigs.min) {
+  if (optionConfigs.hasOwnProperty('minLength') && input[optionName].length < optionConfigs.minLength) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min} characters`;
+      errors[optionName] = optionConfigs.minLengthErrorMessage || `${optionName} should be at least ${optionConfigs.minLength} length`;
     }
 
     return false;

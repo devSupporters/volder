@@ -18,9 +18,10 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   } else {
     assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
+
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
-  
+
   switch (optionConfigs.type) {
     case Boolean:
       break;
@@ -28,7 +29,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       break;
     case String:
       setupMaxConfig(optionConfigs);
-      setupMinConfig(optionConfigs);
+      setupMinConfig(optionConfigs, false);
       break;
     case Number:
       setupMaxConfig(optionConfigs);
@@ -49,11 +50,10 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       break;
   }
 
-
-
   // check if min is smaller than max
   if (optionConfigs.hasOwnProperty('min') && optionConfigs.hasOwnProperty('max') && optionConfigs.min > optionConfigs.max) {
     throw Error('min property should be Equal or Smaller than max property');
+    // change there ..........................................
   }
 
   return optionConfigs;
