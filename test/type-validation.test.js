@@ -6,7 +6,7 @@ test('String type validation', () => {
     strRequired: { type: String, required: true },
     strTrim: { type: String, trim: true, minLength: 3, required: true },
     strMin: { type: String, minLength: 2 },
-    strMax: { type: String, max: 10 }
+    strMax: { type: String, maxLength: 10 }
   });
 
   const obj1 = { strType: 'test', strRequired: 'exists', strTrim: 'here', strMin: 'to', strMax: 'also to', strTrim: 'test' };
@@ -45,7 +45,7 @@ test('String type validation', () => {
   expect(StrSchema.validate(obj5)).toEqual({
     valid: false,
     errors: {
-      strMax: 'strMax should be at most 10 characters'
+      strMax: 'strMax should be at most 10 length'
     },
     value: {}
   });
@@ -62,7 +62,7 @@ test('String type validation', () => {
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
     strTrim: { type: String, trim: true, required: [true, 'should be required'] },
     strMin: { type: String, minLength: [2, 'string min not valid'] },
-    strMax: { type: String, max: [10, 'string max not valid'] }
+    strMax: { type: String, maxLength: [10, 'string max not valid'] }
   });
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({

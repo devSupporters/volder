@@ -4,7 +4,7 @@ import { Volder } from '../src/index';
 test('validator function should work correctly', () => {
   const { volderMap } = new Volder({
     name: { type: String, minLength: 10 },
-    lastName: { type: String, max: 4, trim: true, minLength: 1 },
+    lastName: { type: String, maxLength: 4, trim: true, minLength: 1 },
     age: { type: Number, max: 100, required: true },
     male: { type: Boolean, required: true },
     items: { type: Array, min: 2, max: 10 },

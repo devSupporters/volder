@@ -28,7 +28,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
     case Object:
       break;
     case String:
-      setupMaxConfig(optionConfigs);
+      setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       break;
     case Number:
@@ -40,8 +40,8 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMinConfig(optionConfigs);
       break;
     case null:
-      setupMaxConfig(optionConfigs);
-      setupMinConfig(optionConfigs);
+      setupMaxConfig(optionConfigs,  !optionConfigs.hasOwnProperty('maxLength'));
+      setupMinConfig(optionConfigs, !optionConfigs.hasOwnProperty('minLength'));
       setupAvoidConfig(optionConfigs);
       break;
     default:

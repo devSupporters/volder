@@ -27,9 +27,9 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('max') && input[optionName].length > optionConfigs.max) {
+  if (optionConfigs.hasOwnProperty('maxLength') && input[optionName].length > optionConfigs.maxLength) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max} characters`;
+      errors[optionName] = optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
     }
 
     return false;

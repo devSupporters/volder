@@ -1,14 +1,14 @@
 import { Volder } from '../src/index';
 
-test('Volder Schme work correctly', () => {
+test('Volder Schema work correctly', () => {
   const volderSchema = new Volder({
-    name: { type: String, minLength: 4, max: 10, trim: true },
+    name: { type: String, minLength: 4, maxLength: 10, trim: true },
     age: { type: Number, max: 100, required: true, min: 1 },
-    email: { type: String, minLength: 10, max: 150, required: true },
+    email: { type: String, minLength: 10, maxLength: 150, required: true },
     male: { type: Boolean, required: true },
     tools: { type: Array, required: true, min: 3 },
     items: { type: Object, required: true },
-    any: { type: null, min: 2, max: 3 },
+    any: { type: null, min: 2, maxLength: 3 },
     restrictedTypes: { type: null, avoid: [Object, Boolean] },
     type: String,
     nums: Number
@@ -57,7 +57,7 @@ test('Volder Schme work correctly', () => {
       age: 'age should be at least 1',
       male: 'male is required',
       tools: 'tools is required',
-      any: 'any should be at most 3 characters',
+      any: 'any should be at most 3 length',
       items: 'items should be an object',
       restrictedTypes: 'Object type not allowed'
     },
@@ -71,7 +71,7 @@ test('Volder Schme work correctly', () => {
       any: 'any should be at least 2',
       email: 'email should be at least 10 length',
       tools: 'tools is required',
-      name: 'name should be at most 10 characters',
+      name: 'name should be at most 10 length',
       items: 'items is required'
     },
     value: {}
@@ -100,7 +100,7 @@ test('volder custom errors', () => {
     name: {
       type: [String, 'should be a string type'],
       minLength: [4, 'min length is 4'],
-      max: [10, 'max length is 10'],
+      maxLength: [10, 'max length is 10'],
       required: [true, 'should be there'],
       trim: true
     },
