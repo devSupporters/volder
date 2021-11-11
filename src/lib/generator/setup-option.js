@@ -18,24 +18,40 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   } else {
     assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
-
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
-  setupAvoidConfig(optionConfigs);
 
-  // avoid this property validators for some types (Boolean | Object | null);
-  if ([Boolean, Object].includes(optionConfigs.type)) return optionConfigs;
-
-  setupMaxConfig(optionConfigs);
-  setupMinConfig(optionConfigs);
+  // case [array , instance, null, constructor function, object, number, boolean ]
+  switch (optionConfigs.type) {
+    // case Boolean:
+    // case Object:
+    case String:
+      setupMaxConfig(optionConfigs);
+      setupMinConfig(optionConfigs);
+      break;
+    case Number:
+      setupMaxConfig(optionConfigs);
+      setupMinConfig(optionConfigs);
+      break;
+    case Array:
+      setupMaxConfig(optionConfigs);
+      setupMinConfig(optionConfigs);
+      break;
+    case null:
+      setupMaxConfig(optionConfigs);
+      setupMinConfig(optionConfigs);
+      setupAvoidConfig(optionConfigs);
+      break;
+    default:
+      setupMaxConfig(optionConfigs);
+      setupMinConfig(optionConfigs);
+      break;
+  }
 
   // check if min is smaller than max
-  if (
-    optionConfigs.hasOwnProperty('min') &&
-    optionConfigs.hasOwnProperty('max') &&
-    optionConfigs.min > optionConfigs.max
-  ) {
+  if (optionConfigs.hasOwnProperty('min') && optionConfigs.hasOwnProperty('max') && optionConfigs.min > optionConfigs.max) {
     throw Error('min property should be Equal or Smaller than max property');
   }
+  
   return optionConfigs;
 };
