@@ -2,9 +2,9 @@ import { Volder } from '../src/index';
 
 test('Volder Schme work correctly', () => {
   const volderSchema = new Volder({
-    name: { type: String, min: 4, max: 10, trim: true },
+    name: { type: String, minLength: 4, max: 10, trim: true },
     age: { type: Number, max: 100, required: true, min: 1 },
-    email: { type: String, min: 10, max: 150, required: true },
+    email: { type: String, minLength: 10, max: 150, required: true },
     male: { type: Boolean, required: true },
     tools: { type: Array, required: true, min: 3 },
     items: { type: Object, required: true },
@@ -53,7 +53,7 @@ test('Volder Schme work correctly', () => {
   expect(volderSchema.validate(obj2)).toEqual({
     valid: false,
     errors: {
-      name: 'name should be at least 4 characters',
+      name: 'name should be at least 4 length',
       age: 'age should be at least 1',
       male: 'male is required',
       tools: 'tools is required',
@@ -69,7 +69,7 @@ test('Volder Schme work correctly', () => {
       type: 'type should be a string',
       age: 'age should be at most 100',
       any: 'any should be at least 2',
-      email: 'email should be at least 10 characters',
+      email: 'email should be at least 10 length',
       tools: 'tools is required',
       name: 'name should be at most 10 characters',
       items: 'items is required'
@@ -99,7 +99,7 @@ test('volder custom errors', () => {
   const volderSchema = new Volder({
     name: {
       type: [String, 'should be a string type'],
-      min: [4, 'min length is 4'],
+      minLength: [4, 'min length is 4'],
       max: [10, 'max length is 10'],
       required: [true, 'should be there'],
       trim: true
