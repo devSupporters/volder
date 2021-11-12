@@ -1,3 +1,6 @@
+import { validateMax } from '../configs-validators/max';
+import { validateMin } from '../configs-validators/min';
+
 export const stringCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
 
@@ -19,17 +22,19 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     }
   }
 
-  if (optionConfigs.hasOwnProperty('minLength') && input[optionName].length < optionConfigs.minLength) {
+  if (optionConfigs.hasOwnProperty('minLength') && !validateMin(input[optionName].length, optionConfigs.minLength)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.minLengthErrorMessage || `${optionName} should be at least ${optionConfigs.minLength} length`;
+      errors[optionName] =
+        optionConfigs.minLengthErrorMessage || `${optionName} should be at least ${optionConfigs.minLength} length`;
     }
 
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('maxLength') && input[optionName].length > optionConfigs.maxLength) {
+  if (optionConfigs.hasOwnProperty('maxLength') && !validateMax(input[optionName].length, optionConfigs.maxLength)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
+      errors[optionName] =
+        optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
     }
 
     return false;
