@@ -11,13 +11,19 @@ export const validator = (volderMap, input, collectErrors = true) => {
     let validCurInput = true;
 
     // check if option is required
-    if (optionConfigs.required === true && !clonedInput.hasOwnProperty(optionName)) {
-      // remove required check and do two thing : 1- cloned has property option name if not
-      //                                          2- check if it has default config and set it 
-      //                                          3- collect error if required ===true and collectError === true
-      if (collectErrors) errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
-      validCurInput = false;
-    } else if (clonedInput.hasOwnProperty(optionName)) {
+    if (!clonedInput.hasOwnProperty(optionName)) {
+
+      if(optionConfigs.required) {
+
+        if (collectErrors) errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
+        validCurInput = false;
+
+      } else if (optionConfigs.hasOwnProperty('default')) {
+        clonedInput[optionName]  = optionConfigs.default;
+      }
+
+    } else {
+
       if (optionConfigs.type instanceof Volder) {
         const isObject =
           typeof clonedInput[optionName] === 'object' &&

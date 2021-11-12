@@ -160,7 +160,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
     new Error('minLength property should be at least equal 0 but received -1')
   );
   expect(() => setupOptionWithConfigs(wrongObj7)).toThrowError(
-    new Error('trim: option config not allowed, allowed keys { min, max, required, type }')
+    new Error('trim: option config not allowed, allowed keys { min, max, required, type, default }')
   );
 });
 
