@@ -52,7 +52,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       break;
-  }
+  } 
 
   // check if min is smaller than max
   if (optionConfigs.hasOwnProperty('min') && optionConfigs.hasOwnProperty('max') && optionConfigs.min > optionConfigs.max) {
