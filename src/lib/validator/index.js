@@ -12,6 +12,9 @@ export const validator = (volderMap, input, collectErrors = true) => {
 
     // check if option is required
     if (optionConfigs.required === true && !clonedInput.hasOwnProperty(optionName)) {
+      // remove required check and do two thing : 1- cloned has property option name if not
+      //                                          2- check if it has default config and set it 
+      //                                          3- collect error if required ===true and collectError === true
       if (collectErrors) errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
       validCurInput = false;
     } else if (clonedInput.hasOwnProperty(optionName)) {

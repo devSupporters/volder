@@ -8,6 +8,7 @@ import { setupRequiredConfig } from './configs/required';
 import { setupAvoidConfig } from './configs/avoid';
 import { setupMaxConfig } from './configs/max';
 import { setupMinConfig } from './configs/min';
+// import { setupDefaultConfig } from './configs/default';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -19,7 +20,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   } else {
     assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
-
+  // add a default config to the general configs;
   const generalConfigs = ['required', 'type'];
   const stringConfigs = ['minLength', 'maxLength', 'trim'];
   const arrayConfigs = ['minLength', 'maxLength'];
@@ -54,6 +55,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMinConfig(optionConfigs, false);
       break;
     case null:
+      // use loop for default config to loop to all avoided types;
       strictConfigs(optionConfigs, [...nullConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
