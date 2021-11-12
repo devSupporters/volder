@@ -6,7 +6,7 @@ test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const customFunction = () => true;
   const obj1 = {
-    name: { type: String, minLength: 3,maxLength:10, trim: true },
+    name: { type: String, minLength: 3, maxLength: 10, trim: true },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, minLength: 10, maxLength: 100 },
@@ -33,7 +33,7 @@ test('objectToMap function should work correctly', () => {
     type: String,
     trim: true,
     minLength: 3,
-    maxLength:10
+    maxLength: 10
   });
   expect(generatedMap.get('age')).toEqual({
     type: Number,
@@ -137,6 +137,8 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj2 = { type: String, maxLength: false };
   const wrongObj3 = { type: Number, required: 2 };
   const wrongObj4 = { type: Number, min: 10, max: 8 };
+  const wrongObj5 = { type: Array, minLength: 100, maxLength: 10 };
+  const wrongObj6 = { type: Array, minLength: -1 };
 
   expect(() => setupOptionWithConfigs(wrongObj1)).toThrowError(
     new TypeError('Expected a number but received a string at min property')
@@ -149,6 +151,12 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj4)).toThrowError(
     new Error('min property should be Equal or Smaller than max property')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj5)).toThrowError(
+    new Error('minLength property should be Equal or Smaller than maxLength property')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj6)).toThrowError(
+    new Error('minLength property should be at least equal 0 but received -1')
   );
 });
 

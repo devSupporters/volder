@@ -7,7 +7,7 @@ export const setupMinConfig = (optionConfigs, isNumberType = true) => {
 
     // check if minLength < 0
     if((optionConfigs.minLength < 0 && !isNumberType)) {
-      throw new Error('minLength property should be at least equal 0')
+      throw new Error('minLength property should be at least equal 0 but received ' + optionConfigs.minLength);
     }
     
     const minValue = isNumberType ? optionConfigs.min : optionConfigs.minLength;
