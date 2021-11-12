@@ -2,6 +2,7 @@ import { isValidType } from '../src/lib/utils/is-valid-type';
 import { assertObject } from '../src/lib/utils/assert-object';
 import { assertType } from '../src/lib/utils/assert-type';
 import { deepClone } from '../src/lib/utils/deep-clone';
+import { strictConfigs } from '../src/lib/utils/strict-configs';
 import { Volder } from '../src/index';
 
 test('isValidType function work correctly', () => {
@@ -79,4 +80,14 @@ test('deepCone should work correctly', () => {
 
   expect(deepClone(obj2).user).not.toBe(obj2.user);
   expect(deepClone(obj3).array).not.toBe(obj3.array);
+});
+
+test('strictConfigs should work correctly', () => {
+  const object = { type: Object, required: true };
+  const string = { maxLength: 1, min: 1 };
+
+  expect(strictConfigs(object, ['type', 'required'])).toBeUndefined();
+  expect(() => {
+    strictConfigs(string, ['maxLength', 'minLength']);
+  }).toThrowError("min: option config not allowed, allowed keys { maxLength, minLength }");
 });

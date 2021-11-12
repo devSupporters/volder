@@ -1,5 +1,6 @@
 import { assertObject } from '../utils/assert-object';
 import { Volder } from '../volder';
+import { strictConfigs } from '../utils/strict-configs';
 
 // configs;
 import { setupTypeConfig } from './configs/type';
@@ -19,27 +20,41 @@ export const setupOptionWithConfigs = (optionConfigs) => {
     assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
 
+  const generalConfigs = ['required', 'type'];
+  const stringConfigs = ['minLength', 'maxLength', 'trim'];
+  const arrayConfigs = ['minLength', 'maxLength'];
+  const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
+  const numberConfigs = ['min', 'max'];
+  // this is for custom type (function)
+  const otherConfigs = ['min', 'max', 'minLength', 'maxLength']
+
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
 
   switch (optionConfigs.type) {
     case Boolean:
+      strictConfigs(optionConfigs, [...generalConfigs]);
       break;
     case Object:
+      strictConfigs(optionConfigs, [...generalConfigs]);
       break;
     case String:
+      strictConfigs(optionConfigs, [...stringConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       break;
     case Number:
+      strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       break;
     case Array:
+      strictConfigs(optionConfigs, [...arrayConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       break;
     case null:
+      strictConfigs(optionConfigs, [...nullConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       setupMaxConfig(optionConfigs, false);
@@ -47,6 +62,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupAvoidConfig(optionConfigs);
       break;
     default:
+      strictConfigs(optionConfigs, [...otherConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       setupMaxConfig(optionConfigs, false);
@@ -60,7 +76,11 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
 
   // check if minLength is bigger than maxLength
-  if (optionConfigs.hasOwnProperty('minLength') && optionConfigs.hasOwnProperty('maxLength') && optionConfigs.minLength > optionConfigs.maxLength) {
+  if (
+    optionConfigs.hasOwnProperty('minLength') &&
+    optionConfigs.hasOwnProperty('maxLength') &&
+    optionConfigs.minLength > optionConfigs.maxLength
+  ) {
     throw Error('minLength property should be Equal or Smaller than maxLength property');
   }
 

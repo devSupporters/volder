@@ -139,6 +139,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj4 = { type: Number, min: 10, max: 8 };
   const wrongObj5 = { type: Array, minLength: 100, maxLength: 10 };
   const wrongObj6 = { type: Array, minLength: -1 };
+  const wrongObj7 = { type:Number, trim:true};
 
   expect(() => setupOptionWithConfigs(wrongObj1)).toThrowError(
     new TypeError('Expected a number but received a string at min property')
@@ -157,6 +158,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj6)).toThrowError(
     new Error('minLength property should be at least equal 0 but received -1')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj7)).toThrowError(
+    new Error('trim: option config not allowed, allowed keys { min, max, required, type }')
   );
 });
 
