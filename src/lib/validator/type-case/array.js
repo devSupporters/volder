@@ -12,17 +12,17 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('min') && !validateMin(input[optionName].length, optionConfigs.min)) {
+  if (optionConfigs.hasOwnProperty('minLength') && !validateMin(input[optionName].length, optionConfigs.minLength)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.minErrorMessage || `${optionName} should be at least ${optionConfigs.min} items`;
+      errors[optionName] = optionConfigs.minLengthErrorMessage || `${optionName} should be at least ${optionConfigs.minLength} length`;
     }
     
     return false;
   }
   
-  if (optionConfigs.hasOwnProperty('max') && !validateMax(input[optionName].length, optionConfigs.max)) {
+  if (optionConfigs.hasOwnProperty('maxLength') && !validateMax(input[optionName].length, optionConfigs.maxLength)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max} items`;
+      errors[optionName] = optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
     }
 
     return false;

@@ -202,8 +202,8 @@ test('Array type validation', () => {
   const ArrSchema = new Volder({
     arrType: Array,
     arrRequired: { type: Array, required: true },
-    arrMin: { type: Array, min: 3 },
-    arrMax: { type: Array, max: 5 }
+    arrMin: { type: Array, minLength: 3 },
+    arrMax: { type: Array, maxLength: 5 }
   });
 
   const obj1 = { arrType: [1, 3], arrRequired: ['exists'], arrMax: [1, 2, 3, 4, 5], arrMin: [1, 2, 3] };
@@ -234,14 +234,14 @@ test('Array type validation', () => {
   expect(ArrSchema.validate(obj4)).toEqual({
     valid: false,
     errors: {
-      arrMax: 'arrMax should be at most 5 items'
+      arrMax: 'arrMax should be at most 5 length'
     },
     value: {}
   });
   expect(ArrSchema.validate(obj5)).toEqual({
     valid: false,
     errors: {
-      arrMin: 'arrMin should be at least 3 items'
+      arrMin: 'arrMin should be at least 3 length'
     },
     value: {}
   });
@@ -249,8 +249,8 @@ test('Array type validation', () => {
   const ArrSchemaErrorMessage = new Volder({
     arrType: { type: [Array, 'just array type'] },
     arrRequired: { type: Array, required: [true, 'should be exists'] },
-    arrMin: { type: Array, min: [3, 'the min length is 3'] },
-    arrMax: { type: Array, max: [5, 'the max length is 5'] }
+    arrMin: { type: Array, minLength: [3, 'the min length is 3'] },
+    arrMax: { type: Array, maxLength: [5, 'the max length is 5'] }
   });
 
   expect(ArrSchemaErrorMessage.validate(obj1)).toEqual({

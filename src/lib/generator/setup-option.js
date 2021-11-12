@@ -36,8 +36,8 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMinConfig(optionConfigs);
       break;
     case Array:
-      setupMaxConfig(optionConfigs);
-      setupMinConfig(optionConfigs);
+      setupMaxConfig(optionConfigs, false);
+      setupMinConfig(optionConfigs, false);
       break;
     case null:
       setupMaxConfig(optionConfigs,  !optionConfigs.hasOwnProperty('maxLength'));
