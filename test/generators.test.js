@@ -6,7 +6,7 @@ test('objectToMap function should work correctly', () => {
   // Entering a correct values
   const customFunction = () => true;
   const obj1 = {
-    name: { type: String, minLength: 3, maxLength: 10, trim: true },
+    name: { type: String, minLength: 3, maxLength: 10, trim: true, default: 'default' },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
     items: { type: Array, required: true, minLength: 10, maxLength: 100 },
@@ -33,7 +33,8 @@ test('objectToMap function should work correctly', () => {
     type: String,
     trim: true,
     minLength: 3,
-    maxLength: 10
+    maxLength: 10,
+    default: 'default'
   });
   expect(generatedMap.get('age')).toEqual({
     type: Number,
@@ -139,7 +140,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj4 = { type: Number, min: 10, max: 8 };
   const wrongObj5 = { type: Array, minLength: 100, maxLength: 10 };
   const wrongObj6 = { type: Array, minLength: -1 };
-  const wrongObj7 = { type:Number, trim:true};
+  const wrongObj7 = { type: Number, trim: true };
 
   expect(() => setupOptionWithConfigs(wrongObj1)).toThrowError(
     new TypeError('Expected a number but received a string at min property')
@@ -161,6 +162,33 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj7)).toThrowError(
     new Error('trim: option config not allowed, allowed keys { min, max, required, type, default }')
+  );
+
+  // entring wrong value in default config && use required with default at the same time
+  const wrongObj8 = { type: String, default: 12 };
+  const wrongObj9 = { type: Boolean, default: [1, 2, 3] };
+  const wrongObj10 = { type: Array, default: true };
+  const wrongObj11 = { type: Object, default: null };
+  const wrongObj12 = { type: Number, default: 'string' };
+  const wrongObj13 = { type: Array, default: [1, 2, 3], required: true };
+
+  expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
+    new Error('Expected a String type value in default to properly to { type: String }')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj9)).toThrowError(
+    new Error('Expected a Boolean type value in default to properly to { type: Boolean }')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj10)).toThrowError(
+    new Error('Expected a Array type value in default to properly to { type: Array }')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj11)).toThrowError(
+    new Error('Expected a Object type value in default to properly to { type: Object }')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj12)).toThrowError(
+    new Error('Expected a Number type value in default to properly to { type: Number }')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj13)).toThrowError(
+    new Error("you can't set { required: true } and use default key at the same time")
   );
 });
 

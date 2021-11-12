@@ -6,10 +6,18 @@ test('String type validation', () => {
     strRequired: { type: String, required: true },
     strTrim: { type: String, trim: true, minLength: 3, required: true },
     strMin: { type: String, minLength: 2 },
-    strMax: { type: String, maxLength: 10 }
+    strMax: { type: String, maxLength: 10 },
+    strDefault: { type: String, default: 'default name' }
   });
 
-  const obj1 = { strType: 'test', strRequired: 'exists', strTrim: 'here', strMin: 'to', strMax: 'also to', strTrim: 'test' };
+  const obj1 = {
+    strType: 'test',
+    strRequired: 'exists',
+    strTrim: 'here',
+    strMin: 'to',
+    strMax: 'also to',
+    strTrim: 'test'
+  };
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
   const obj4 = { strMin: '1', strRequired: 'exists', strTrim: 'test' };
@@ -19,7 +27,7 @@ test('String type validation', () => {
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, strDefault: 'default name' }
   });
   expect(StrSchema.validate(obj2)).toEqual({
     valid: false,
@@ -62,13 +70,14 @@ test('String type validation', () => {
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
     strTrim: { type: String, trim: true, required: [true, 'should be required'] },
     strMin: { type: String, minLength: [2, 'string min not valid'] },
-    strMax: { type: String, maxLength: [10, 'string max not valid'] }
+    strMax: { type: String, maxLength: [10, 'string max not valid'] },
+    strDefault: { type: String, default: 'default name' }
   });
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, strDefault: 'default name' }
   });
   expect(StrSchemaCustomMessage.validate(obj2)).toEqual({
     valid: false,
@@ -113,7 +122,8 @@ test('Number type validation', () => {
     NumType: Number,
     NumRequired: { type: Number, required: true },
     NumMin: { type: Number, min: 3 },
-    NumMax: { type: Number, max: 100 }
+    NumMax: { type: Number, max: 100 },
+    NumDefault: { type: Number, default: 100 }
   });
 
   const obj1 = { NumType: 23, NumRequired: 100, NumMin: 33, NumMax: 100 };
@@ -125,7 +135,7 @@ test('Number type validation', () => {
   expect(NumSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, NumDefault: 100 }
   });
   expect(NumSchema.validate(obj2)).toEqual({
     valid: false,
@@ -160,13 +170,14 @@ test('Number type validation', () => {
     NumType: { type: [Number, 'should be a number type'] },
     NumRequired: { type: Number, required: [true, 'must exists'] },
     NumMin: { type: Number, min: [3, 'the min is 3'] },
-    NumMax: { type: Number, max: [100, 'the max is 100'] }
+    NumMax: { type: Number, max: [100, 'the max is 100'] },
+    NumDefault: { type: Number, default: 100 }
   });
 
   expect(NumSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, NumDefault: 100 }
   });
   expect(NumSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
@@ -203,7 +214,8 @@ test('Array type validation', () => {
     arrType: Array,
     arrRequired: { type: Array, required: true },
     arrMin: { type: Array, minLength: 3 },
-    arrMax: { type: Array, maxLength: 5 }
+    arrMax: { type: Array, maxLength: 5 },
+    arrDefault: { type: Array, default: [1, 2, 3] }
   });
 
   const obj1 = { arrType: [1, 3], arrRequired: ['exists'], arrMax: [1, 2, 3, 4, 5], arrMin: [1, 2, 3] };
@@ -215,7 +227,7 @@ test('Array type validation', () => {
   expect(ArrSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, arrDefault: [1, 2, 3] }
   });
   expect(ArrSchema.validate(obj2)).toEqual({
     valid: false,
@@ -250,13 +262,14 @@ test('Array type validation', () => {
     arrType: { type: [Array, 'just array type'] },
     arrRequired: { type: Array, required: [true, 'should be exists'] },
     arrMin: { type: Array, minLength: [3, 'the min length is 3'] },
-    arrMax: { type: Array, maxLength: [5, 'the max length is 5'] }
+    arrMax: { type: Array, maxLength: [5, 'the max length is 5'] },
+    arrDefault: { type: Array, default: [1, 2, 3] }
   });
 
   expect(ArrSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, arrDefault: [1, 2, 3] }
   });
   expect(ArrSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
@@ -291,7 +304,8 @@ test('Array type validation', () => {
 test('Object type validation', () => {
   const ObjSchema = new Volder({
     objType: Object,
-    objRequired: { type: Object, required: true }
+    objRequired: { type: Object, required: true },
+    objDefault: { type: Object, default: { name: 'default' } }
   });
 
   const obj1 = { objType: { name: 'max' }, objRequired: { here: true } };
@@ -301,7 +315,7 @@ test('Object type validation', () => {
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, objDefault: { name: 'default' } }
   });
   expect(ObjSchema.validate(obj2)).toEqual({
     valid: false,
@@ -320,13 +334,14 @@ test('Object type validation', () => {
 
   const ObjSchemaErrorMessage = new Volder({
     objType: { type: [Object, 'the valid is object'] },
-    objRequired: { type: Object, required: [true, 'should be exists'] }
+    objRequired: { type: Object, required: [true, 'should be exists'] },
+    objDefault: { type: Object, default: { name: 'default' } }
   });
 
   expect(ObjSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, objDefault: { name: 'default' } }
   });
   expect(ObjSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
@@ -347,7 +362,8 @@ test('Object type validation', () => {
 test('boolean type validation', () => {
   const BoolSchema = new Volder({
     boolType: Boolean,
-    boolRequired: { type: Boolean, required: true }
+    boolRequired: { type: Boolean, required: true },
+    boolDefault: { type: Boolean, default: false }
   });
 
   const obj1 = { boolType: false, boolRequired: true };
@@ -357,7 +373,7 @@ test('boolean type validation', () => {
   expect(BoolSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, boolDefault: false }
   });
   expect(BoolSchema.validate(obj2)).toEqual({
     valid: false,
@@ -376,13 +392,14 @@ test('boolean type validation', () => {
 
   const BoolSchemaErrorMessage = new Volder({
     boolType: { type: [Boolean, 'must true or false'] },
-    boolRequired: { type: Boolean, required: [true, 'boolean is empty'] }
+    boolRequired: { type: Boolean, required: [true, 'boolean is empty'] },
+    boolDefault: { type: Boolean, default: false }
   });
 
   expect(BoolSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, boolDefault: false }
   });
   expect(BoolSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
@@ -404,7 +421,8 @@ test('null type validation', () => {
   const NullSchema = new Volder({
     nullType: null,
     nullRequired: { type: null, required: true },
-    nullAvoid: { type: null, avoid: [null, String, Boolean] }
+    nullAvoid: { type: null, avoid: [null, String, Boolean] },
+    nullDefault: { type: null, default: null }
   });
 
   const obj1 = { nullType: 'str', nullRequired: 'is required', nullAvoid: 23 };
@@ -414,7 +432,7 @@ test('null type validation', () => {
   expect(NullSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, nullDefault: null }
   });
   expect(NullSchema.validate(obj2)).toEqual({
     valid: false,
@@ -434,13 +452,14 @@ test('null type validation', () => {
   const NullSchemaErrorMessage = new Volder({
     nullType: null,
     nullRequired: { type: null, required: [true, 'null required must exists'] },
-    nullAvoid: { type: [null, 'null string boolean type not valid'], avoid: [null, String, Boolean] }
+    nullAvoid: { type: [null, 'null string boolean type not valid'], avoid: [null, String, Boolean] },
+    nullDefault: { type: null, default: null }
   });
 
   expect(NullSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, nullDefault: null }
   });
   expect(NullSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
@@ -464,7 +483,8 @@ test('custom function type validation', () => {
   const includesGmail = (input) => input.includes('gmail');
   const CustomFunctionSchema = new Volder({
     funcType: includesGmail,
-    funcRequired: { type: includesGmail, required: true }
+    funcRequired: { type: includesGmail, required: true },
+    functionDefault: { type: includesGmail, default: 'test@gmail.com' }
   });
 
   const obj1 = { funcType: 'i am have gmail', funcRequired: 'i have gmail' };
@@ -474,7 +494,7 @@ test('custom function type validation', () => {
   expect(CustomFunctionSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, functionDefault: 'test@gmail.com' }
   });
   expect(CustomFunctionSchema.validate(obj2)).toEqual({
     valid: false,
@@ -493,13 +513,14 @@ test('custom function type validation', () => {
 
   const CustomFunctionSchemaErrorMessage = new Volder({
     funcType: { type: [includesGmail, 'should include gmail'] },
-    funcRequired: { type: includesGmail, required: [true, 'must exists'] }
+    funcRequired: { type: includesGmail, required: [true, 'must exists'] },
+    functionDefault: { type: includesGmail, default: 'test@gmail.com' }
   });
 
   expect(CustomFunctionSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: obj1
+    value: { ...obj1, functionDefault: 'test@gmail.com' }
   });
   expect(CustomFunctionSchemaErrorMessage.validate(obj2)).toEqual({
     valid: false,
