@@ -1,16 +1,16 @@
 import { configSpliter } from '../config-spliter';
 import { assertType } from '../../utils/assert-type';
 
-export const setupMaxConfig = (optionConfigs, isNumber = true) => {
+export const setupMaxConfig = (optionConfigs, isNumberType = true) => {
 
-  if ((optionConfigs.hasOwnProperty('max') && isNumber) || (optionConfigs.hasOwnProperty('maxLength') && !isNumber)) {
+  if ((optionConfigs.hasOwnProperty('max') && isNumberType) || (optionConfigs.hasOwnProperty('maxLength') && !isNumberType)) {
 
-    const maxValue = isNumber ? optionConfigs.max : optionConfigs.maxLength;
-    
+    const maxValue = isNumberType ? optionConfigs.max : optionConfigs.maxLength;
+
     if (Array.isArray(maxValue)) {
-      configSpliter(isNumber ? 'max' : 'maxLength', 'number', optionConfigs);
+      configSpliter(isNumberType ? 'max' : 'maxLength', 'number', optionConfigs);
     } else {
-      assertType(maxValue, 'number', isNumber ? 'max property' : 'maxLength property');
+      assertType(maxValue, 'number', isNumberType ? 'max property' : 'maxLength property');
     }
   }
 };
