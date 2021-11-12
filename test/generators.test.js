@@ -9,7 +9,7 @@ test('objectToMap function should work correctly', () => {
     name: { type: String, minLength: 3,maxLength:10, trim: true },
     age: { type: Number, max: 100, required: true },
     hasChild: { type: Boolean, required: true },
-    items: { type: Array, required: true, min: 10, max: 100 },
+    items: { type: Array, required: true, minLength: 10, maxLength: 100 },
     any: { type: null, avoid: [String, Array, undefined] },
     test: { type: null, avoid: [], required: true },
     testCustomError: { type: [String, 'should be string'], minLength: [2, 'should 2 length'] },
@@ -47,8 +47,8 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.get('items')).toEqual({
     type: Array,
     required: true,
-    min: 10,
-    max: 100
+    minLength: 10,
+    maxLength: 100
   });
   expect(generatedMap.get('properties')).toEqual({
     type: Object

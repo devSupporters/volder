@@ -7,7 +7,7 @@ test('validator function should work correctly', () => {
     lastName: { type: String, maxLength: 4, trim: true, minLength: 1 },
     age: { type: Number, max: 100, required: true },
     male: { type: Boolean, required: true },
-    items: { type: Array, min: 2, max: 10 },
+    items: { type: Array, minLength: 2, maxLength: 10 },
     tools: { type: Object },
     any: { type: null, required: true },
     restrictedTypes: { type: null, avoid: [String, Number] },
@@ -63,7 +63,7 @@ test('validator function should work correctly', () => {
       age: 'age should be at most 100',
       male: 'male is required',
       lastName: 'lastName should be at least 1 length',
-      items: 'items should be at least 2 items',
+      items: 'items should be at least 2 length',
       any: 'any is required',
       notAllowAvoidTypes: 'null and undefined not allowed'
     },
@@ -87,7 +87,7 @@ test('validator function should work correctly', () => {
     valid:false,
     errors:{
       age: 'age is required',
-      items: 'items should be at most 10 items',
+      items: 'items should be at most 10 length',
       any: 'any is required',
       restrictedTypes: 'String type not allowed'
     },

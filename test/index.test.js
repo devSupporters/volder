@@ -6,7 +6,7 @@ test('Volder Schema work correctly', () => {
     age: { type: Number, max: 100, required: true, min: 1 },
     email: { type: String, minLength: 10, maxLength: 150, required: true },
     male: { type: Boolean, required: true },
-    tools: { type: Array, required: true, min: 3 },
+    tools: { type: Array, required: true, minLength: 3 },
     items: { type: Object, required: true },
     any: { type: null, min: 2, maxLength: 3 },
     restrictedTypes: { type: null, avoid: [Object, Boolean] },
@@ -83,7 +83,7 @@ test('Volder Schema work correctly', () => {
       name: 'name should be a string',
       male: 'male should be a boolean (true or false)',
       email: 'email is required',
-      tools: 'tools should be at least 3 items',
+      tools: 'tools should be at least 3 length',
       age: 'age should be a number',
       items: 'items should be an object'
     },
@@ -151,7 +151,7 @@ test('custom type function work correctly', () => {
     mustBeTrue: { type: trueValue },
     arrayOfItems: {
       type: [arrayOfItems, 'must be 4 items'],
-      max: [5, 'must not bigger than 5']
+      maxLength: [5, 'must not bigger than 5']
     },
     haveProperty: {
       type: hasProperty,
@@ -170,6 +170,7 @@ test('custom type function work correctly', () => {
     arrayOfItems: [1, 2, 3, 4, 5, 6],
     isNumber: 'string'
   };
+
   expect(volderSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
 
   expect(volderSchema.validate(obj2)).toEqual({
