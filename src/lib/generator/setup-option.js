@@ -8,7 +8,7 @@ import { setupRequiredConfig } from './configs/required';
 import { setupAvoidConfig } from './configs/avoid';
 import { setupMaxConfig } from './configs/max';
 import { setupMinConfig } from './configs/min';
-// import { setupDefaultConfig } from './configs/default';
+import { setupDefaultConfig } from './configs/default';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -20,14 +20,14 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   } else {
     assertObject(optionConfigs, 'Expected a (object | constructor function | null | volder instance) but received a ');
   }
+
   // add a default config to the general configs;
-  const generalConfigs = ['required', 'type'];
+  const generalConfigs = ['required', 'type', 'default'];
   const stringConfigs = ['minLength', 'maxLength', 'trim'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigs = ['min', 'max'];
-  // this is for custom type (function)
-  const otherConfigs = ['min', 'max', 'minLength', 'maxLength']
+  const otherConfigs = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
@@ -35,33 +35,38 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   switch (optionConfigs.type) {
     case Boolean:
       strictConfigs(optionConfigs, [...generalConfigs]);
+      setupDefaultConfig(optionConfigs, Boolean);
       break;
     case Object:
       strictConfigs(optionConfigs, [...generalConfigs]);
+      setupDefaultConfig(optionConfigs, Object);
       break;
     case String:
       strictConfigs(optionConfigs, [...stringConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
+      setupDefaultConfig(optionConfigs, String);
       break;
     case Number:
       strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
+      setupDefaultConfig(optionConfigs, Number);
       break;
     case Array:
       strictConfigs(optionConfigs, [...arrayConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
+      setupDefaultConfig(optionConfigs, Array);
       break;
     case null:
-      // use loop for default config to loop to all avoided types;
       strictConfigs(optionConfigs, [...nullConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       setupAvoidConfig(optionConfigs);
+      setupDefaultConfig(optionConfigs, null);
       break;
     default:
       strictConfigs(optionConfigs, [...otherConfigs, ...generalConfigs]);
@@ -69,6 +74,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMinConfig(optionConfigs);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
+      setupDefaultConfig(optionConfigs, null);
       break;
   }
 
