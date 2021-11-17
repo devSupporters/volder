@@ -9,7 +9,7 @@
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 
  **volder** is powerful Object schema validation, it lets you describe your data using a simple and readable schema and transform a value to match the requirements, it has custom error messages, custom types, nested schemas.
-## ⚠️ version 2.0.0 in the road with more features and better documents 
+## ⚠️ version 2.0.0 in coming soon with more features and better documents 
 ## Contents
 
 - [⬇️ Installation](#Installation)
