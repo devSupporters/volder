@@ -11,7 +11,7 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
 
     return false;
   }
-
+  // validate if have no-spaces config;
   if (optionConfigs.hasOwnProperty('trim') && optionConfigs.trim) {
     input[optionName] = input[optionName].trim();
 
