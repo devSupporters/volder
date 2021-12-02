@@ -19,7 +19,8 @@ test('String type validation', () => {
     strMin: 'to',
     strMax: 'also to',
     strTrim: 'test',
-    strWhitespace: 'noWhitespace'
+    strWhitespace: 'noWhitespace',
+    strPattern: 'test@gmail.com'
   };
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
@@ -27,6 +28,7 @@ test('String type validation', () => {
   const obj5 = { strMax: '1234456789823', strRequired: 'exists', strTrim: 'test' };
   const obj6 = { strTrim: '                         ', strRequired: 'exists' };
   const obj7 = { strWhitespace: 'my name is salah', strRequired: 'exists', strTrim: 'test' };
+  const obj8 = { strPattern: 'test@test.com', strRequired: 'exists', strTrim: 'test' };
 
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -75,6 +77,13 @@ test('String type validation', () => {
     },
     value: {}
   });
+  expect(StrSchema.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      strPattern: 'strPattern is not in proper pattern'
+    },
+    value: {}
+  });
   const StrSchemaCustomMessage = new Volder({
     strType: { type: [String, 'str not a string'] },
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
@@ -82,7 +91,8 @@ test('String type validation', () => {
     strMin: { type: String, minLength: [2, 'string min not valid'] },
     strMax: { type: String, maxLength: [10, 'string max not valid'] },
     strDefault: { type: String, default: 'default name' },
-    strWhitespace: { type: String, whitespace: [false, 'whitespace is not allowed'] }
+    strWhitespace: { type: String, whitespace: [false, 'whitespace is not allowed'] },
+    strPattern: { type: String, pattern: [(input) => input.includes('gmail'), 'not valid pattern'] }
   });
 
   expect(StrSchemaCustomMessage.valid(obj1)).toBe(true);
@@ -92,6 +102,7 @@ test('String type validation', () => {
   expect(StrSchemaCustomMessage.valid(obj5)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj6)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj7)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj8)).toBe(false);
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
     valid: true,
@@ -141,6 +152,13 @@ test('String type validation', () => {
     },
     value: {}
   });
+  expect(StrSchemaCustomMessage.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      strPattern: 'not valid pattern'
+    },
+    value: {}
+  });
 });
 
 test('Number type validation', () => {
@@ -149,14 +167,16 @@ test('Number type validation', () => {
     NumRequired: { type: Number, required: true },
     NumMin: { type: Number, min: 3 },
     NumMax: { type: Number, max: 100 },
-    NumDefault: { type: Number, default: 100 }
+    NumDefault: { type: Number, default: 100 },
+    NumPattern: { type: Number, pattern: (input) => input % 2 === 0 }
   });
 
-  const obj1 = { NumType: 23, NumRequired: 100, NumMin: 33, NumMax: 100 };
+  const obj1 = { NumType: 23, NumRequired: 100, NumMin: 33, NumMax: 100, NumPattern: 120 };
   const obj2 = { NumType: 'string', NumRequired: 100 };
   const obj3 = {};
   const obj4 = { NumMin: 1, NumRequired: 100 };
   const obj5 = { NumMax: 101, NumRequired: 100 };
+  const obj6 = { NumPattern: 101, NumRequired: 100 };
 
   expect(NumSchema.validate(obj1)).toEqual({
     valid: true,
@@ -191,14 +211,30 @@ test('Number type validation', () => {
     },
     value: {}
   });
+  expect(NumSchema.validate(obj6)).toEqual({
+    valid: false,
+    errors: {
+      NumPattern: 'NumPattern is not in proper pattern'
+    },
+    value: {}
+  });
 
   const NumSchemaErrorMessage = new Volder({
     NumType: { type: [Number, 'should be a number type'] },
     NumRequired: { type: Number, required: [true, 'must exists'] },
     NumMin: { type: Number, min: [3, 'the min is 3'] },
     NumMax: { type: Number, max: [100, 'the max is 100'] },
-    NumDefault: { type: Number, default: 100 }
+    NumDefault: { type: Number, default: 100 },
+    NumPattern: { type: Number, pattern: [(input) => input % 2 === 0, 'not valid pattern'] }
+
   });
+
+  expect(NumSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(NumSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(NumSchemaErrorMessage.valid(obj3)).toBe(false);
+  expect(NumSchemaErrorMessage.valid(obj4)).toBe(false);
+  expect(NumSchemaErrorMessage.valid(obj5)).toBe(false);
+  expect(NumSchemaErrorMessage.valid(obj6)).toBe(false);
 
   expect(NumSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -233,6 +269,13 @@ test('Number type validation', () => {
     },
     value: {}
   });
+  expect(NumSchemaErrorMessage.validate(obj6)).toEqual({
+    valid: false,
+    errors: {
+      NumPattern: 'not valid pattern'
+    },
+    value: {}
+  });
 });
 
 test('Array type validation', () => {
@@ -242,6 +285,7 @@ test('Array type validation', () => {
     arrMin: { type: Array, minLength: 3 },
     arrMax: { type: Array, maxLength: 5 },
     arrDefault: { type: Array, default: [1, 2, 3] }
+    // arrPattern: { type: Array, pat}
   });
 
   const obj1 = { arrType: [1, 3], arrRequired: ['exists'], arrMax: [1, 2, 3, 4, 5], arrMin: [1, 2, 3] };

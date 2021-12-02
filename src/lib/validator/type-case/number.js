@@ -25,9 +25,9 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('pattern') && !!optionConfigs.pattern(input[optionName])) {
+  if (optionConfigs.hasOwnProperty('pattern') && !optionConfigs.pattern(input[optionName])) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.patternErrorMessage || `${optionName} is not in proper pattern `;
+      errors[optionName] = optionConfigs.patternErrorMessage || `${optionName} is not in proper pattern`;
     }
 
     return false;
