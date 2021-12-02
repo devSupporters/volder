@@ -226,7 +226,6 @@ test('Number type validation', () => {
     NumMax: { type: Number, max: [100, 'the max is 100'] },
     NumDefault: { type: Number, default: 100 },
     NumPattern: { type: Number, pattern: [(input) => input % 2 === 0, 'not valid pattern'] }
-
   });
 
   expect(NumSchemaErrorMessage.valid(obj1)).toBe(true);
@@ -284,15 +283,16 @@ test('Array type validation', () => {
     arrRequired: { type: Array, required: true },
     arrMin: { type: Array, minLength: 3 },
     arrMax: { type: Array, maxLength: 5 },
-    arrDefault: { type: Array, default: [1, 2, 3] }
-    // arrPattern: { type: Array, pat}
+    arrDefault: { type: Array, default: [1, 2, 3] },
+    arrPattern: { type: Array, pattern: (input) => input.includes(1) }
   });
 
-  const obj1 = { arrType: [1, 3], arrRequired: ['exists'], arrMax: [1, 2, 3, 4, 5], arrMin: [1, 2, 3] };
+  const obj1 = { arrType: [1, 3], arrRequired: ['exists'], arrMax: [1, 2, 3, 4, 5], arrMin: [1, 2, 3], arrPattern: [1, 2, 3] };
   const obj2 = { arrType: true, arrRequired: ['exists'] };
   const obj3 = {};
   const obj4 = { arrMax: [1, 2, 3, 4, 5, 6], arrRequired: ['exists'] };
   const obj5 = { arrMin: [1, 2], arrRequired: ['exists'] };
+  const obj6 = { arrPattern: [2, 3], arrRequired: ['exists'] };
 
   expect(ArrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -328,13 +328,29 @@ test('Array type validation', () => {
     value: {}
   });
 
+  expect(ArrSchema.validate(obj6)).toEqual({
+    valid: false,
+    errors: {
+      arrPattern: 'arrPattern is not in proper pattern'
+    },
+    value: {}
+  });
+
   const ArrSchemaErrorMessage = new Volder({
     arrType: { type: [Array, 'just array type'] },
     arrRequired: { type: Array, required: [true, 'should be exists'] },
     arrMin: { type: Array, minLength: [3, 'the min length is 3'] },
     arrMax: { type: Array, maxLength: [5, 'the max length is 5'] },
-    arrDefault: { type: Array, default: [1, 2, 3] }
+    arrDefault: { type: Array, default: [1, 2, 3] },
+    arrPattern: { type: Array, pattern: [(input) => input.includes(1), 'not valid pattern'] }
   });
+
+  expect(ArrSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(ArrSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(ArrSchemaErrorMessage.valid(obj3)).toBe(false);
+  expect(ArrSchemaErrorMessage.valid(obj4)).toBe(false);
+  expect(ArrSchemaErrorMessage.valid(obj5)).toBe(false);
+  expect(ArrSchemaErrorMessage.valid(obj6)).toBe(false);
 
   expect(ArrSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -369,19 +385,27 @@ test('Array type validation', () => {
     },
     value: {}
   });
+  expect(ArrSchemaErrorMessage.validate(obj6)).toEqual({
+    valid: false,
+    errors: {
+      arrPattern: 'not valid pattern'
+    },
+    value: {}
+  });
 });
 
 test('Object type validation', () => {
   const ObjSchema = new Volder({
     objType: Object,
     objRequired: { type: Object, required: true },
-    objDefault: { type: Object, default: { name: 'default' } }
+    objDefault: { type: Object, default: { name: 'default' } },
+    objPattern: { type: Object, pattern: (input) => input.hasOwnProperty('name') }
   });
 
-  const obj1 = { objType: { name: 'max' }, objRequired: { here: true } };
+  const obj1 = { objType: { name: 'max' }, objRequired: { here: true }, objPattern: { name: 'max' } };
   const obj2 = { objType: 'string', objRequired: { here: true } };
   const obj3 = {};
-
+  const obj4 = { objPattern: { person: 'max' }, objRequired: { here: true } };
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
@@ -402,11 +426,24 @@ test('Object type validation', () => {
     value: obj3
   });
 
+  expect(ObjSchema.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      objPattern: 'objPattern is not in proper pattern'
+    },
+    value: obj3
+  });
+
   const ObjSchemaErrorMessage = new Volder({
     objType: { type: [Object, 'the valid is object'] },
     objRequired: { type: Object, required: [true, 'should be exists'] },
-    objDefault: { type: Object, default: { name: 'default' } }
+    objDefault: { type: Object, default: { name: 'default' } },
+    objPattern: { type: Object, pattern: [(input) => input.hasOwnProperty('name'), 'not have name prop'] }
   });
+  expect(ObjSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(ObjSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(ObjSchemaErrorMessage.valid(obj3)).toBe(false);
+  expect(ObjSchemaErrorMessage.valid(obj4)).toBe(false);
 
   expect(ObjSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -425,7 +462,15 @@ test('Object type validation', () => {
     errors: {
       objRequired: 'should be exists'
     },
-    value: obj3
+    value: {}
+  });
+
+  expect(ObjSchema.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      objPattern: 'objPattern is not in proper pattern'
+    },
+    value: {}
   });
 });
 
