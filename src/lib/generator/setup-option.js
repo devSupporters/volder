@@ -23,13 +23,15 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
 
   // add a default config to the general configs;
-  const generalConfigs = ['required', 'type', 'default'];
+  const generalConfigs = ['required', 'type', 'default']; // add pattern config name
   const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigs = ['min', 'max'];
   const otherConfigs = ['min', 'max', 'minLength', 'maxLength'];
 
+
+  // add pattern config setup function;
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
 

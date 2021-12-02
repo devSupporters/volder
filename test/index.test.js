@@ -187,11 +187,6 @@ test('custom type function work correctly', () => {
   expect(volderSchema.valid(obj1)).toBe(true);
   expect(volderSchema.valid(obj2)).toBe(false);
 
-  const obj3 = { invalid: 'hello' };
-
-  expect(() => volderSchema.validate(obj3)).toThrowError(
-    new Error(`Expect custom function return a boolean but received string at invalid`)
-  );
 });
 
 test('nested volders should work correctly', () => {

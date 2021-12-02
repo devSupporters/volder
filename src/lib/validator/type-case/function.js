@@ -5,8 +5,6 @@ import { numberCase } from './number';
 export const functionCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isValidType = optionConfigs.type(input[optionName]);
 
-  if (typeof isValidType !== 'boolean')
-    throw new Error(`Expect custom function return a boolean but received ${typeof input[optionName]} at ${optionName}`);
   if (!isValidType) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} is invalid`;
