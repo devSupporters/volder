@@ -7,7 +7,8 @@ test('String type validation', () => {
     strTrim: { type: String, trim: true, minLength: 3, required: true },
     strMin: { type: String, minLength: 2 },
     strMax: { type: String, maxLength: 10 },
-    strDefault: { type: String, default: 'default name' }
+    strDefault: { type: String, default: 'default name' },
+    strWhitespace: { type: String, whitespace: false }
   });
 
   const obj1 = {
@@ -16,13 +17,15 @@ test('String type validation', () => {
     strTrim: 'here',
     strMin: 'to',
     strMax: 'also to',
-    strTrim: 'test'
+    strTrim: 'test',
+    strWhitespace: 'noWhitespace'
   };
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
   const obj4 = { strMin: '1', strRequired: 'exists', strTrim: 'test' };
   const obj5 = { strMax: '1234456789823', strRequired: 'exists', strTrim: 'test' };
   const obj6 = { strTrim: '                         ', strRequired: 'exists' };
+  const obj7 = { strWhitespace: 'my name is salah', strRequired: 'exists', strTrim: 'test' };
 
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -64,15 +67,30 @@ test('String type validation', () => {
     },
     value: {}
   });
-
+  expect(StrSchema.validate(obj7)).toEqual({
+    valid: false,
+    errors: {
+      strWhitespace: 'strWhitespace should be without whitespace'
+    },
+    value: {}
+  });
   const StrSchemaCustomMessage = new Volder({
     strType: { type: [String, 'str not a string'] },
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
     strTrim: { type: String, trim: true, required: [true, 'should be required'] },
     strMin: { type: String, minLength: [2, 'string min not valid'] },
     strMax: { type: String, maxLength: [10, 'string max not valid'] },
-    strDefault: { type: String, default: 'default name' }
+    strDefault: { type: String, default: 'default name' },
+    strWhitespace: { type: String, whitespace: [false, 'whitespace is not allowed'] }
   });
+
+  expect(StrSchemaCustomMessage.valid(obj1)).toBe(true);
+  expect(StrSchemaCustomMessage.valid(obj2)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj3)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj4)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj5)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj6)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj7)).toBe(false);
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
     valid: true,
@@ -112,6 +130,13 @@ test('String type validation', () => {
     valid: false,
     errors: {
       strTrim: 'should be required'
+    },
+    value: {}
+  });
+  expect(StrSchemaCustomMessage.validate(obj7)).toEqual({
+    valid: false,
+    errors: {
+      strWhitespace: 'whitespace is not allowed'
     },
     value: {}
   });

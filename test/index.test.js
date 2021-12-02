@@ -2,7 +2,7 @@ import { Volder } from '../src/index';
 
 test('Volder Schema work correctly', () => {
   const volderSchema = new Volder({
-    name: { type: String, minLength: 4, maxLength: 10, trim: true },
+    name: { type: String, minLength: 4, maxLength: 10, trim: true, whitespace: true },
     age: { type: Number, max: 100, required: true, min: 1 },
     email: { type: String, minLength: 10, maxLength: 150, required: true },
     male: { type: Boolean, required: true },

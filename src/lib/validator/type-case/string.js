@@ -41,11 +41,12 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('whitespace') && !optionConfigs.whitespace && !validateWhitespace(input)) {
+  if (optionConfigs.hasOwnProperty('whitespace') && !optionConfigs.whitespace && !validateWhitespace(input[optionName])) {
     if (collectErrors) {
-      errors[optionName] =
-        optionConfigs.whitespaceErrorMessage || `${optionName} should be without whitespace`;
+      errors[optionName] = optionConfigs.whitespaceErrorMessage || `${optionName} should be without whitespace`;
     }
+
+    return false;
   }
 
   return true;
