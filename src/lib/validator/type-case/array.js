@@ -14,18 +14,23 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
 
   if (optionConfigs.hasOwnProperty('minLength') && !validateMin(input[optionName].length, optionConfigs.minLength)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.minLengthErrorMessage || `${optionName} should be at least ${optionConfigs.minLength} length`;
-    }
-    
-    return false;
-  }
-  
-  if (optionConfigs.hasOwnProperty('maxLength') && !validateMax(input[optionName].length, optionConfigs.maxLength)) {
-    if (collectErrors) {
-      errors[optionName] = optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
+      errors[optionName] =
+        optionConfigs.minLengthErrorMessage || `${optionName} should be at least ${optionConfigs.minLength} length`;
     }
 
     return false;
+  }
+
+  if (optionConfigs.hasOwnProperty('maxLength') && !validateMax(input[optionName].length, optionConfigs.maxLength)) {
+    if (collectErrors) {
+      errors[optionName] =
+        optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
+    }
+
+    return false;
+  }
+  if (optionConfigs.hasOwnProperty('pattern')) {
+    return !!optionConfigs.pattern(input[optionName]);
   }
   return true;
 };

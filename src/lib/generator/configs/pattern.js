@@ -1,5 +1,4 @@
 import { configSpliter } from '../config-spliter';
-import { assertType } from '../../utils/assert-type';
 
 export const setupPatternConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('pattern')) {

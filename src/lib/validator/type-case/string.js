@@ -49,5 +49,9 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
+  if (optionConfigs.hasOwnProperty('pattern')) {
+    return !!optionConfigs.pattern(input[optionName]);
+  }
+
   return true;
 };

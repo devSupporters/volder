@@ -22,5 +22,9 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
     return numberCase(input, optionName, optionConfigs, errors, collectErrors);
   }
 
+  if (optionConfigs.hasOwnProperty('pattern')) {
+    return !!optionConfigs.pattern(input[optionName]);
+  }
+
   return true;
 };

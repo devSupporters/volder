@@ -14,13 +14,17 @@ export const nullCase = (input, optionName, optionConfigs, errors, collectErrors
       return false;
     }
   }
-  
+
   if (input[optionName].constructor.name === 'Array') {
     return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (input[optionName].constructor.name === 'String') {
     return stringCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (input[optionName].constructor.name === 'Number') {
     return numberCase(input, optionName, optionConfigs, errors, collectErrors);
+  }
+
+  if (optionConfigs.hasOwnProperty('pattern')) {
+    return !!optionConfigs.pattern(input[optionName]);
   }
 
   return true;

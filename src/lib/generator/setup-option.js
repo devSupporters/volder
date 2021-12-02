@@ -5,6 +5,7 @@ import { strictConfigs } from '../utils/strict-configs';
 // configs;
 import { setupTypeConfig } from './configs/type';
 import { setupRequiredConfig } from './configs/required';
+import { setupPatternConfig } from './configs/pattern';
 import { setupAvoidConfig } from './configs/avoid';
 import { setupMaxConfig } from './configs/max';
 import { setupMinConfig } from './configs/min';
@@ -23,17 +24,16 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
 
   // add a default config to the general configs;
-  const generalConfigs = ['required', 'type', 'default']; // add pattern config name
+  const generalConfigs = ['required', 'type', 'default', 'pattern'];
   const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigs = ['min', 'max'];
   const otherConfigs = ['min', 'max', 'minLength', 'maxLength'];
 
-
-  // add pattern config setup function;
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
+  setupPatternConfig(optionConfigs);
 
   switch (optionConfigs.type) {
     case Boolean:
