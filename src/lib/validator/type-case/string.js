@@ -1,5 +1,6 @@
 import { validateMax } from '../configs-validators/max';
 import { validateMin } from '../configs-validators/min';
+import { validateWhitespace } from '../configs-validators/whitespace';
 
 export const stringCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
@@ -38,6 +39,13 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     }
 
     return false;
+  }
+
+  if (optionConfigs.hasOwnProperty('whitespace') && !optionConfigs.whitespace && !validateWhitespace(input)) {
+    if (collectErrors) {
+      errors[optionName] =
+        optionConfigs.whitespaceErrorMessage || `${optionName} should be without whitespace`;
+    }
   }
 
   return true;

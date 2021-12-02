@@ -9,7 +9,7 @@ import { setupAvoidConfig } from './configs/avoid';
 import { setupMaxConfig } from './configs/max';
 import { setupMinConfig } from './configs/min';
 import { setupDefaultConfig } from './configs/default';
-// import noSpaces
+import { setupWhitespace } from './configs/whitespace';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -23,8 +23,8 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
 
   // add a default config to the general configs;
-  const generalConfigs = ['required', 'type', 'default']; // add no spaces config
-  const stringConfigs = ['minLength', 'maxLength', 'trim'];
+  const generalConfigs = ['required', 'type', 'default'];
+  const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigs = ['min', 'max'];
@@ -47,7 +47,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       setupDefaultConfig(optionConfigs, String);
-      // setup no spaces config/ put it after trim type validation;
+      setupWhitespace(optionConfigs);
       break;
     case Number:
       strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
