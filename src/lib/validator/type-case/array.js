@@ -29,8 +29,12 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
 
     return false;
   }
-  if (optionConfigs.hasOwnProperty('pattern')) {
-    return !!optionConfigs.pattern(input[optionName]);
+  if (optionConfigs.hasOwnProperty('pattern') && !!optionConfigs.pattern(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.patternErrorMessage || `${optionName} is not in proper pattern `;
+    }
+
+    return false;
   }
   return true;
 };

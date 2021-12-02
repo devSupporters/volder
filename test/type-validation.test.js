@@ -8,7 +8,8 @@ test('String type validation', () => {
     strMin: { type: String, minLength: 2 },
     strMax: { type: String, maxLength: 10 },
     strDefault: { type: String, default: 'default name' },
-    strWhitespace: { type: String, whitespace: false }
+    strWhitespace: { type: String, whitespace: false },
+    strPattern: { type: String, pattern: (input) => input.includes('gmail') }
   });
 
   const obj1 = {

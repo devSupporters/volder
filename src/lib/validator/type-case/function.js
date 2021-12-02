@@ -22,8 +22,12 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
     return numberCase(input, optionName, optionConfigs, errors, collectErrors);
   }
 
-  if (optionConfigs.hasOwnProperty('pattern')) {
-    return !!optionConfigs.pattern(input[optionName]);
+  if (optionConfigs.hasOwnProperty('pattern') && !!optionConfigs.pattern(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.patternErrorMessage || `${optionName} is not in proper pattern `;
+    }
+
+    return false;
   }
 
   return true;
