@@ -9,7 +9,7 @@ import { setupAvoidConfig } from './configs/avoid';
 import { setupMaxConfig } from './configs/max';
 import { setupMinConfig } from './configs/min';
 import { setupDefaultConfig } from './configs/default';
-import { setupWhitespace } from './configs/whitespace';
+import { setupWhitespaceConfig } from './configs/whitespace';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -49,7 +49,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       setupDefaultConfig(optionConfigs, String);
-      setupWhitespace(optionConfigs);
+      setupWhitespaceConfig(optionConfigs);
       break;
     case Number:
       strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
