@@ -171,7 +171,8 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj11 = { type: Object, default: null };
   const wrongObj12 = { type: Number, default: 'string' };
   const wrongObj13 = { type: Array, default: [1, 2, 3], required: true };
-
+  const wrongObj14 = { type: String, pattern: 'wrong' };
+  const wrongObj15 = { type: String, pattern: ['wrong', 'test'] };
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
@@ -190,6 +191,12 @@ test('setupOptionWithConfigs function should work correctly', () => {
   expect(() => setupOptionWithConfigs(wrongObj13)).toThrowError(
     new Error("you can't set { required: true } and use default key at the same time")
   );
+  expect(() => setupOptionWithConfigs(wrongObj14)).toThrowError(
+    new Error("Expected function type but received string in pattern property")
+  );
+  expect(() => setupOptionWithConfigs(wrongObj15)).toThrowError(
+    new Error("Expected function type but received string in pattern[0] property")
+  );
 });
 
 test('configSpliter should work correctly', () => {
@@ -199,6 +206,8 @@ test('configSpliter should work correctly', () => {
     max: [10, 'bigger than 10'],
     required: [true, 'test for required is work']
   };
+
+  
 
   configSpliter('type', 'constructor-type', configs);
   configSpliter('minLength', 'number', configs);

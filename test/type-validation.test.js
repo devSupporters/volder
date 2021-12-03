@@ -406,6 +406,7 @@ test('Object type validation', () => {
   const obj2 = { objType: 'string', objRequired: { here: true } };
   const obj3 = {};
   const obj4 = { objPattern: { person: 'max' }, objRequired: { here: true } };
+
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
@@ -464,11 +465,10 @@ test('Object type validation', () => {
     },
     value: {}
   });
-
-  expect(ObjSchema.validate(obj4)).toEqual({
+  expect(ObjSchemaErrorMessage.validate(obj4)).toEqual({
     valid: false,
     errors: {
-      objPattern: 'objPattern is not in proper pattern'
+      objPattern: 'not have name prop'
     },
     value: {}
   });
@@ -478,12 +478,14 @@ test('boolean type validation', () => {
   const BoolSchema = new Volder({
     boolType: Boolean,
     boolRequired: { type: Boolean, required: true },
-    boolDefault: { type: Boolean, default: false }
+    boolDefault: { type: Boolean, default: false },
+    boolPattern: { type: Boolean, pattern: (input) => input }
   });
 
-  const obj1 = { boolType: false, boolRequired: true };
+  const obj1 = { boolType: false, boolRequired: true, boolPattern: true };
   const obj2 = { boolType: [1, 3, 3], boolRequired: true };
   const obj3 = {};
+  const obj4 = { boolPattern: false, boolRequired: true };
 
   expect(BoolSchema.validate(obj1)).toEqual({
     valid: true,
@@ -504,12 +506,25 @@ test('boolean type validation', () => {
     },
     value: obj3
   });
+  expect(BoolSchema.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      boolPattern: 'boolPattern is not in proper pattern'
+    },
+    value: obj3
+  });
 
   const BoolSchemaErrorMessage = new Volder({
     boolType: { type: [Boolean, 'must true or false'] },
     boolRequired: { type: Boolean, required: [true, 'boolean is empty'] },
-    boolDefault: { type: Boolean, default: false }
+    boolDefault: { type: Boolean, default: false },
+    boolPattern: { type: Boolean, pattern: [(input) => input, 'is not true'] }
   });
+
+  expect(BoolSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(BoolSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(BoolSchemaErrorMessage.valid(obj3)).toBe(false);
+  expect(BoolSchemaErrorMessage.valid(obj4)).toBe(false);
 
   expect(BoolSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -528,7 +543,14 @@ test('boolean type validation', () => {
     errors: {
       boolRequired: 'boolean is empty'
     },
-    value: obj3
+    value: {}
+  });
+  expect(BoolSchemaErrorMessage.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      boolPattern: 'is not true'
+    },
+    value: {}
   });
 });
 
@@ -537,12 +559,15 @@ test('null type validation', () => {
     nullType: null,
     nullRequired: { type: null, required: true },
     nullAvoid: { type: null, avoid: [null, String, Boolean] },
-    nullDefault: { type: null, default: null }
+    nullDefault: { type: null, default: null },
+    nullPattern: { type: null, pattern: (input) => typeof input === 'number' },
+    nullAddtion: null
   });
 
-  const obj1 = { nullType: 'str', nullRequired: 'is required', nullAvoid: 23 };
+  const obj1 = { nullType: () => true, nullRequired: 'is required', nullAvoid: 23, nullPattern: 1, nullAddtion: { name: 'max' } };
   const obj2 = {};
   const obj3 = { nullAvoid: true, nullRequired: false };
+  const obj4 = { nullPattern: () => true, nullRequired: false };
 
   expect(NullSchema.validate(obj1)).toEqual({
     valid: true,
@@ -563,13 +588,26 @@ test('null type validation', () => {
     },
     value: {}
   });
+  expect(NullSchema.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      nullPattern: 'nullPattern is not in proper pattern'
+    },
+    value: {}
+  });
 
   const NullSchemaErrorMessage = new Volder({
     nullType: null,
     nullRequired: { type: null, required: [true, 'null required must exists'] },
     nullAvoid: { type: [null, 'null string boolean type not valid'], avoid: [null, String, Boolean] },
-    nullDefault: { type: null, default: null }
+    nullDefault: { type: null, default: null },
+    nullPattern: { type: null, pattern: [(input) => typeof input === 'number', 'not a number'] }
   });
+
+  expect(NullSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(NullSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(NullSchemaErrorMessage.valid(obj3)).toBe(false);
+  expect(NullSchemaErrorMessage.valid(obj4)).toBe(false);
 
   expect(NullSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -592,19 +630,36 @@ test('null type validation', () => {
     },
     value: {}
   });
+  expect(NullSchemaErrorMessage.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      nullPattern: 'not a number'
+    },
+    value: {}
+  });
 });
 
 test('custom function type validation', () => {
   const includesGmail = (input) => input.includes('gmail');
   const CustomFunctionSchema = new Volder({
     funcType: includesGmail,
+    funcAddition: (input) => typeof input === 'boolean',
     funcRequired: { type: includesGmail, required: true },
-    functionDefault: { type: includesGmail, default: 'test@gmail.com' }
+    functionDefault: { type: includesGmail, default: 'test@gmail.com' },
+    funcPattern: { type: (input = true) => true, pattern: (input) => typeof input === 'string' },
+    funcAddtion2: (input) => true
   });
 
-  const obj1 = { funcType: 'i am have gmail', funcRequired: 'i have gmail' };
+  const obj1 = {
+    funcType: 'i am have gmail',
+    funcRequired: 'i have gmail',
+    funcPattern: 'gmail@',
+    funcAddition: true,
+    funcAddition2: String
+  };
   const obj2 = { funcType: 'not have', funcRequired: 'i have gmail' };
   const obj3 = {};
+  const obj4 = { funcRequired: 'gmail', funcPattern: () => true };
 
   expect(CustomFunctionSchema.validate(obj1)).toEqual({
     valid: true,
@@ -626,11 +681,25 @@ test('custom function type validation', () => {
     value: {}
   });
 
+  expect(CustomFunctionSchema.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      funcPattern: 'funcPattern is not in proper pattern'
+    },
+    value: {}
+  });
+
   const CustomFunctionSchemaErrorMessage = new Volder({
     funcType: { type: [includesGmail, 'should include gmail'] },
     funcRequired: { type: includesGmail, required: [true, 'must exists'] },
-    functionDefault: { type: includesGmail, default: 'test@gmail.com' }
+    functionDefault: { type: includesGmail, default: 'test@gmail.com' },
+    funcPattern: { type: (input = true) => true, pattern: [(input) => typeof input === 'string', 'is not have @'] }
   });
+
+  expect(CustomFunctionSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(CustomFunctionSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(CustomFunctionSchemaErrorMessage.valid(obj3)).toBe(false);
+  expect(CustomFunctionSchemaErrorMessage.valid(obj4)).toBe(false);
 
   expect(CustomFunctionSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -648,6 +717,13 @@ test('custom function type validation', () => {
     valid: false,
     errors: {
       funcRequired: 'must exists'
+    },
+    value: {}
+  });
+  expect(CustomFunctionSchemaErrorMessage.validate(obj4)).toEqual({
+    valid: false,
+    errors: {
+      funcPattern: 'is not have @'
     },
     value: {}
   });
