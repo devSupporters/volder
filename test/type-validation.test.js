@@ -9,7 +9,8 @@ test('String type validation', () => {
     strMax: { type: String, maxLength: 10 },
     strDefault: { type: String, default: 'default name' },
     strWhitespace: { type: String, whitespace: false },
-    strPattern: { type: String, pattern: (input) => input.includes('gmail') }
+    strPattern: { type: String, pattern: (input) => input.includes('gmail'), transform: (input) => input.slice(0) },
+    strTransform: { type: String, transform: (input) => input.slice(1, 2) }
   });
 
   const obj1 = {
@@ -20,7 +21,8 @@ test('String type validation', () => {
     strMax: 'also to',
     strTrim: 'test',
     strWhitespace: 'noWhitespace',
-    strPattern: 'test@gmail.com'
+    strPattern: 'test@gmail.com',
+    strTransform: 'max'
   };
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
@@ -33,7 +35,7 @@ test('String type validation', () => {
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, strDefault: 'default name' }
+    value: { ...obj1, strDefault: 'default name', strTransform: 'a' }
   });
   expect(StrSchema.validate(obj2)).toEqual({
     valid: false,
@@ -168,10 +170,11 @@ test('Number type validation', () => {
     NumMin: { type: Number, min: 3 },
     NumMax: { type: Number, max: 100 },
     NumDefault: { type: Number, default: 100 },
-    NumPattern: { type: Number, pattern: (input) => input % 2 === 0 }
+    NumPattern: { type: Number, pattern: (input) => input % 2 === 0 },
+    NumTransform: { type: Number, transform: (input) => input / 2 }
   });
 
-  const obj1 = { NumType: 23, NumRequired: 100, NumMin: 33, NumMax: 100, NumPattern: 120 };
+  const obj1 = { NumType: 23, NumRequired: 100, NumMin: 33, NumMax: 100, NumPattern: 120, NumTransform: 3 };
   const obj2 = { NumType: 'string', NumRequired: 100 };
   const obj3 = {};
   const obj4 = { NumMin: 1, NumRequired: 100 };
@@ -181,7 +184,7 @@ test('Number type validation', () => {
   expect(NumSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, NumDefault: 100 }
+    value: { ...obj1, NumDefault: 100, NumTransform: 1.5 }
   });
   expect(NumSchema.validate(obj2)).toEqual({
     valid: false,
@@ -284,10 +287,18 @@ test('Array type validation', () => {
     arrMin: { type: Array, minLength: 3 },
     arrMax: { type: Array, maxLength: 5 },
     arrDefault: { type: Array, default: [1, 2, 3] },
-    arrPattern: { type: Array, pattern: (input) => input.includes(1) }
+    arrPattern: { type: Array, pattern: (input) => input.includes(1) },
+    arrTransform: { type: Array, transform: (input) => input.join(',') }
   });
 
-  const obj1 = { arrType: [1, 3], arrRequired: ['exists'], arrMax: [1, 2, 3, 4, 5], arrMin: [1, 2, 3], arrPattern: [1, 2, 3] };
+  const obj1 = {
+    arrType: [1, 3],
+    arrRequired: ['exists'],
+    arrMax: [1, 2, 3, 4, 5],
+    arrMin: [1, 2, 3],
+    arrPattern: [1, 2, 3],
+    arrTransform: [2, 1, 0]
+  };
   const obj2 = { arrType: true, arrRequired: ['exists'] };
   const obj3 = {};
   const obj4 = { arrMax: [1, 2, 3, 4, 5, 6], arrRequired: ['exists'] };
@@ -297,7 +308,7 @@ test('Array type validation', () => {
   expect(ArrSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, arrDefault: [1, 2, 3] }
+    value: { ...obj1, arrDefault: [1, 2, 3], arrTransform: '2,1,0' }
   });
   expect(ArrSchema.validate(obj2)).toEqual({
     valid: false,
@@ -399,10 +410,16 @@ test('Object type validation', () => {
     objType: Object,
     objRequired: { type: Object, required: true },
     objDefault: { type: Object, default: { name: 'default' } },
-    objPattern: { type: Object, pattern: (input) => input.hasOwnProperty('name') }
+    objPattern: { type: Object, pattern: (input) => input.hasOwnProperty('name') },
+    objTransform: { type: Object, transform: (input) => input.person }
   });
 
-  const obj1 = { objType: { name: 'max' }, objRequired: { here: true }, objPattern: { name: 'max' } };
+  const obj1 = {
+    objType: { name: 'max' },
+    objRequired: { here: true },
+    objPattern: { name: 'max' },
+    objTransform: { person: { name: 'max', age: 23 } }
+  };
   const obj2 = { objType: 'string', objRequired: { here: true } };
   const obj3 = {};
   const obj4 = { objPattern: { person: 'max' }, objRequired: { here: true } };
@@ -410,7 +427,7 @@ test('Object type validation', () => {
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, objDefault: { name: 'default' } }
+    value: { ...obj1, objDefault: { name: 'default' }, objTransform: { name: 'max', age: 23 } }
   });
   expect(ObjSchema.validate(obj2)).toEqual({
     valid: false,
@@ -479,10 +496,11 @@ test('boolean type validation', () => {
     boolType: Boolean,
     boolRequired: { type: Boolean, required: true },
     boolDefault: { type: Boolean, default: false },
-    boolPattern: { type: Boolean, pattern: (input) => input }
+    boolPattern: { type: Boolean, pattern: (input) => input },
+    boolTransform: { type: Boolean, transform: (input) => !input }
   });
 
-  const obj1 = { boolType: false, boolRequired: true, boolPattern: true };
+  const obj1 = { boolType: false, boolRequired: true, boolPattern: true, boolTransform: false };
   const obj2 = { boolType: [1, 3, 3], boolRequired: true };
   const obj3 = {};
   const obj4 = { boolPattern: false, boolRequired: true };
@@ -490,7 +508,7 @@ test('boolean type validation', () => {
   expect(BoolSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, boolDefault: false }
+    value: { ...obj1, boolDefault: false, boolTransform: true }
   });
   expect(BoolSchema.validate(obj2)).toEqual({
     valid: false,
@@ -561,10 +579,18 @@ test('null type validation', () => {
     nullAvoid: { type: null, avoid: [null, String, Boolean] },
     nullDefault: { type: null, default: null },
     nullPattern: { type: null, pattern: (input) => typeof input === 'number' },
-    nullAddtion: null
+    nullAddtion: null,
+    nullTransform: { type: null, transform: (input) => !!input }
   });
 
-  const obj1 = { nullType: () => true, nullRequired: 'is required', nullAvoid: 23, nullPattern: 1, nullAddtion: { name: 'max' } };
+  const obj1 = {
+    nullType: () => true,
+    nullRequired: 'is required',
+    nullAvoid: 23,
+    nullPattern: 1,
+    nullAddtion: { name: 'max' },
+    nullTransform: 1
+  };
   const obj2 = {};
   const obj3 = { nullAvoid: true, nullRequired: false };
   const obj4 = { nullPattern: () => true, nullRequired: false };
@@ -572,7 +598,7 @@ test('null type validation', () => {
   expect(NullSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, nullDefault: null }
+    value: { ...obj1, nullDefault: null, nullTransform: true }
   });
   expect(NullSchema.validate(obj2)).toEqual({
     valid: false,
@@ -647,7 +673,8 @@ test('custom function type validation', () => {
     funcRequired: { type: includesGmail, required: true },
     functionDefault: { type: includesGmail, default: 'test@gmail.com' },
     funcPattern: { type: (input = true) => true, pattern: (input) => typeof input === 'string' },
-    funcAddtion2: (input) => typeof input === 'function'
+    funcAddtion2: (input) => typeof input === 'function',
+    funcTransform: { type: (input) => typeof input === 'string', transform: (input) => 'MR.' + input }
   });
 
   const obj1 = {
@@ -655,7 +682,8 @@ test('custom function type validation', () => {
     funcRequired: 'i have gmail',
     funcPattern: 'gmail@',
     funcAddition: true,
-    funcAddtion2:String
+    funcAddtion2: String,
+    funcTransform: 'max'
   };
   const obj2 = { funcType: 'not have', funcRequired: 'i have gmail' };
   const obj3 = {};
@@ -664,7 +692,7 @@ test('custom function type validation', () => {
   expect(CustomFunctionSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, functionDefault: 'test@gmail.com' }
+    value: { ...obj1, functionDefault: 'test@gmail.com', funcTransform:"MR.max" }
   });
   expect(CustomFunctionSchema.validate(obj2)).toEqual({
     valid: false,
