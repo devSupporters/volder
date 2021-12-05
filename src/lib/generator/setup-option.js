@@ -11,6 +11,7 @@ import { setupMaxConfig } from './configs/max';
 import { setupMinConfig } from './configs/min';
 import { setupDefaultConfig } from './configs/default';
 import { setupWhitespaceConfig } from './configs/whitespace';
+// import transfomr
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -24,7 +25,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
 
   // add a default config to the general configs;
-  const generalConfigs = ['required', 'type', 'default', 'pattern'];
+  const generalConfigs = ['required', 'type', 'default', 'pattern']; // add transform
   const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
@@ -34,7 +35,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
   setupPatternConfig(optionConfigs);
-
+  // add transform setup fucntion
   switch (optionConfigs.type) {
     case Boolean:
       strictConfigs(optionConfigs, [...generalConfigs]);

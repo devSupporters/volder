@@ -43,6 +43,8 @@ export const validator = (volderMap, input, collectErrors = true) => {
       } else validCurInput = validateInput(clonedInput, optionName, optionConfigs, errors, collectErrors);
     }
     // validCurInput sometimes equal undefined, so we need to strict equal to false;
+    // add the transform
+    // add patern here
     if (!validCurInput) valid = false;
   });
 
