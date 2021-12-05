@@ -7,13 +7,7 @@ export const booleanCase = (input, optionName, optionConfigs, errors, collectErr
     }
     return false;
   }
-  if (optionConfigs.hasOwnProperty('pattern') && !optionConfigs.pattern(input[optionName])) {
-    if (collectErrors) {
-      errors[optionName] = optionConfigs.patternErrorMessage || `${optionName} is not in proper pattern`;
-    }
 
-    return false;
-  }
 
   return true;
 };

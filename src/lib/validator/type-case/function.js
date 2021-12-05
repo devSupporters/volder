@@ -24,6 +24,7 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
 
     return false;
   }
+  
   if (Array.isArray(input[optionName])) {
     return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (typeof input[optionName] === 'string') {
@@ -32,9 +33,9 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
     return numberCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null) {
     return objectCase(input, optionName, optionConfigs, errors, collectErrors);
-  } else  { // boolean type
+  } else if (typeof input[optionName] === 'boolean') {
     return booleanCase(input, optionName, optionConfigs, errors, collectErrors);
-  } 
+  }
 
-  // return true;
+  return true;
 };

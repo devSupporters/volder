@@ -12,18 +12,13 @@ export const validator = (volderMap, input, collectErrors = true) => {
 
     // check if option is required
     if (!clonedInput.hasOwnProperty(optionName)) {
-
-      if(optionConfigs.required) {
-
+      if (optionConfigs.required) {
         if (collectErrors) errors[optionName] = optionConfigs.requiredErrorMessage || `${optionName} is required`;
         validCurInput = false;
-
       } else if (optionConfigs.hasOwnProperty('default')) {
-        clonedInput[optionName]  = optionConfigs.default;
+        clonedInput[optionName] = optionConfigs.default;
       }
-
     } else {
-
       if (optionConfigs.type instanceof Volder) {
         const isObject =
           typeof clonedInput[optionName] === 'object' &&
@@ -40,7 +35,20 @@ export const validator = (volderMap, input, collectErrors = true) => {
           if (collectErrors) errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be an object`;
           validCurInput = false;
         }
-      } else validCurInput = validateInput(clonedInput, optionName, optionConfigs, errors, collectErrors);
+      } else {
+        validCurInput = validateInput(clonedInput, optionName, optionConfigs, errors, collectErrors);
+
+        // pattern config validation
+        if (optionConfigs.hasOwnProperty('pattern') && !optionConfigs.pattern(clonedInput[optionName]) && validCurInput) {
+          if (collectErrors) {
+            errors[optionName] = optionConfigs.patternErrorMessage || `${optionName} is not in proper pattern`;
+          }
+
+          validCurInput = false;
+        }
+
+        // transform config validation
+      }
     }
     // validCurInput sometimes equal undefined, so we need to strict equal to false;
     // add the transform
