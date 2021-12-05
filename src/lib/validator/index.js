@@ -48,11 +48,12 @@ export const validator = (volderMap, input, collectErrors = true) => {
         }
 
         // transform config validation
+        if (optionConfigs.hasOwnProperty('transform') && validCurInput) {
+          clonedInput[optionName] = optionConfigs.transform(clonedInput[optionName]);
+        }
       }
     }
-    // validCurInput sometimes equal undefined, so we need to strict equal to false;
-    // add the transform
-    // add patern here
+
     if (!validCurInput) valid = false;
   });
 

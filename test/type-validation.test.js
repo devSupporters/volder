@@ -647,7 +647,7 @@ test('custom function type validation', () => {
     funcRequired: { type: includesGmail, required: true },
     functionDefault: { type: includesGmail, default: 'test@gmail.com' },
     funcPattern: { type: (input = true) => true, pattern: (input) => typeof input === 'string' },
-    funcAddtion2: (input) => true
+    funcAddtion2: (input) => typeof input === 'function'
   });
 
   const obj1 = {
@@ -655,7 +655,7 @@ test('custom function type validation', () => {
     funcRequired: 'i have gmail',
     funcPattern: 'gmail@',
     funcAddition: true,
-    funcAddition2: String
+    funcAddtion2:String
   };
   const obj2 = { funcType: 'not have', funcRequired: 'i have gmail' };
   const obj3 = {};
