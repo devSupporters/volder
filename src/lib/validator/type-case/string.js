@@ -1,6 +1,7 @@
 import { validateMax } from '../configs-validators/max';
 import { validateMin } from '../configs-validators/min';
 import { validateWhitespace } from '../configs-validators/whitespace';
+import { validateAlphanumeric } from '../configs-validators/alphanumeric';
 
 export const stringCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
