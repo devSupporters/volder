@@ -174,6 +174,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj14 = { type: String, pattern: 'wrong' };
   const wrongObj15 = { type: String, pattern: ['wrong', 'test'] };
   const wrongObj16 = { type: null, transform: 'not function' };
+  const wrongObj17 = { type: String, alphanumeric: 'false' };
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
@@ -200,6 +201,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj16)).toThrowError(
     new Error('Expected function type but received string in transform property')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj17)).toThrowError(
+    new Error('Expected a boolean but received a string at alphanumeric property')
   );
 });
 

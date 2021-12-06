@@ -3,26 +3,28 @@ import { Volder } from '../src/index';
 test('String type validation', () => {
   const StrSchema = new Volder({
     strType: String,
-    strRequired: { type: String, required: true },
+    strRequired: { type: String, required: true, alphanumeric: false },
     strTrim: { type: String, trim: true, minLength: 3, required: true },
     strMin: { type: String, minLength: 2 },
     strMax: { type: String, maxLength: 10 },
     strDefault: { type: String, default: 'default name' },
     strWhitespace: { type: String, whitespace: false },
     strPattern: { type: String, pattern: (input) => input.includes('gmail'), transform: (input) => input.slice(0) },
-    strTransform: { type: String, transform: (input) => input.slice(1, 2) }
+    strTransform: { type: String, transform: (input) => input.slice(1, 2) },
+    strAlphanumeric: { type: String, alphanumeric: true }
   });
 
   const obj1 = {
     strType: 'test',
-    strRequired: 'exists',
+    strRequired: 'exists@',
     strTrim: 'here',
     strMin: 'to',
     strMax: 'also to',
     strTrim: 'test',
     strWhitespace: 'noWhitespace',
     strPattern: 'test@gmail.com',
-    strTransform: 'max'
+    strTransform: 'max',
+    strAlphanumeric: 'america123'
   };
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
@@ -31,6 +33,7 @@ test('String type validation', () => {
   const obj6 = { strTrim: '                         ', strRequired: 'exists' };
   const obj7 = { strWhitespace: 'my name is salah', strRequired: 'exists', strTrim: 'test' };
   const obj8 = { strPattern: 'test@test.com', strRequired: 'exists', strTrim: 'test' };
+  const obj9 = { strAlphanumeric: 'america@123', strRequired: 'exists', strTrim: 'test' };
 
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -86,6 +89,13 @@ test('String type validation', () => {
     },
     value: {}
   });
+  expect(StrSchema.validate(obj9)).toEqual({
+    valid: false,
+    errors: {
+      strAlphanumeric: 'strAlphanumeric is not alphanumeric'
+    },
+    value: {}
+  });
   const StrSchemaCustomMessage = new Volder({
     strType: { type: [String, 'str not a string'] },
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
@@ -94,7 +104,8 @@ test('String type validation', () => {
     strMax: { type: String, maxLength: [10, 'string max not valid'] },
     strDefault: { type: String, default: 'default name' },
     strWhitespace: { type: String, whitespace: [false, 'whitespace is not allowed'] },
-    strPattern: { type: String, pattern: [(input) => input.includes('gmail'), 'not valid pattern'] }
+    strPattern: { type: String, pattern: [(input) => input.includes('gmail'), 'not valid pattern'] },
+    strAlphanumeric: { type: String, alphanumeric: [true, 'must only includes 0-9, a-z and A-Z'] }
   });
 
   expect(StrSchemaCustomMessage.valid(obj1)).toBe(true);
@@ -105,6 +116,7 @@ test('String type validation', () => {
   expect(StrSchemaCustomMessage.valid(obj6)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj7)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj8)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj9)).toBe(false);
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
     valid: true,
@@ -158,6 +170,13 @@ test('String type validation', () => {
     valid: false,
     errors: {
       strPattern: 'not valid pattern'
+    },
+    value: {}
+  });
+  expect(StrSchemaCustomMessage.validate(obj9)).toEqual({
+    valid: false,
+    errors: {
+      strAlphanumeric: 'must only includes 0-9, a-z and A-Z'
     },
     value: {}
   });
@@ -692,7 +711,7 @@ test('custom function type validation', () => {
   expect(CustomFunctionSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, functionDefault: 'test@gmail.com', funcTransform:"MR.max" }
+    value: { ...obj1, functionDefault: 'test@gmail.com', funcTransform: 'MR.max' }
   });
   expect(CustomFunctionSchema.validate(obj2)).toEqual({
     valid: false,

@@ -50,5 +50,13 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
+  if(optionConfigs.hasOwnProperty('alphanumeric') && optionConfigs.alphanumeric && !validateAlphanumeric(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.alphanumericErrorMessage || `${optionName} is not alphanumeric`;
+    }
+
+    return false;
+  }
+
   return true;
 };

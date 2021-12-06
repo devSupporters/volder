@@ -3,10 +3,10 @@ import { assertType } from '../../utils/assert-type';
 
 export const setupAlphanumericConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('alphanumeric')) {
-    if (Array.isArray(optionConfigs.required)) {
+    if (Array.isArray(optionConfigs.alphanumeric)) {
       configSpliter('alphanumeric', 'boolean', optionConfigs);
     } else {
-      assertType(optionConfigs.required, 'boolean', 'alphanumeric property');
+      assertType(optionConfigs.alphanumeric, 'boolean', 'alphanumeric property');
     }
   }
 };
