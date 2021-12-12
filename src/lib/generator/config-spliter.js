@@ -16,7 +16,7 @@ export const configSpliter = (optionConfigName, optionConfigType, optionConfigs)
       if (type !== 'function') {
         throw new Error(`Expected function type but received ${type} in ${optionConfigName}[0] property`);
       }
-    } else {
+    } else if(optionConfigType !== 'other') {
       assertType(configProperty[0], optionConfigType, `${optionConfigName}[0] property`);
     }
 

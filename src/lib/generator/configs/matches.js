@@ -1,4 +1,15 @@
-// use match and store regex config in any type;
-// in validation use regex(pattern).test(input);
-// return it
-// use configSpliter without any type checking
+import { configSpliter } from '../config-spliter';
+
+export const setupMatchesConfig = (optionConfigs) => {
+  if (optionConfigs.hasOwnProperty('matches')) {
+    if (Array.isArray(optionConfigs.matches)) {
+      configSpliter('matches', 'other', optionConfigs);
+    } 
+
+    try {
+      optionConfigs.matches = new RegExp(optionConfigs.matches);
+    } catch (err) {
+      throw new TypeError(`${err.message} in matches property`)
+    }
+  }
+};
