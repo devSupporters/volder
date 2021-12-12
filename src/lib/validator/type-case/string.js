@@ -2,6 +2,7 @@ import { validateMax } from '../configs-validators/max';
 import { validateMin } from '../configs-validators/min';
 import { validateWhitespace } from '../configs-validators/whitespace';
 import { validateAlphanumeric } from '../configs-validators/alphanumeric';
+import { validateMatches } from '../configs-validators/matches';
 
 export const stringCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
@@ -50,9 +51,17 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-  if(optionConfigs.hasOwnProperty('alphanumeric') && optionConfigs.alphanumeric && !validateAlphanumeric(input[optionName])) {
+  if (optionConfigs.hasOwnProperty('alphanumeric') && optionConfigs.alphanumeric && !validateAlphanumeric(input[optionName])) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.alphanumericErrorMessage || `${optionName} is not alphanumeric`;
+    }
+
+    return false;
+  }
+
+  if (optionConfigs.hasOwnProperty('matches') && !validateMatches(input[optionName], optionConfigs.matches)) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.matchesErrorMessage || `${optionName} is not matches regular expression`;
     }
 
     return false;
