@@ -11,7 +11,9 @@ test('String type validation', () => {
     strWhitespace: { type: String, whitespace: false },
     strPattern: { type: String, pattern: (input) => input.includes('gmail'), transform: (input) => input.slice(0) },
     strTransform: { type: String, transform: (input) => input.slice(1, 2) },
-    strAlphanumeric: { type: String, alphanumeric: true }
+    strAlphanumeric: { type: String, alphanumeric: true },
+    strMatches1: { type: String, matches: '1' },
+    strMatches2: { type: String, matches: /\.(js|jsx)/ }
   });
 
   const obj1 = {
@@ -24,7 +26,9 @@ test('String type validation', () => {
     strWhitespace: 'noWhitespace',
     strPattern: 'test@gmail.com',
     strTransform: 'max',
-    strAlphanumeric: 'america123'
+    strAlphanumeric: 'america123',
+    strMatches2: 'test.js',
+    strMatches1: '123'
   };
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
@@ -34,6 +38,8 @@ test('String type validation', () => {
   const obj7 = { strWhitespace: 'my name is salah', strRequired: 'exists', strTrim: 'test' };
   const obj8 = { strPattern: 'test@test.com', strRequired: 'exists', strTrim: 'test' };
   const obj9 = { strAlphanumeric: 'america@123', strRequired: 'exists', strTrim: 'test' };
+  const obj10 = { strMatches1: '23', strRequired: 'exists', strTrim: 'test' };
+  const obj11 = { strMatches: 'not js', strRequired: 'exists', strTrim: 'test'  };
 
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -96,6 +102,13 @@ test('String type validation', () => {
     },
     value: {}
   });
+  expect(StrSchema.validate(obj10)).toEqual({
+    valid: false,
+    errors: {
+      strMatches1: 'strMatches1 is not matches regular expression'
+    },
+    value: {}
+  });
   const StrSchemaCustomMessage = new Volder({
     strType: { type: [String, 'str not a string'] },
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
@@ -105,7 +118,8 @@ test('String type validation', () => {
     strDefault: { type: String, default: 'default name' },
     strWhitespace: { type: String, whitespace: [false, 'whitespace is not allowed'] },
     strPattern: { type: String, pattern: [(input) => input.includes('gmail'), 'not valid pattern'] },
-    strAlphanumeric: { type: String, alphanumeric: [true, 'must only includes 0-9, a-z and A-Z'] }
+    strAlphanumeric: { type: String, alphanumeric: [true, 'must only includes 0-9, a-z and A-Z'] },
+    strMatches: { type: String, matches: [/\.(js|jsx)$/, 'not valid expression'] }
   });
 
   expect(StrSchemaCustomMessage.valid(obj1)).toBe(true);
@@ -117,6 +131,7 @@ test('String type validation', () => {
   expect(StrSchemaCustomMessage.valid(obj7)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj8)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj9)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj11)).toBe(false);
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
     valid: true,
@@ -177,6 +192,13 @@ test('String type validation', () => {
     valid: false,
     errors: {
       strAlphanumeric: 'must only includes 0-9, a-z and A-Z'
+    },
+    value: {}
+  });
+  expect(StrSchemaCustomMessage.validate(obj11)).toEqual({
+    valid: false,
+    errors: {
+      strMatches: "not valid expression"
     },
     value: {}
   });

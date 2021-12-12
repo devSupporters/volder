@@ -175,6 +175,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj15 = { type: String, pattern: ['wrong', 'test'] };
   const wrongObj16 = { type: null, transform: 'not function' };
   const wrongObj17 = { type: String, alphanumeric: 'false' };
+
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
