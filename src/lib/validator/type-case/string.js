@@ -3,6 +3,7 @@ import { validateMin } from '../configs-validators/min';
 import { validateWhitespace } from '../configs-validators/whitespace';
 import { validateAlphanumeric } from '../configs-validators/alphanumeric';
 import { validateMatches } from '../configs-validators/matches';
+import { validateLowercase, validateUppercase } from '../configs-validators/upper-lower';
 
 export const stringCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;
@@ -54,6 +55,22 @@ export const stringCase = (input, optionName, optionConfigs, errors, collectErro
   if (optionConfigs.hasOwnProperty('alphanumeric') && optionConfigs.alphanumeric && !validateAlphanumeric(input[optionName])) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.alphanumericErrorMessage || `${optionName} is not alphanumeric`;
+    }
+
+    return false;
+  }
+
+  if (optionConfigs.hasOwnProperty('uppercase') && optionConfigs.uppercase && !validateUppercase(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.uppercaseErrorMessage || `${optionName} is not in uppercase`;
+    }
+
+    return false;
+  }
+
+  if (optionConfigs.hasOwnProperty('lowercase') && optionConfigs.lowercase && !validateLowercase(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.lowercaseErrorMessage || `${optionName} is not in lowercase`;
     }
 
     return false;
