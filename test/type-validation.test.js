@@ -13,7 +13,10 @@ test('String type validation', () => {
     strTransform: { type: String, transform: (input) => input.slice(1, 2) },
     strAlphanumeric: { type: String, alphanumeric: true },
     strMatches1: { type: String, matches: '1' },
-    strMatches2: { type: String, matches: /\.(js|jsx)/ }
+    strMatches2: { type: String, matches: /\.(js|jsx)/ },
+    strUpper: { type: String, uppercase: true },
+    strLower: { type: String, lowercase: true },
+    strAllCases: { type: String, lowercase: true, uppercase: true }
   });
 
   const obj1 = {
@@ -28,8 +31,12 @@ test('String type validation', () => {
     strTransform: 'max',
     strAlphanumeric: 'america123',
     strMatches2: 'test.js',
-    strMatches1: '123'
+    strMatches1: '123',
+    strUpper: 'ABCZ',
+    strLower: 'abcz',
+    strAllCases: '2342@'
   };
+
   const obj2 = { strType: 23, strRequired: 'exists', strTrim: 'test' };
   const obj3 = { strTrim: 'test' };
   const obj4 = { strMin: '1', strRequired: 'exists', strTrim: 'test' };
@@ -39,7 +46,9 @@ test('String type validation', () => {
   const obj8 = { strPattern: 'test@test.com', strRequired: 'exists', strTrim: 'test' };
   const obj9 = { strAlphanumeric: 'america@123', strRequired: 'exists', strTrim: 'test' };
   const obj10 = { strMatches1: '23', strRequired: 'exists', strTrim: 'test' };
-  const obj11 = { strMatches: 'not js', strRequired: 'exists', strTrim: 'test'  };
+  const obj11 = { strMatches: 'not js', strRequired: 'exists', strTrim: 'test' };
+  const obj12 = { strUpper: 'ABCz', strRequired: 'exists', strTrim: 'test' };
+  const obj13 = { strLower: 'abcZ', strRequired: 'exists', strTrim: 'test' };
 
   expect(StrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -109,6 +118,21 @@ test('String type validation', () => {
     },
     value: {}
   });
+  expect(StrSchema.validate(obj12)).toEqual({
+    valid: false,
+    errors: {
+      strUpper: 'strUpper is not in uppercase'
+    },
+    value: {}
+  });
+  expect(StrSchema.validate(obj13)).toEqual({
+    valid: false,
+    errors: {
+      strLower: 'strLower is not in lowercase'
+    },
+    value: {}
+  });
+
   const StrSchemaCustomMessage = new Volder({
     strType: { type: [String, 'str not a string'] },
     strRequired: { type: String, required: [true, 'strRequired must exists'] },
@@ -119,7 +143,9 @@ test('String type validation', () => {
     strWhitespace: { type: String, whitespace: [false, 'whitespace is not allowed'] },
     strPattern: { type: String, pattern: [(input) => input.includes('gmail'), 'not valid pattern'] },
     strAlphanumeric: { type: String, alphanumeric: [true, 'must only includes 0-9, a-z and A-Z'] },
-    strMatches: { type: String, matches: [/\.(js|jsx)$/, 'not valid expression'] }
+    strMatches: { type: String, matches: [/\.(js|jsx)$/, 'not valid expression'] },
+    strUpper: { type: String, uppercase: [true, 'should be in uppercase'] },
+    strLower: { type: String, lowercase: [true, 'should be in lowercase'] }
   });
 
   expect(StrSchemaCustomMessage.valid(obj1)).toBe(true);
@@ -132,6 +158,8 @@ test('String type validation', () => {
   expect(StrSchemaCustomMessage.valid(obj8)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj9)).toBe(false);
   expect(StrSchemaCustomMessage.valid(obj11)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj12)).toBe(false);
+  expect(StrSchemaCustomMessage.valid(obj13)).toBe(false);
 
   expect(StrSchemaCustomMessage.validate(obj1)).toEqual({
     valid: true,
@@ -198,7 +226,21 @@ test('String type validation', () => {
   expect(StrSchemaCustomMessage.validate(obj11)).toEqual({
     valid: false,
     errors: {
-      strMatches: "not valid expression"
+      strMatches: 'not valid expression'
+    },
+    value: {}
+  });
+  expect(StrSchemaCustomMessage.validate(obj12)).toEqual({
+    valid: false,
+    errors: {
+      strUpper: "should be in uppercase"
+    },
+    value: {}
+  });
+  expect(StrSchemaCustomMessage.validate(obj13)).toEqual({
+    valid: false,
+    errors: {
+      strLower: 'should be in lowercase'
     },
     value: {}
   });

@@ -105,15 +105,5 @@ export const setupOptionWithConfigs = (optionConfigs) => {
     throw new Error('minLength property should be Equal or Smaller than maxLength property');
   }
 
-  // check if lowercase and uppercase exists in the same time
-  if (
-    optionConfigs.hasOwnProperty('uppercase') &&
-    optionConfigs.hasOwnProperty('lowercase') &&
-    optionConfigs.lowercase &&
-    optionConfigs.uppercase
-  ) {
-    throw new Error('Expect one of them are true { lowercase, uppercase } but received the both are true');
-  }
-
   return optionConfigs;
 };
