@@ -14,6 +14,7 @@ import { setupWhitespaceConfig } from './configs/whitespace';
 import { setupTransformConfig } from './configs/transform';
 import { setupAlphanumericConfig } from './configs/alphanumeric';
 import { setupMatchesConfig } from './configs/matches';
+import { setupUppercaseConfig, setupLowercaseConfig } from './configs/upper-lower';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -28,7 +29,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
 
   // add a default config to the general configs;
   const generalConfigs = ['required', 'type', 'default', 'pattern', 'transform'];
-  const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace','alphanumeric', 'matches'];
+  const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace', 'alphanumeric', 'matches', 'uppercase', 'lowercase'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigs = ['min', 'max'];
@@ -38,7 +39,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   setupRequiredConfig(optionConfigs);
   setupPatternConfig(optionConfigs);
   setupTransformConfig(optionConfigs);
-  
+
   switch (optionConfigs.type) {
     case Boolean:
       strictConfigs(optionConfigs, [...generalConfigs]);
@@ -56,6 +57,8 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupWhitespaceConfig(optionConfigs);
       setupAlphanumericConfig(optionConfigs);
       setupMatchesConfig(optionConfigs);
+      setupUppercaseConfig(optionConfigs);
+      setupLowercaseConfig(optionConfigs);
       break;
     case Number:
       strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
