@@ -1,5 +1,5 @@
-import { validateMax } from '../configs-validators/max';
-import { validateMin } from '../configs-validators/min';
+import { validateMax } from '../public/max';
+import { validateMin } from '../public/min';
 
 export const arrayCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isArray = Array.isArray(input[optionName]);

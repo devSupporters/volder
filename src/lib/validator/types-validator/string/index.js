@@ -1,9 +1,9 @@
-import { validateMax } from '../configs-validators/max';
-import { validateMin } from '../configs-validators/min';
-import { validateWhitespace } from '../configs-validators/whitespace';
-import { validateAlphanumeric } from '../configs-validators/alphanumeric';
-import { validateMatches } from '../configs-validators/matches';
-import { validateLowercase, validateUppercase } from '../configs-validators/upper-lower';
+import { validateMax } from '../public/max';
+import { validateMin } from '../public/min';
+import { validateWhitespace } from './whitespace';
+import { validateAlphanumeric } from './alphanumeric';
+import { validateMatches } from './matches';
+import { validateLowercase, validateUppercase } from './upper-lower';
 
 export const stringCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isString = typeof input[optionName] === 'string' || input[optionName] instanceof String;

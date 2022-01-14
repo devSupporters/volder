@@ -1,5 +1,5 @@
-import { validateMax } from '../configs-validators/max';
-import { validateMin } from '../configs-validators/min';
+import { validateMax } from '../public/max';
+import { validateMin } from '../public/min';
 
 export const numberCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isNumber = typeof input[optionName] === 'number' || input[optionName] instanceof Number;
@@ -24,8 +24,6 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
     }
     return false;
   }
-
-
 
   return true;
 };

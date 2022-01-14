@@ -9,7 +9,5 @@ export const objectCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-
-
   return true;
 };

@@ -1,9 +1,9 @@
-import { arrayCase } from './array';
-import { stringCase } from './string';
-import { numberCase } from './number';
-import { objectCase } from './object';
-import { booleanCase } from './boolean';
-import { validateAvoid } from '../configs-validators/avoid';
+import { arrayCase } from '../array';
+import { stringCase } from '../string';
+import { numberCase } from '../ number';
+import { objectCase } from '../object';
+import { booleanCase } from '../boolean';
+import { validateAvoid } from './avoid';
 
 export const nullCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   if (optionConfigs.hasOwnProperty('avoid')) {
@@ -17,7 +17,6 @@ export const nullCase = (input, optionName, optionConfigs, errors, collectErrors
     }
   }
 
-
   if (Array.isArray(input[optionName])) {
     return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (typeof input[optionName] === 'string') {
@@ -29,6 +28,6 @@ export const nullCase = (input, optionName, optionConfigs, errors, collectErrors
   } else if (typeof input[optionName] === 'boolean') {
     return booleanCase(input, optionName, optionConfigs, errors, collectErrors);
   }
-  
+
   return true;
 };

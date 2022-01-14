@@ -1,8 +1,8 @@
-import { arrayCase } from './array';
-import { stringCase } from './string';
-import { numberCase } from './number';
-import { objectCase } from './object';
-import { booleanCase } from './boolean';
+import { arrayCase } from '../array';
+import { stringCase } from '../string';
+import { numberCase } from '../ number';
+import { objectCase } from '../object';
+import { booleanCase } from '../boolean';
 
 export const functionCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isValidType = optionConfigs.type(input[optionName]);
@@ -24,7 +24,7 @@ export const functionCase = (input, optionName, optionConfigs, errors, collectEr
 
     return false;
   }
-  
+
   if (Array.isArray(input[optionName])) {
     return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
   } else if (typeof input[optionName] === 'string') {

@@ -8,6 +8,5 @@ export const booleanCase = (input, optionName, optionConfigs, errors, collectErr
     return false;
   }
 
-
   return true;
 };

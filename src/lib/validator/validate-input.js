@@ -1,10 +1,10 @@
-import { stringCase } from './type-case/string';
-import { numberCase } from './type-case/number';
-import { booleanCase } from './type-case/boolean';
-import { arrayCase } from './type-case/array';
-import { objectCase } from './type-case/object';
-import { nullCase } from './type-case/null';
-import { functionCase } from './type-case/function';
+import { stringCase } from './types-validator/string';
+import { numberCase } from './types-validator/ number';
+import { booleanCase } from './types-validator/boolean';
+import { arrayCase } from './types-validator/array';
+import { objectCase } from './types-validator/object';
+import { nullCase } from './types-validator/null';
+import { functionCase } from './types-validator/function';
 
 export const validateInput = (input, optionName, optionConfigs, errors, collectErrors) => {
   switch (optionConfigs.type) {

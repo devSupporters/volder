@@ -15,6 +15,7 @@ import { setupTransformConfig } from './configs/public/transform';
 import { setupAlphanumericConfig } from './configs/string/alphanumeric';
 import { setupMatchesConfig } from './configs/string/matches';
 import { setupUppercaseConfig, setupLowercaseConfig } from './configs/string/upper-lower';
+import { setupIntegerConfig } from './configs/number/integer';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -32,7 +33,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace', 'alphanumeric', 'matches', 'uppercase', 'lowercase'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
-  const numberConfigs = ['min', 'max'];
+  const numberConfigs = ['min', 'max', 'integer'];
   const otherConfigs = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
@@ -64,6 +65,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
+      setupIntegerConfig(optionConfigs);
       setupDefaultConfig(optionConfigs, Number);
       break;
     case Array:
