@@ -1,5 +1,5 @@
-import { configSpliter } from '../config-spliter';
-import { assertType } from '../../utils/assert-type';
+import { configSpliter } from '../../config-spliter';
+import { assertType } from '../../../utils/assert-type';
 
 export const setupAlphanumericConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('alphanumeric')) {

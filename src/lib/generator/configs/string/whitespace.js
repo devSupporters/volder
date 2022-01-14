@@ -1,5 +1,5 @@
-import { configSpliter } from '../config-spliter';
-import { assertType } from '../../utils/assert-type';
+import { configSpliter } from '../../config-spliter';
+import { assertType } from '../../../utils/assert-type';
 
 export const setupWhitespaceConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('whitespace')) {

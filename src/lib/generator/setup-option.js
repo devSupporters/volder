@@ -3,18 +3,18 @@ import { Volder } from '../volder';
 import { strictConfigs } from '../utils/strict-configs';
 
 // configs;
-import { setupTypeConfig } from './configs/type';
-import { setupRequiredConfig } from './configs/required';
-import { setupPatternConfig } from './configs/pattern';
-import { setupAvoidConfig } from './configs/avoid';
-import { setupMaxConfig } from './configs/max';
-import { setupMinConfig } from './configs/min';
-import { setupDefaultConfig } from './configs/default';
-import { setupWhitespaceConfig } from './configs/whitespace';
-import { setupTransformConfig } from './configs/transform';
-import { setupAlphanumericConfig } from './configs/alphanumeric';
-import { setupMatchesConfig } from './configs/matches';
-import { setupUppercaseConfig, setupLowercaseConfig } from './configs/upper-lower';
+import { setupTypeConfig } from './configs/public/type';
+import { setupRequiredConfig } from './configs/public/required';
+import { setupPatternConfig } from './configs/public/pattern';
+import { setupAvoidConfig } from './configs/null/avoid';
+import { setupMaxConfig } from './configs/public/max';
+import { setupMinConfig } from './configs/public/min';
+import { setupDefaultConfig } from './configs/public/default';
+import { setupWhitespaceConfig } from './configs/string/whitespace';
+import { setupTransformConfig } from './configs/public/transform';
+import { setupAlphanumericConfig } from './configs/string/alphanumeric';
+import { setupMatchesConfig } from './configs/string/matches';
+import { setupUppercaseConfig, setupLowercaseConfig } from './configs/string/upper-lower';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
