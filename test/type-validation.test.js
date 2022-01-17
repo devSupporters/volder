@@ -256,7 +256,8 @@ test('Number type validation', () => {
     NumPattern: { type: Number, pattern: (input) => input % 2 === 0 },
     NumTransform: { type: Number, transform: (input) => input / 2 },
     NumInteger: { type: Number, integer: true },
-    NumFloat: { type: Number, float: true }
+    NumFloat: { type: Number, float: true },
+    NumRound: { type: Number, round: true }
   });
 
   const obj1 = {
@@ -267,7 +268,8 @@ test('Number type validation', () => {
     NumPattern: 120,
     NumTransform: 3,
     NumInteger: 113,
-    NumFloat: 12.34
+    NumFloat: 12.34,
+    NumRound: 1.4
   };
   const obj2 = { NumType: 'string', NumRequired: 100 };
   const obj3 = {};
@@ -280,7 +282,7 @@ test('Number type validation', () => {
   expect(NumSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, NumDefault: 100, NumTransform: 1.5 }
+    value: { ...obj1, NumDefault: 100, NumTransform: 1.5, NumRound: 1 }
   });
   expect(NumSchema.validate(obj2)).toEqual({
     valid: false,

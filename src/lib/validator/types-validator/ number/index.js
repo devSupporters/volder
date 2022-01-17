@@ -41,7 +41,7 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-  if (optionConfigs.round) roundTransform(input[optionName]);
+  if (optionConfigs.round) input[optionName] = roundTransform(input[optionName]);
 
   return true;
 };
