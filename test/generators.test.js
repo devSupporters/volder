@@ -162,7 +162,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj7)).toThrowError(
     new Error(
-      'trim: option config not allowed, allowed keys { min, max, integer, float, required, type, default, pattern, transform }'
+      'trim: option config not allowed, allowed keys { min, max, integer, float, round, required, type, default, pattern, transform }'
     )
   );
 
