@@ -1,5 +1,5 @@
 import {isValidType} from '../../../utils/is-valid-type';
-import { configSpliter } from '../../config-spliter';
+import { configSpliter } from '../../setuption/config-spliter';
 
 export const setupTypeConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('type')) {

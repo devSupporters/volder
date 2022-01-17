@@ -1,4 +1,4 @@
-import { configSpliter } from '../../config-spliter';
+import { configSpliter } from '../../setuption/config-spliter';
 import { assertType } from '../../../utils/assert-type';
 
 export const setupUppercaseConfig = (optionConfigs) => {

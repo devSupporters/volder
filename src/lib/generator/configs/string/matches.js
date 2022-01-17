@@ -1,4 +1,4 @@
-import { configSpliter } from '../../config-spliter';
+import { configSpliter } from '../../setuption/config-spliter';
 
 export const setupMatchesConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('matches')) {

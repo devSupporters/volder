@@ -1,4 +1,4 @@
-import { configSpliter } from '../../config-spliter';
+import { configSpliter } from '../../setuption/config-spliter';
 
 export const setupPatternConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('pattern')) {

@@ -1,22 +1,23 @@
-import { assertObject } from '../utils/assert-object';
-import { Volder } from '../volder';
-import { strictConfigs } from '../utils/strict-configs';
+import { assertObject } from '../../utils/assert-object';
+import { Volder } from '../../volder';
+import { strictConfigs } from '../../utils/strict-configs';
+import { conflictsChecker } from './conflicts-checker'
 
 // configs;
-import { setupTypeConfig } from './configs/public/type';
-import { setupRequiredConfig } from './configs/public/required';
-import { setupPatternConfig } from './configs/public/pattern';
-import { setupAvoidConfig } from './configs/null/avoid';
-import { setupMaxConfig } from './configs/public/max';
-import { setupMinConfig } from './configs/public/min';
-import { setupDefaultConfig } from './configs/public/default';
-import { setupWhitespaceConfig } from './configs/string/whitespace';
-import { setupTransformConfig } from './configs/public/transform';
-import { setupAlphanumericConfig } from './configs/string/alphanumeric';
-import { setupMatchesConfig } from './configs/string/matches';
-import { setupUppercaseConfig, setupLowercaseConfig } from './configs/string/upper-lower';
-import { setupIntegerConfig } from './configs/number/integer-float';
-import { setupFloatConfig } from './configs/number/integer-float';
+import { setupTypeConfig } from '../configs/public/type';
+import { setupRequiredConfig } from '../configs/public/required';
+import { setupPatternConfig } from '../configs/public/pattern';
+import { setupAvoidConfig } from '../configs/null/avoid';
+import { setupMaxConfig } from '../configs/public/max';
+import { setupMinConfig } from '../configs/public/min';
+import { setupDefaultConfig } from '../configs/public/default';
+import { setupWhitespaceConfig } from '../configs/string/whitespace';
+import { setupTransformConfig } from '../configs/public/transform';
+import { setupAlphanumericConfig } from '../configs/string/alphanumeric';
+import { setupMatchesConfig } from '../configs/string/matches';
+import { setupUppercaseConfig, setupLowercaseConfig } from '../configs/string/upper-lower';
+import { setupIntegerConfig } from '../configs/number/integer-float';
+import { setupFloatConfig } from '../configs/number/integer-float';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -95,24 +96,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       break;
   }
 
-  // check if min is bigger than max
-  if (optionConfigs.hasOwnProperty('min') && optionConfigs.hasOwnProperty('max') && optionConfigs.min > optionConfigs.max) {
-    throw new Error('min property should be Equal or Smaller than max property');
-  }
-
-  // check if minLength is bigger than maxLength
-  if (
-    optionConfigs.hasOwnProperty('minLength') &&
-    optionConfigs.hasOwnProperty('maxLength') &&
-    optionConfigs.minLength > optionConfigs.maxLength
-  ) {
-    throw new Error('minLength property should be Equal or Smaller than maxLength property');
-  }
-
-  // check if has integer and float at the same time
-  if (optionConfigs.float && optionConfigs.integer) {
-    throw new Error("you can't add { float: true, integer: true } in the same option");
-  }
+  conflictsChecker(optionConfigs)
 
   return optionConfigs;
 };
