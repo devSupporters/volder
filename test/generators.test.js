@@ -161,7 +161,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
     new Error('minLength property should be at least equal 0 but received -1')
   );
   expect(() => setupOptionWithConfigs(wrongObj7)).toThrowError(
-    new Error('trim: option config not allowed, allowed keys { min, max, integer, required, type, default, pattern, transform }')
+    new Error(
+      'trim: option config not allowed, allowed keys { min, max, integer, float, required, type, default, pattern, transform }'
+    )
   );
 
   // entring wrong value in default config && use required with default at the same time
@@ -175,6 +177,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj15 = { type: String, pattern: ['wrong', 'test'] };
   const wrongObj16 = { type: null, transform: 'not function' };
   const wrongObj17 = { type: String, alphanumeric: 'false' };
+  const wrongObj18 = { type: Number, float: true, integer: true };
 
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
@@ -205,6 +208,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj17)).toThrowError(
     new Error('Expected a boolean but received a string at alphanumeric property')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj18)).toThrowError(
+    new Error("you can't add { float: true, integer: true } in the same option")
   );
 });
 

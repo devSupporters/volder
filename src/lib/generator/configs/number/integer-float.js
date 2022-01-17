@@ -10,3 +10,13 @@ export const setupIntegerConfig = (optionConfigs) => {
     }
   }
 };
+
+export const setupFloatConfig = (optionConfigs) => {
+  if (optionConfigs.hasOwnProperty('float')) {
+    if (Array.isArray(optionConfigs.float)) {
+      configSpliter('float', 'boolean', optionConfigs);
+    } else {
+      assertType(optionConfigs.float, 'boolean', 'float property');
+    }
+  }
+};
