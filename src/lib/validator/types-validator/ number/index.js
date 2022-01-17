@@ -1,5 +1,6 @@
 import { validateMax } from '../public/max';
 import { validateMin } from '../public/min';
+import { validateInt } from './integer';
 
 export const numberCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isNumber = typeof input[optionName] === 'number' || input[optionName] instanceof Number;
@@ -21,6 +22,13 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
   if (optionConfigs.hasOwnProperty('max') && !validateMax(input[optionName], optionConfigs.max)) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.maxErrorMessage || `${optionName} should be at most ${optionConfigs.max}`;
+    }
+    return false;
+  }
+
+  if (optionConfigs.hasOwnProperty('integer') && !validateInt(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.integerErrorMessage || `${optionName} should be an Integer`;
     }
     return false;
   }
