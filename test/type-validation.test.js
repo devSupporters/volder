@@ -255,16 +255,27 @@ test('Number type validation', () => {
     NumDefault: { type: Number, default: 100 },
     NumPattern: { type: Number, pattern: (input) => input % 2 === 0 },
     NumTransform: { type: Number, transform: (input) => input / 2 },
-    NumInteger: { type: Number, integer: true }
+    NumInteger: { type: Number, integer: true },
+    NumFloat: { type: Number, float: true }
   });
 
-  const obj1 = { NumType: 23, NumRequired: 100, NumMin: 33, NumMax: 100, NumPattern: 120, NumTransform: 3, NumInteger: 113 };
+  const obj1 = {
+    NumType: 23,
+    NumRequired: 100,
+    NumMin: 33,
+    NumMax: 100,
+    NumPattern: 120,
+    NumTransform: 3,
+    NumInteger: 113,
+    NumFloat: 12.34
+  };
   const obj2 = { NumType: 'string', NumRequired: 100 };
   const obj3 = {};
   const obj4 = { NumMin: 1, NumRequired: 100 };
   const obj5 = { NumMax: 101, NumRequired: 100 };
   const obj6 = { NumPattern: 101, NumRequired: 100 };
   const obj7 = { NumInteger: -13.3, NumRequired: 100 };
+  const obj8 = { NumFloat: -13, NumRequired: 100 };
 
   expect(NumSchema.validate(obj1)).toEqual({
     valid: true,
@@ -313,6 +324,13 @@ test('Number type validation', () => {
     },
     value: {}
   });
+  expect(NumSchema.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      NumFloat: 'NumFloat should be an Float type'
+    },
+    value: {}
+  });
 
   const NumSchemaErrorMessage = new Volder({
     NumType: { type: [Number, 'should be a number type'] },
@@ -321,8 +339,8 @@ test('Number type validation', () => {
     NumMax: { type: Number, max: [100, 'the max is 100'] },
     NumDefault: { type: Number, default: 100 },
     NumPattern: { type: Number, pattern: [(input) => input % 2 === 0, 'not valid pattern'] },
-    NumInteger: { type: Number, integer: [true, 'not be in float'] }
-
+    NumInteger: { type: Number, integer: [true, 'not be in float'] },
+    NumFloat: { type: Number, float: [true, 'not be in integer'] }
   });
 
   expect(NumSchemaErrorMessage.valid(obj1)).toBe(true);
@@ -332,6 +350,7 @@ test('Number type validation', () => {
   expect(NumSchemaErrorMessage.valid(obj5)).toBe(false);
   expect(NumSchemaErrorMessage.valid(obj6)).toBe(false);
   expect(NumSchemaErrorMessage.valid(obj7)).toBe(false);
+  expect(NumSchemaErrorMessage.valid(obj8)).toBe(false);
 
   expect(NumSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -377,6 +396,13 @@ test('Number type validation', () => {
     valid: false,
     errors: {
       NumInteger: 'not be in float'
+    },
+    value: {}
+  });
+  expect(NumSchemaErrorMessage.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      NumFloat: 'not be in integer'
     },
     value: {}
   });
