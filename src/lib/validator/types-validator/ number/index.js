@@ -28,7 +28,7 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
 
   if (optionConfigs.hasOwnProperty('integer') && !validateInt(input[optionName])) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.integerErrorMessage || `${optionName} should be an Integer`;
+      errors[optionName] = optionConfigs.integerErrorMessage || `${optionName} should be an Integer type`;
     }
     return false;
   }
