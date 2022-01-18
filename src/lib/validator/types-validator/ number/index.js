@@ -1,6 +1,7 @@
 import { validateMax } from '../public/max';
 import { validateMin } from '../public/min';
 import { validateInt, validateFloat } from './integer-float';
+import { validateSign } from './sign';
 import { roundTransform } from './round';
 import { fixedTransform } from './fixed';
 
@@ -42,6 +43,12 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
+  if(optionConfigs.hasOwnProperty('sign') && !validateSign(input[optionName], optionConfigs.sign)) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.signErrorMessage || `${optionName} should be a ${sign} number`;
+    }
+    return false;
+  }
   if (optionConfigs.round) input[optionName] = roundTransform(input[optionName]);
   if (optionConfigs.hasOwnProperty('fixed')) input[optionName] = fixedTransform(input[optionName], optionConfigs.fixed);
   
