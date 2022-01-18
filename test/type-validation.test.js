@@ -258,7 +258,9 @@ test('Number type validation', () => {
     NumInteger: { type: Number, integer: true },
     NumFloat: { type: Number, float: true },
     NumRound: { type: Number, round: true },
-    NumFixed: { type:Number, fixed:2}
+    NumFixed: { type: Number, fixed: 2 },
+    NumSign: { type: Number, sign: 'positive' },
+    NumSign1: { type: Number, sign: 'negative' }
   });
 
   const obj1 = {
@@ -271,7 +273,9 @@ test('Number type validation', () => {
     NumInteger: 113,
     NumFloat: 12.34,
     NumRound: 1.4,
-    NumFixed: 23.232423
+    NumFixed: 23.232423,
+    NumSign: 1,
+    NumSign1: -1
   };
   const obj2 = { NumType: 'string', NumRequired: 100 };
   const obj3 = {};
@@ -280,11 +284,12 @@ test('Number type validation', () => {
   const obj6 = { NumPattern: 101, NumRequired: 100 };
   const obj7 = { NumInteger: -13.3, NumRequired: 100 };
   const obj8 = { NumFloat: -13, NumRequired: 100 };
+  const obj9 = { NumSign: -2, NumRequired: 100 };
 
   expect(NumSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, NumDefault: 100, NumTransform: 1.5, NumRound: 1, NumFixed:23.23 }
+    value: { ...obj1, NumDefault: 100, NumTransform: 1.5, NumRound: 1, NumFixed: 23.23 }
   });
   expect(NumSchema.validate(obj2)).toEqual({
     valid: false,
@@ -335,6 +340,13 @@ test('Number type validation', () => {
     },
     value: {}
   });
+  expect(NumSchema.validate(obj9)).toEqual({
+    valid: false,
+    errors: {
+      NumSign: 'NumSign should be a positive number'
+    },
+    value: {}
+  });
 
   const NumSchemaErrorMessage = new Volder({
     NumType: { type: [Number, 'should be a number type'] },
@@ -344,7 +356,8 @@ test('Number type validation', () => {
     NumDefault: { type: Number, default: 100 },
     NumPattern: { type: Number, pattern: [(input) => input % 2 === 0, 'not valid pattern'] },
     NumInteger: { type: Number, integer: [true, 'not be in float'] },
-    NumFloat: { type: Number, float: [true, 'not be in integer'] }
+    NumFloat: { type: Number, float: [true, 'not be in integer'] },
+    NumSign: { type: Number, sign: ['positive', 'only pos'] }
   });
 
   expect(NumSchemaErrorMessage.valid(obj1)).toBe(true);
@@ -355,6 +368,7 @@ test('Number type validation', () => {
   expect(NumSchemaErrorMessage.valid(obj6)).toBe(false);
   expect(NumSchemaErrorMessage.valid(obj7)).toBe(false);
   expect(NumSchemaErrorMessage.valid(obj8)).toBe(false);
+  expect(NumSchemaErrorMessage.valid(obj9)).toBe(false);
 
   expect(NumSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -407,6 +421,13 @@ test('Number type validation', () => {
     valid: false,
     errors: {
       NumFloat: 'not be in integer'
+    },
+    value: {}
+  });
+  expect(NumSchemaErrorMessage.validate(obj9)).toEqual({
+    valid: false,
+    errors: {
+      NumSign: 'only pos'
     },
     value: {}
   });

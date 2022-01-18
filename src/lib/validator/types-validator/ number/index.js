@@ -45,10 +45,11 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
 
   if(optionConfigs.hasOwnProperty('sign') && !validateSign(input[optionName], optionConfigs.sign)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.signErrorMessage || `${optionName} should be a ${sign} number`;
+      errors[optionName] = optionConfigs.signErrorMessage || `${optionName} should be a ${optionConfigs.sign} number`;
     }
     return false;
   }
+
   if (optionConfigs.round) input[optionName] = roundTransform(input[optionName]);
   if (optionConfigs.hasOwnProperty('fixed')) input[optionName] = fixedTransform(input[optionName], optionConfigs.fixed);
   

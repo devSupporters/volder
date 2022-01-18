@@ -162,7 +162,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj7)).toThrowError(
     new Error(
-      'trim: option config not allowed, allowed keys { min, max, integer, float, round, fixed, required, type, default, pattern, transform }'
+      'trim: option config not allowed, allowed keys { min, max, integer, float, round, fixed, sign, required, type, default, pattern, transform }'
     )
   );
 
@@ -178,6 +178,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj16 = { type: null, transform: 'not function' };
   const wrongObj17 = { type: String, alphanumeric: 'false' };
   const wrongObj18 = { type: Number, float: true, integer: true };
+  const wrongObj19 = { type: Number, sign: 'false' };
 
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
@@ -211,6 +212,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj18)).toThrowError(
     new Error("you can't add { float: true, integer: true } in the same option")
+  );
+  expect(() => setupOptionWithConfigs(wrongObj19)).toThrowError(
+    new Error('sign config must only equal to "positive" or "negative" value')
   );
 });
 

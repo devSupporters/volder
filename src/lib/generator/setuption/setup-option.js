@@ -20,6 +20,7 @@ import { setupIntegerConfig } from '../configs/number/integer-float';
 import { setupFloatConfig } from '../configs/number/integer-float';
 import { setupRoundConfig } from '../configs/number/round';
 import { setupFixedConfig } from '../configs/number/fixed';
+import { setupSignConfig } from '../configs/number/sign';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -37,7 +38,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace', 'alphanumeric', 'matches', 'uppercase', 'lowercase'];
   const arrayConfigs = ['minLength', 'maxLength'];
   const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
-  const numberConfigs = ['min', 'max', 'integer', 'float', 'round', 'fixed'];
+  const numberConfigs = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
   const otherConfigs = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
@@ -74,6 +75,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupFloatConfig(optionConfigs);
       setupRoundConfig(optionConfigs);
       setupFixedConfig(optionConfigs);
+      setupSignConfig(optionConfigs);
       break;
     case Array:
       strictConfigs(optionConfigs, [...arrayConfigs, ...generalConfigs]);
