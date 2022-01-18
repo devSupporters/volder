@@ -44,5 +44,6 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
 
   if (optionConfigs.round) input[optionName] = roundTransform(input[optionName]);
   if (optionConfigs.hasOwnProperty('fixed')) input[optionName] = fixedTransform(input[optionName], optionConfigs.fixed);
+  
   return true;
 };
