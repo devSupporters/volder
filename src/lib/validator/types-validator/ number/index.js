@@ -2,6 +2,7 @@ import { validateMax } from '../public/max';
 import { validateMin } from '../public/min';
 import { validateInt, validateFloat } from './integer-float';
 import { roundTransform } from './round';
+import { fixedTransform } from './fixed';
 
 export const numberCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isNumber = typeof input[optionName] === 'number' || input[optionName] instanceof Number;
@@ -42,6 +43,6 @@ export const numberCase = (input, optionName, optionConfigs, errors, collectErro
   }
 
   if (optionConfigs.round) input[optionName] = roundTransform(input[optionName]);
-
+  if (optionConfigs.hasOwnProperty('fixed')) input[optionName] = fixedTransform(input[optionName], optionConfigs.fixed);
   return true;
 };
