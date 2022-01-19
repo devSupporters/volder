@@ -7,13 +7,12 @@ export const booleanCase = (input, optionName, optionConfigs, errors, collectErr
     }
     return false;
   }
-
-  if (
-    (optionConfigs.hasOwnProperty('state') && input[optionName] === optionConfigs.state) ||
-    (!!input[optionName] === optionConfigs.state && optionConfigs.sensible)
-  ) {
+  if (optionConfigs.hasOwnProperty('state') && !input[optionName] == optionConfigs.state) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} should be a boolean (true or false)`;
+      const ErrMessage = `${optionName} should be a ${
+        !optionConfigs.sensible ? optionConfigs.state : optionConfigs.state ? 'Truthy' : 'Falsy'
+      } value`;
+      errors[optionName] = optionConfigs.stateErrorMessage || ErrMessage;
     }
     return false;
   }

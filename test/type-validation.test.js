@@ -652,12 +652,25 @@ test('boolean type validation', () => {
     boolPattern: { type: Boolean, pattern: (input) => input },
     boolTransform: { type: Boolean, transform: (input) => !input },
     boolSensible: { type: Boolean, sensible: true },
+    boolState1: { type: Boolean, state: true },
+    boolState2: { type: Boolean, state: false, sensible: true },
+    boolState3: { type: Boolean, state: true, sensible: true }
   });
 
-  const obj1 = { boolType: false, boolRequired: true, boolPattern: true, boolTransform: false, boolSensible: 'true' };
+  const obj1 = {
+    boolType: false,
+    boolRequired: true,
+    boolPattern: true,
+    boolTransform: false,
+    boolSensible: 'true',
+    boolState1: true,
+    boolState2: 0,
+    boolState3: 'name'
+  };
   const obj2 = { boolType: [1, 3, 3], boolRequired: true };
   const obj3 = {};
   const obj4 = { boolPattern: false, boolRequired: true };
+  const obj5 = { boolState1: false, boolState2: 1, boolState3: '', boolRequired: true };
 
   expect(BoolSchema.validate(obj1)).toEqual({
     valid: true,
@@ -676,27 +689,39 @@ test('boolean type validation', () => {
     errors: {
       boolRequired: 'boolRequired is required'
     },
-    value: obj3
+    value: {}
   });
   expect(BoolSchema.validate(obj4)).toEqual({
     valid: false,
     errors: {
       boolPattern: 'boolPattern is not in proper pattern'
     },
-    value: obj3
+    value: {}
+  });
+  expect(BoolSchema.validate(obj5)).toEqual({
+    valid: false,
+    errors: {
+      boolState1: 'boolState1 should be a true value',
+      boolState2: 'boolState2 should be a Falsy value',
+      boolState3: 'boolState3 should be a Truthy value'
+    },
+    value: {}
   });
 
   const BoolSchemaErrorMessage = new Volder({
     boolType: { type: [Boolean, 'must true or false'] },
     boolRequired: { type: Boolean, required: [true, 'boolean is empty'] },
     boolDefault: { type: Boolean, default: false },
-    boolPattern: { type: Boolean, pattern: [(input) => input, 'is not true'] }
+    boolPattern: { type: Boolean, pattern: [(input) => input, 'is not true'] },
+    boolState1: { type: Boolean, state: [true, 'only true'] },
+    boolState2: { type: Boolean, state: [false, 'just Falsy value accepted'], sensible: true }
   });
 
   expect(BoolSchemaErrorMessage.valid(obj1)).toBe(true);
   expect(BoolSchemaErrorMessage.valid(obj2)).toBe(false);
   expect(BoolSchemaErrorMessage.valid(obj3)).toBe(false);
   expect(BoolSchemaErrorMessage.valid(obj4)).toBe(false);
+  expect(BoolSchemaErrorMessage.valid(obj5)).toBe(false);
 
   expect(BoolSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -721,6 +746,14 @@ test('boolean type validation', () => {
     valid: false,
     errors: {
       boolPattern: 'is not true'
+    },
+    value: {}
+  });
+  expect(BoolSchemaErrorMessage.validate(obj5)).toEqual({
+    valid: false,
+    errors: {
+      boolState1: 'only true',
+      boolState2: 'just Falsy value accepted'
     },
     value: {}
   });
