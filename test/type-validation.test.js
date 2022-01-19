@@ -654,7 +654,8 @@ test('boolean type validation', () => {
     boolSensible: { type: Boolean, sensible: true },
     boolState1: { type: Boolean, state: true },
     boolState2: { type: Boolean, state: false, sensible: true },
-    boolState3: { type: Boolean, state: true, sensible: true }
+    boolState3: { type: Boolean, state: true, sensible: true },
+    boolSwitch: { type: Boolean, switch: true }
   });
 
   const obj1 = {
@@ -665,17 +666,18 @@ test('boolean type validation', () => {
     boolSensible: 'true',
     boolState1: true,
     boolState2: 0,
-    boolState3: 'name'
+    boolState3: 'name',
+    boolSwitch: 'max'
   };
   const obj2 = { boolType: [1, 3, 3], boolRequired: true };
   const obj3 = {};
   const obj4 = { boolPattern: false, boolRequired: true };
-  const obj5 = { boolState1: false, boolState2: 1, boolState3: '', boolRequired: true };
+  const obj5 = { boolState1: false, boolState2: 1, boolState3: '', boolRequired: true};
 
   expect(BoolSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, boolDefault: false, boolTransform: true }
+    value: { ...obj1, boolDefault: false, boolTransform: true, boolSwitch: true  }
   });
   expect(BoolSchema.validate(obj2)).toEqual({
     valid: false,
