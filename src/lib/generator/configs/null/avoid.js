@@ -1,5 +1,5 @@
 export const setupAvoidConfig = (optionConfigs) => {
-  if (optionConfigs.hasOwnProperty('avoid') && optionConfigs.type === null) {
+  if (optionConfigs.hasOwnProperty('avoid')) {
     const allowedTypes = [String, Object, Array, Number, Boolean, null, undefined];
     if (!Array.isArray(optionConfigs.avoid)) {
       throw new TypeError('avoid property should be an array');

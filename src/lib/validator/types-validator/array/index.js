@@ -1,5 +1,6 @@
 import { validateMax } from '../public/max';
 import { validateMin } from '../public/min';
+import { validateArrayOf } from './arrayOf';
 
 export const arrayCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isArray = Array.isArray(input[optionName]);
@@ -25,6 +26,15 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
     if (collectErrors) {
       errors[optionName] =
         optionConfigs.maxLengthErrorMessage || `${optionName} should be at most ${optionConfigs.maxLength} length`;
+    }
+
+    return false;
+  }
+
+  if(optionConfigs.hasOwnProperty('arrayOf') && !validateArrayOf(input[optionName], optionConfigs.arrayOf)) {
+    if (collectErrors) {
+      errors[optionName] =
+        optionConfigs.arrayOfErrorMessage || `${optionName} only accept ${Object.keys({String})} type`;
     }
 
     return false;

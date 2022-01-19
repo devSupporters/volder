@@ -24,6 +24,7 @@ import { setupSignConfig } from '../configs/number/sign';
 import { setupSensibleConfig } from '../configs/boolean/sensible';
 import { setupStateConfig } from '../configs/boolean/state';
 import { setupSwitchConfig } from '../configs/boolean/switch';
+import { setupArrayOfConfig } from '../configs/array/arrayof';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -39,7 +40,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   // add a default config to the general configs;
   const generalConfigsKeys = ['required', 'type', 'default', 'pattern', 'transform'];
   const stringConfigsKeys = ['minLength', 'maxLength', 'trim', 'whitespace', 'alphanumeric', 'matches', 'uppercase', 'lowercase'];
-  const arrayConfigsKeys = ['minLength', 'maxLength'];
+  const arrayConfigsKeys = ['minLength', 'maxLength', 'arrayOf'];
   const nullConfigsKeys = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigsKeys = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
   const booleanConfigsKeys = ['sensible', 'state', 'switch'];
@@ -89,6 +90,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       setupDefaultConfig(optionConfigs, Array);
+      setupArrayOfConfig(optionConfigs);
       break;
     case null:
       strictConfigs(optionConfigs, [...nullConfigsKeys, ...generalConfigsKeys]);
