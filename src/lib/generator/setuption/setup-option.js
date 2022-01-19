@@ -21,6 +21,7 @@ import { setupFloatConfig } from '../configs/number/integer-float';
 import { setupRoundConfig } from '../configs/number/round';
 import { setupFixedConfig } from '../configs/number/fixed';
 import { setupSignConfig } from '../configs/number/sign';
+import { setupSensibleConfig } from '../configs/boolean/sensible';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -34,12 +35,13 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   }
 
   // add a default config to the general configs;
-  const generalConfigs = ['required', 'type', 'default', 'pattern', 'transform'];
-  const stringConfigs = ['minLength', 'maxLength', 'trim', 'whitespace', 'alphanumeric', 'matches', 'uppercase', 'lowercase'];
-  const arrayConfigs = ['minLength', 'maxLength'];
-  const nullConfigs = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
-  const numberConfigs = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
-  const otherConfigs = ['min', 'max', 'minLength', 'maxLength'];
+  const generalConfigsKeys = ['required', 'type', 'default', 'pattern', 'transform'];
+  const stringConfigsKeys = ['minLength', 'maxLength', 'trim', 'whitespace', 'alphanumeric', 'matches', 'uppercase', 'lowercase'];
+  const arrayConfigsKeys = ['minLength', 'maxLength'];
+  const nullConfigsKeys = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
+  const numberConfigsKeys = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
+  const booleanConfigsKeys = ['sensible'];
+  const otherConfigsKeys = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
   setupRequiredConfig(optionConfigs);
@@ -48,15 +50,16 @@ export const setupOptionWithConfigs = (optionConfigs) => {
 
   switch (optionConfigs.type) {
     case Boolean:
-      strictConfigs(optionConfigs, [...generalConfigs]);
+      strictConfigs(optionConfigs, [...booleanConfigsKeys, ...generalConfigsKeys]);
       setupDefaultConfig(optionConfigs, Boolean);
+      setupSensibleConfig(optionConfigs);
       break;
     case Object:
-      strictConfigs(optionConfigs, [...generalConfigs]);
+      strictConfigs(optionConfigs, [...generalConfigsKeys]);
       setupDefaultConfig(optionConfigs, Object);
       break;
     case String:
-      strictConfigs(optionConfigs, [...stringConfigs, ...generalConfigs]);
+      strictConfigs(optionConfigs, [...stringConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       setupDefaultConfig(optionConfigs, String);
@@ -67,7 +70,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupLowercaseConfig(optionConfigs);
       break;
     case Number:
-      strictConfigs(optionConfigs, [...numberConfigs, ...generalConfigs]);
+      strictConfigs(optionConfigs, [...numberConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       setupIntegerConfig(optionConfigs);
@@ -78,13 +81,13 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupSignConfig(optionConfigs);
       break;
     case Array:
-      strictConfigs(optionConfigs, [...arrayConfigs, ...generalConfigs]);
+      strictConfigs(optionConfigs, [...arrayConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs, false);
       setupMinConfig(optionConfigs, false);
       setupDefaultConfig(optionConfigs, Array);
       break;
     case null:
-      strictConfigs(optionConfigs, [...nullConfigs, ...generalConfigs]);
+      strictConfigs(optionConfigs, [...nullConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       setupMaxConfig(optionConfigs, false);
@@ -93,7 +96,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupDefaultConfig(optionConfigs, null);
       break;
     default:
-      strictConfigs(optionConfigs, [...otherConfigs, ...generalConfigs]);
+      strictConfigs(optionConfigs, [...otherConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs);
       setupMinConfig(optionConfigs);
       setupMaxConfig(optionConfigs, false);

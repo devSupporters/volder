@@ -650,10 +650,11 @@ test('boolean type validation', () => {
     boolRequired: { type: Boolean, required: true },
     boolDefault: { type: Boolean, default: false },
     boolPattern: { type: Boolean, pattern: (input) => input },
-    boolTransform: { type: Boolean, transform: (input) => !input }
+    boolTransform: { type: Boolean, transform: (input) => !input },
+    boolSensible: { type: Boolean, sensible: true },
   });
 
-  const obj1 = { boolType: false, boolRequired: true, boolPattern: true, boolTransform: false };
+  const obj1 = { boolType: false, boolRequired: true, boolPattern: true, boolTransform: false, boolSensible: 'true' };
   const obj2 = { boolType: [1, 3, 3], boolRequired: true };
   const obj3 = {};
   const obj4 = { boolPattern: false, boolRequired: true };
