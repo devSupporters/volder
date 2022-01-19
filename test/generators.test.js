@@ -179,6 +179,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj17 = { type: String, alphanumeric: 'false' };
   const wrongObj18 = { type: Number, float: true, integer: true };
   const wrongObj19 = { type: Number, sign: 'false' };
+  const wrongObj20 = { type: Array, arrayOf:'strings'}
 
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
@@ -215,6 +216,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj19)).toThrowError(
     new Error('sign config must only equal to "positive" or "negative" value')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj20)).toThrowError(
+    new Error('Expected one of [String, Number, Object, Boolean, Array, null, undefined] but received strings')
   );
 });
 

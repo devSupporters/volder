@@ -31,10 +31,10 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
     return false;
   }
 
-  if(optionConfigs.hasOwnProperty('arrayOf') && !validateArrayOf(input[optionName], optionConfigs.arrayOf)) {
+  if (optionConfigs.hasOwnProperty('arrayOf') && !validateArrayOf(input[optionName], optionConfigs.arrayOf)) {
     if (collectErrors) {
       errors[optionName] =
-        optionConfigs.arrayOfErrorMessage || `${optionName} only accept ${Object.keys({String})} type`;
+        optionConfigs.arrayOfErrorMessage || `${optionName} is not accpted type depening in arrayOf config`;
     }
 
     return false;

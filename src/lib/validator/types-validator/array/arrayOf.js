@@ -1,7 +1,8 @@
 export const validateArrayOf = (input, arrOfConfig) => {
-    const inputType = input === null ? null : input === undefined ? undefined : input.constructor;
+  const isAllValidType = input.every((value) => {
+    const valueType = value === null ? null : value === undefined ? undefined : value.constructor;
+    return valueType == arrOfConfig;
+  });
 
-    if(inputType != arrOfConfig) return false;
-
-    return true
-}
+  return isAllValidType;
+};

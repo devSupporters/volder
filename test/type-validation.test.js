@@ -441,7 +441,10 @@ test('Array type validation', () => {
     arrMax: { type: Array, maxLength: 5 },
     arrDefault: { type: Array, default: [1, 2, 3] },
     arrPattern: { type: Array, pattern: (input) => input.includes(1) },
-    arrTransform: { type: Array, transform: (input) => input.join(',') }
+    arrTransform: { type: Array, transform: (input) => input.join(',') },
+    arrOf: { type: Array, arrayOf: Boolean },
+    arrOf1: { type: Array, arrayOf: undefined },
+    arrOf2: { type: Array, arrayOf: null }
   });
 
   const obj1 = {
@@ -450,13 +453,17 @@ test('Array type validation', () => {
     arrMax: [1, 2, 3, 4, 5],
     arrMin: [1, 2, 3],
     arrPattern: [1, 2, 3],
-    arrTransform: [2, 1, 0]
+    arrTransform: [2, 1, 0],
+    arrOf: [true, false, true],
+    arrOf1: [null, null],
+    arrOf2: [undefined, undefined]
   };
   const obj2 = { arrType: true, arrRequired: ['exists'] };
   const obj3 = {};
   const obj4 = { arrMax: [1, 2, 3, 4, 5, 6], arrRequired: ['exists'] };
   const obj5 = { arrMin: [1, 2], arrRequired: ['exists'] };
   const obj6 = { arrPattern: [2, 3], arrRequired: ['exists'] };
+  const obj7 = { arrOf: [false, true, 'string'], arrRequired: ['exists'] };
 
   expect(ArrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -499,6 +506,13 @@ test('Array type validation', () => {
     },
     value: {}
   });
+  expect(ArrSchema.validate(obj7)).toEqual({
+    valid: false,
+    errors: {
+      arrOf: 'arrOf is not accpted type depening in arrayOf config'
+    },
+    value: {}
+  });
 
   const ArrSchemaErrorMessage = new Volder({
     arrType: { type: [Array, 'just array type'] },
@@ -506,7 +520,8 @@ test('Array type validation', () => {
     arrMin: { type: Array, minLength: [3, 'the min length is 3'] },
     arrMax: { type: Array, maxLength: [5, 'the max length is 5'] },
     arrDefault: { type: Array, default: [1, 2, 3] },
-    arrPattern: { type: Array, pattern: [(input) => input.includes(1), 'not valid pattern'] }
+    arrPattern: { type: Array, pattern: [(input) => input.includes(1), 'not valid pattern'] },
+    arrOf: { type: Array, arrayOf: [Boolean, 'just we need Boolean array'] }
   });
 
   expect(ArrSchemaErrorMessage.valid(obj1)).toBe(true);
@@ -515,6 +530,7 @@ test('Array type validation', () => {
   expect(ArrSchemaErrorMessage.valid(obj4)).toBe(false);
   expect(ArrSchemaErrorMessage.valid(obj5)).toBe(false);
   expect(ArrSchemaErrorMessage.valid(obj6)).toBe(false);
+  expect(ArrSchemaErrorMessage.valid(obj7)).toBe(false);
 
   expect(ArrSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -553,6 +569,13 @@ test('Array type validation', () => {
     valid: false,
     errors: {
       arrPattern: 'not valid pattern'
+    },
+    value: {}
+  });
+  expect(ArrSchemaErrorMessage.validate(obj7)).toEqual({
+    valid: false,
+    errors: {
+      arrOf: 'just we need Boolean array'
     },
     value: {}
   });
@@ -672,12 +695,12 @@ test('boolean type validation', () => {
   const obj2 = { boolType: [1, 3, 3], boolRequired: true };
   const obj3 = {};
   const obj4 = { boolPattern: false, boolRequired: true };
-  const obj5 = { boolState1: false, boolState2: 1, boolState3: '', boolRequired: true};
+  const obj5 = { boolState1: false, boolState2: 1, boolState3: '', boolRequired: true };
 
   expect(BoolSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, boolDefault: false, boolTransform: true, boolSwitch: true  }
+    value: { ...obj1, boolDefault: false, boolTransform: true, boolSwitch: true }
   });
   expect(BoolSchema.validate(obj2)).toEqual({
     valid: false,
