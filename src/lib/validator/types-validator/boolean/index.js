@@ -7,6 +7,7 @@ export const booleanCase = (input, optionName, optionConfigs, errors, collectErr
     }
     return false;
   }
+
   if (optionConfigs.hasOwnProperty('state') && !input[optionName] == optionConfigs.state) {
     if (collectErrors) {
       const ErrMessage = `${optionName} should be a ${
@@ -15,6 +16,10 @@ export const booleanCase = (input, optionName, optionConfigs, errors, collectErr
       errors[optionName] = optionConfigs.stateErrorMessage || ErrMessage;
     }
     return false;
+  }
+
+  if(optionConfigs.switch && optionConfigs.sensible) {
+    input[optionName] = !!input[optionName];
   }
 
   return true;
