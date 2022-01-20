@@ -1,3 +1,5 @@
+import { validateInstance } from "./instance";
+
 export const objectCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isObject = typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
 
@@ -9,5 +11,12 @@ export const objectCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
+  if(optionConfigs.hasOwnProperty('instance') && !validateInstance(input[optionName], optionConfigs.instance)) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} is not instance of selected constructor`;
+    }
+
+    return false; 
+  }
   return true;
 };
