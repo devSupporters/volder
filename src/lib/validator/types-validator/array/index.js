@@ -1,6 +1,7 @@
 import { validateMax } from '../public/max';
 import { validateMin } from '../public/min';
 import { validateArrayOf } from './arrayOf';
+import { validateUnique } from './unique';
 
 export const arrayCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   const isArray = Array.isArray(input[optionName]);
@@ -35,6 +36,15 @@ export const arrayCase = (input, optionName, optionConfigs, errors, collectError
     if (collectErrors) {
       errors[optionName] =
         optionConfigs.arrayOfErrorMessage || `${optionName} is not accpted type depening in arrayOf config`;
+    }
+
+    return false;
+  }
+
+  if(optionConfigs.unique && !validateUnique(input[optionName])) {
+    if (collectErrors) {
+      errors[optionName] =
+        optionConfigs.uniqueErrorMessage || `${optionName} is not have unique items`;
     }
 
     return false;
