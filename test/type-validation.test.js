@@ -444,7 +444,8 @@ test('Array type validation', () => {
     arrTransform: { type: Array, transform: (input) => input.join(',') },
     arrOf: { type: Array, arrayOf: Boolean },
     arrOf1: { type: Array, arrayOf: undefined },
-    arrOf2: { type: Array, arrayOf: null }
+    arrOf2: { type: Array, arrayOf: null },
+    arrUnique: { type: Array, unique: true }
   });
 
   const obj1 = {
@@ -456,7 +457,8 @@ test('Array type validation', () => {
     arrTransform: [2, 1, 0],
     arrOf: [true, false, true],
     arrOf1: [null, null],
-    arrOf2: [undefined, undefined]
+    arrOf2: [undefined, undefined],
+    arrUnique: [1, 2, 'welcome', { name: 'max' }, { name: 'max' }]
   };
   const obj2 = { arrType: true, arrRequired: ['exists'] };
   const obj3 = {};
@@ -464,6 +466,7 @@ test('Array type validation', () => {
   const obj5 = { arrMin: [1, 2], arrRequired: ['exists'] };
   const obj6 = { arrPattern: [2, 3], arrRequired: ['exists'] };
   const obj7 = { arrOf: [false, true, 'string'], arrRequired: ['exists'] };
+  const obj8 = { arrUnique: [1, 'welcome', 3, 1], arrRequired: ['exists'] };
 
   expect(ArrSchema.validate(obj1)).toEqual({
     valid: true,
@@ -513,6 +516,13 @@ test('Array type validation', () => {
     },
     value: {}
   });
+  expect(ArrSchema.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      arrUnique: 'arrUnique is not have unique items'
+    },
+    value: {}
+  });
 
   const ArrSchemaErrorMessage = new Volder({
     arrType: { type: [Array, 'just array type'] },
@@ -521,7 +531,8 @@ test('Array type validation', () => {
     arrMax: { type: Array, maxLength: [5, 'the max length is 5'] },
     arrDefault: { type: Array, default: [1, 2, 3] },
     arrPattern: { type: Array, pattern: [(input) => input.includes(1), 'not valid pattern'] },
-    arrOf: { type: Array, arrayOf: [Boolean, 'just we need Boolean array'] }
+    arrOf: { type: Array, arrayOf: [Boolean, 'just we need Boolean array'] },
+    arrUnique: { type: Array, unique: [true, 'must be unique'] }
   });
 
   expect(ArrSchemaErrorMessage.valid(obj1)).toBe(true);
@@ -531,6 +542,7 @@ test('Array type validation', () => {
   expect(ArrSchemaErrorMessage.valid(obj5)).toBe(false);
   expect(ArrSchemaErrorMessage.valid(obj6)).toBe(false);
   expect(ArrSchemaErrorMessage.valid(obj7)).toBe(false);
+  expect(ArrSchemaErrorMessage.valid(obj8)).toBe(false);
 
   expect(ArrSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -576,6 +588,13 @@ test('Array type validation', () => {
     valid: false,
     errors: {
       arrOf: 'just we need Boolean array'
+    },
+    value: {}
+  });
+  expect(ArrSchemaErrorMessage.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      arrUnique: 'must be unique'
     },
     value: {}
   });
