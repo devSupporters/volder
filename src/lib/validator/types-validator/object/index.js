@@ -1,5 +1,5 @@
 import { validateInstance } from "./instance";
-import { validateWith } from "./with";
+import { validateWith, validateWithout } from "./with-without";
 
 export const objectCase = (input, optionName, optionConfigs, errors, collectErrors, unclonedInput) => {
   const isObject = typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
@@ -22,6 +22,13 @@ export const objectCase = (input, optionName, optionConfigs, errors, collectErro
   if(optionConfigs.hasOwnProperty('with') && !validateWith(input[optionName], optionConfigs.with)) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.withErrorMessage || `${optionName} has missed keys required to include`;
+    }
+
+    return false; 
+  }
+  if(optionConfigs.hasOwnProperty('without') && !validateWithout(input[optionName], optionConfigs.without)) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.withoutErrorMessage || `${optionName} has keys are not allowed to include`;
     }
 
     return false; 
