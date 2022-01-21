@@ -607,19 +607,22 @@ test('Object type validation', () => {
     objDefault: { type: Object, default: { name: 'default' } },
     objPattern: { type: Object, pattern: (input) => input.hasOwnProperty('name') },
     objTransform: { type: Object, transform: (input) => input.person },
-    objInstance: { type: Object, instance: Volder }
+    objInstance: { type: Object, instance: Volder },
+    objWith: { type: Object, with: ['name', 'age'] }
   });
 
   const obj1 = {
     objType: { name: 'max' },
     objRequired: { here: true },
     objPattern: { name: 'max' },
-    objTransform: { person: { name: 'max', age: 23 } }
+    objTransform: { person: { name: 'max', age: 23 } },
+    objWith: { name: 'max', age: 23 }
   };
   const obj2 = { objType: 'string', objRequired: { here: true } };
   const obj3 = {};
   const obj4 = { objPattern: { person: 'max' }, objRequired: { here: true } };
   const obj5 = { objInstance: { name: 'max' }, objRequired: { here: true } };
+  const obj6 = { objWith: { name: 'max' }, objRequired: { here: true } };
 
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
@@ -659,19 +662,28 @@ test('Object type validation', () => {
     },
     value: obj3
   });
+  expect(ObjSchema.validate(obj6)).toEqual({
+    valid: false,
+    errors: {
+      objWith: 'objWith has missed keys required to include'
+    },
+    value: obj3
+  });
 
   const ObjSchemaErrorMessage = new Volder({
     objType: { type: [Object, 'the valid is object'] },
     objRequired: { type: Object, required: [true, 'should be exists'] },
     objDefault: { type: Object, default: { name: 'default' } },
     objPattern: { type: Object, pattern: [(input) => input.hasOwnProperty('name'), 'not have name prop'] },
-    objInstance: { type: Object, instance: [Volder, 'should be instance of Volder'] }
+    objInstance: { type: Object, instance: [Volder, 'should be instance of Volder'] },
+    objWith: { type: Object, with: ['name', 'age'], withErrorMessage: 'should all to be included' }
   });
   expect(ObjSchemaErrorMessage.valid(obj1)).toBe(true);
   expect(ObjSchemaErrorMessage.valid(obj2)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj3)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj4)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj5)).toBe(false);
+  expect(ObjSchemaErrorMessage.valid(obj6)).toBe(false);
 
   expect(ObjSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -703,6 +715,13 @@ test('Object type validation', () => {
     valid: false,
     errors: {
       objInstance: 'should be instance of Volder'
+    },
+    value: {}
+  });
+  expect(ObjSchemaErrorMessage.validate(obj6)).toEqual({
+    valid: false,
+    errors: {
+      objWith: 'should all to be included'
     },
     value: {}
   });

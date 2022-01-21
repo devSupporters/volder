@@ -179,10 +179,11 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj17 = { type: String, alphanumeric: 'false' };
   const wrongObj18 = { type: Number, float: true, integer: true };
   const wrongObj19 = { type: Number, sign: 'false' };
-  const wrongObj20 = { type: Array, arrayOf:'strings'}
-  const wrongObj21 = {type: Object, instance: true}
-  const wrongObj22 = {type:Object, instance: setupOptionWithConfigs}
-
+  const wrongObj20 = { type: Array, arrayOf: 'strings' };
+  const wrongObj21 = { type: Object, instance: true };
+  const wrongObj22 = { type: Object, instance: setupOptionWithConfigs };
+  const wrongObj23 = { type: Object, with: true };
+  const wrongObj24 = { type: Object, with: ['name', true] };
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
@@ -227,6 +228,12 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj22)).toThrowError(
     new Error('Expected a Constructor function but received function at instance property')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj23)).toThrowError(
+    new Error('with property should be an Array type')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj24)).toThrowError(
+    new Error('in with config must be all keys in String type')
   );
 });
 
