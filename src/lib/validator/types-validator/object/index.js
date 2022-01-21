@@ -1,4 +1,5 @@
 import { validateInstance } from "./instance";
+import { validateWith } from "./with";
 
 export const objectCase = (input, optionName, optionConfigs, errors, collectErrors, unclonedInput) => {
   const isObject = typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
@@ -14,6 +15,13 @@ export const objectCase = (input, optionName, optionConfigs, errors, collectErro
   if(optionConfigs.hasOwnProperty('instance') && !validateInstance(unclonedInput[optionName], optionConfigs.instance)) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.instanceErrorMessage || `${optionName} is not instance of selected constructor`;
+    }
+
+    return false; 
+  }
+  if(optionConfigs.hasOwnProperty('with') && !validateWith(input[optionName], optionConfigs.with)) {
+    if (collectErrors) {
+      errors[optionName] = optionConfigs.withErrorMessage || `${optionName} has missed keys required to include`;
     }
 
     return false; 
