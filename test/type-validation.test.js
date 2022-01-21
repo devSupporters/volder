@@ -609,7 +609,9 @@ test('Object type validation', () => {
     objTransform: { type: Object, transform: (input) => input.person },
     objInstance: { type: Object, instance: Volder },
     objWith: { type: Object, with: ['name', 'age'] },
-    objWithout: { type: Object, without: ['gender'] }
+    objWithout: { type: Object, without: ['gender'] },
+    objStrict: { type: Object, strict: ['name'] },
+    objStrict1: { type: Object, strict: ['name'] }
   });
 
   const obj1 = {
@@ -618,7 +620,8 @@ test('Object type validation', () => {
     objPattern: { name: 'max' },
     objTransform: { person: { name: 'max', age: 23 } },
     objWith: { name: 'max', age: 23 },
-    objWithout: { name: 'max' }
+    objWithout: { name: 'max' },
+    objStrict1: { name: 'max' }
   };
   const obj2 = { objType: 'string', objRequired: { here: true } };
   const obj3 = {};
@@ -626,6 +629,7 @@ test('Object type validation', () => {
   const obj5 = { objInstance: { name: 'max' }, objRequired: { here: true } };
   const obj6 = { objWith: { name: 'max' }, objRequired: { here: true } };
   const obj7 = { objWithout: { name: 'max', gender: 'male' }, objRequired: { here: true } };
+  const obj8 = { objStrict: { age: 23 }, objRequired: { here: true } };
 
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
@@ -679,6 +683,13 @@ test('Object type validation', () => {
     },
     value: obj3
   });
+  expect(ObjSchema.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      objStrict: 'objStrict is matches strict config'
+    },
+    value: obj3
+  });
 
   const ObjSchemaErrorMessage = new Volder({
     objType: { type: [Object, 'the valid is object'] },
@@ -687,8 +698,9 @@ test('Object type validation', () => {
     objPattern: { type: Object, pattern: [(input) => input.hasOwnProperty('name'), 'not have name prop'] },
     objInstance: { type: Object, instance: [Volder, 'should be instance of Volder'] },
     objWith: { type: Object, with: ['name', 'age'], withErrorMessage: 'should all to be included' },
-    objWithout: { type: Object, without: ['gender'], withoutErrorMessage:'gender not allowed' }
-
+    objWithout: { type: Object, without: ['gender'], withoutErrorMessage: 'gender not allowed' },
+    objStrict: { type: Object, strict: ['name', 'age'], strictErrorMessage: 'age not included' },
+    objStrict1: { type: Object, strict: ['name'] }
   });
   expect(ObjSchemaErrorMessage.valid(obj1)).toBe(true);
   expect(ObjSchemaErrorMessage.valid(obj2)).toBe(false);
@@ -697,6 +709,7 @@ test('Object type validation', () => {
   expect(ObjSchemaErrorMessage.valid(obj5)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj6)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj7)).toBe(false);
+  expect(ObjSchemaErrorMessage.valid(obj8)).toBe(false);
 
   expect(ObjSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -742,6 +755,13 @@ test('Object type validation', () => {
     valid: false,
     errors: {
       objWithout: 'gender not allowed'
+    },
+    value: {}
+  });
+  expect(ObjSchemaErrorMessage.validate(obj8)).toEqual({
+    valid: false,
+    errors: {
+      objStrict: 'age not included'
     },
     value: {}
   });

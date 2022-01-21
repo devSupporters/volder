@@ -166,7 +166,6 @@ test('setupOptionWithConfigs function should work correctly', () => {
     )
   );
 
-  // entring wrong value in default config && use required with default at the same time
   const wrongObj8 = { type: String, default: 12 };
   const wrongObj9 = { type: Boolean, default: [1, 2, 3] };
   const wrongObj10 = { type: Array, default: true };
@@ -184,6 +183,8 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj22 = { type: Object, instance: setupOptionWithConfigs };
   const wrongObj23 = { type: Object, with: true };
   const wrongObj24 = { type: Object, with: ['name', true] };
+  const wrongObj25 = { type: Object, strict: ['name'], without: ['age'] };
+  const wrongObj26 = { type: Object, strict: ['name'], with: ['name'] };
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
@@ -229,11 +230,13 @@ test('setupOptionWithConfigs function should work correctly', () => {
   expect(() => setupOptionWithConfigs(wrongObj22)).toThrowError(
     new Error('Expected a Constructor function but received function at instance property')
   );
-  expect(() => setupOptionWithConfigs(wrongObj23)).toThrowError(
-    new Error('with property should be an Array type')
+  expect(() => setupOptionWithConfigs(wrongObj23)).toThrowError(new Error('with property should be an Array type'));
+  expect(() => setupOptionWithConfigs(wrongObj24)).toThrowError(new Error('in with config must be all keys in String type'));
+  expect(() => setupOptionWithConfigs(wrongObj25)).toThrowError(
+    new Error("you can't add with or without config when you use strict config")
   );
-  expect(() => setupOptionWithConfigs(wrongObj24)).toThrowError(
-    new Error('in with config must be all keys in String type')
+  expect(() => setupOptionWithConfigs(wrongObj26)).toThrowError(
+    new Error("you can't add with or without config when you use strict config")
   );
 });
 
