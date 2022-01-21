@@ -1,3 +1,3 @@
-export const validateInstance = (input, instanceConfig) => {
-    return input instanceof instanceConfig
+export const validateInstance = (input, InstanceConfig) => {
+    return input instanceof InstanceConfig
 }

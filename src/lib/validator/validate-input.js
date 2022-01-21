@@ -6,7 +6,7 @@ import { objectCase } from './types-validator/object';
 import { nullCase } from './types-validator/null';
 import { functionCase } from './types-validator/function';
 
-export const validateInput = (input, optionName, optionConfigs, errors, collectErrors) => {
+export const validateInput = (input, optionName, optionConfigs, errors, collectErrors, unclonedInput) => {
   switch (optionConfigs.type) {
     case String:
       return stringCase(input, optionName, optionConfigs, errors, collectErrors);
@@ -17,7 +17,7 @@ export const validateInput = (input, optionName, optionConfigs, errors, collectE
     case Array:
       return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
     case Object:
-      return objectCase(input, optionName, optionConfigs, errors, collectErrors);
+      return objectCase(input, optionName, optionConfigs, errors, collectErrors, unclonedInput);
     case null:
       return nullCase(input, optionName, optionConfigs, errors, collectErrors);
     default:

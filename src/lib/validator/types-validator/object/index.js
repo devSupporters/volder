@@ -1,6 +1,6 @@
 import { validateInstance } from "./instance";
 
-export const objectCase = (input, optionName, optionConfigs, errors, collectErrors) => {
+export const objectCase = (input, optionName, optionConfigs, errors, collectErrors, unclonedInput) => {
   const isObject = typeof input[optionName] === 'object' && !Array.isArray(input[optionName]) && input[optionName] !== null;
 
   if (!isObject) {
@@ -11,12 +11,13 @@ export const objectCase = (input, optionName, optionConfigs, errors, collectErro
     return false;
   }
 
-  if(optionConfigs.hasOwnProperty('instance') && !validateInstance(input[optionName], optionConfigs.instance)) {
+  if(optionConfigs.hasOwnProperty('instance') && !validateInstance(unclonedInput[optionName], optionConfigs.instance)) {
     if (collectErrors) {
-      errors[optionName] = optionConfigs.typeErrorMessage || `${optionName} is not instance of selected constructor`;
+      errors[optionName] = optionConfigs.instanceErrorMessage || `${optionName} is not instance of selected constructor`;
     }
 
     return false; 
   }
+  
   return true;
 };

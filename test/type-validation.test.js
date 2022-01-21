@@ -606,7 +606,8 @@ test('Object type validation', () => {
     objRequired: { type: Object, required: true },
     objDefault: { type: Object, default: { name: 'default' } },
     objPattern: { type: Object, pattern: (input) => input.hasOwnProperty('name') },
-    objTransform: { type: Object, transform: (input) => input.person }
+    objTransform: { type: Object, transform: (input) => input.person },
+    objInstance: { type: Object, instance: Volder }
   });
 
   const obj1 = {
@@ -618,11 +619,16 @@ test('Object type validation', () => {
   const obj2 = { objType: 'string', objRequired: { here: true } };
   const obj3 = {};
   const obj4 = { objPattern: { person: 'max' }, objRequired: { here: true } };
+  const obj5 = { objInstance: { name: 'max' }, objRequired: { here: true } };
 
   expect(ObjSchema.validate(obj1)).toEqual({
     valid: true,
     errors: {},
-    value: { ...obj1, objDefault: { name: 'default' }, objTransform: { name: 'max', age: 23 } }
+    value: {
+      ...obj1,
+      objDefault: { name: 'default' },
+      objTransform: { name: 'max', age: 23 }
+    }
   });
   expect(ObjSchema.validate(obj2)).toEqual({
     valid: false,
@@ -646,17 +652,26 @@ test('Object type validation', () => {
     },
     value: obj3
   });
+  expect(ObjSchema.validate(obj5)).toEqual({
+    valid: false,
+    errors: {
+      objInstance: 'objInstance is not instance of selected constructor'
+    },
+    value: obj3
+  });
 
   const ObjSchemaErrorMessage = new Volder({
     objType: { type: [Object, 'the valid is object'] },
     objRequired: { type: Object, required: [true, 'should be exists'] },
     objDefault: { type: Object, default: { name: 'default' } },
-    objPattern: { type: Object, pattern: [(input) => input.hasOwnProperty('name'), 'not have name prop'] }
+    objPattern: { type: Object, pattern: [(input) => input.hasOwnProperty('name'), 'not have name prop'] },
+    objInstance: { type: Object, instance: [Volder, 'should be instance of Volder'] }
   });
   expect(ObjSchemaErrorMessage.valid(obj1)).toBe(true);
   expect(ObjSchemaErrorMessage.valid(obj2)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj3)).toBe(false);
   expect(ObjSchemaErrorMessage.valid(obj4)).toBe(false);
+  expect(ObjSchemaErrorMessage.valid(obj5)).toBe(false);
 
   expect(ObjSchemaErrorMessage.validate(obj1)).toEqual({
     valid: true,
@@ -681,6 +696,13 @@ test('Object type validation', () => {
     valid: false,
     errors: {
       objPattern: 'not have name prop'
+    },
+    value: {}
+  });
+  expect(ObjSchemaErrorMessage.validate(obj5)).toEqual({
+    valid: false,
+    errors: {
+      objInstance: 'should be instance of Volder'
     },
     value: {}
   });

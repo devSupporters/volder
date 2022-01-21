@@ -6,7 +6,7 @@ export const setupInstanceConfig = (optionConfigs) => {
 
     const isConstructor = typeof optionConfigs.instance === 'function' && 'prototype' in optionConfigs.instance;
     if(!isConstructor) {
-        throw new Error(`Expected a Constructor function bu received ${typeof optionConfigs.instance} at instance property`)
+        throw new Error(`Expected a Constructor function but received ${typeof optionConfigs.instance} at instance property`)
     }
   }
 };

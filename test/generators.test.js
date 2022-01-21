@@ -180,6 +180,8 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj18 = { type: Number, float: true, integer: true };
   const wrongObj19 = { type: Number, sign: 'false' };
   const wrongObj20 = { type: Array, arrayOf:'strings'}
+  const wrongObj21 = {type: Object, instance: true}
+  const wrongObj22 = {type:Object, instance: setupOptionWithConfigs}
 
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
@@ -219,6 +221,12 @@ test('setupOptionWithConfigs function should work correctly', () => {
   );
   expect(() => setupOptionWithConfigs(wrongObj20)).toThrowError(
     new Error('Expected one of [String, Number, Object, Boolean, Array, null, undefined] but received strings')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj21)).toThrowError(
+    new Error('Expected a Constructor function but received boolean at instance property')
+  );
+  expect(() => setupOptionWithConfigs(wrongObj22)).toThrowError(
+    new Error('Expected a Constructor function but received function at instance property')
   );
 });
 

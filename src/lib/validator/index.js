@@ -36,7 +36,7 @@ export const validator = (volderMap, input, collectErrors = true) => {
           validCurInput = false;
         }
       } else {
-        validCurInput = validateInput(clonedInput, optionName, optionConfigs, errors, collectErrors);
+        validCurInput = validateInput(clonedInput, optionName, optionConfigs, errors, collectErrors, input);
 
         // pattern config validation
         if (optionConfigs.hasOwnProperty('pattern') && !optionConfigs.pattern(clonedInput[optionName]) && validCurInput) {
