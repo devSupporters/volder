@@ -17,4 +17,12 @@ export const conflictsChecker = (optionConfigs) => {
   if (optionConfigs.float && optionConfigs.integer) {
     throw new Error("you can't add { float: true, integer: true } in the same option");
   }
+
+  // check if optionConfig have strict and without or withat the same time
+  if (
+    optionConfigs.hasOwnProperty('strict') &&
+    (optionConfigs.hasOwnProperty('without') || optionConfigs.hasOwnProperty('with'))
+  ) {
+    throw new Error("you can't add with or without config when you use strict config");
+  }
 };

@@ -27,7 +27,7 @@ import { setupSwitchConfig } from '../configs/boolean/switch';
 import { setupArrayOfConfig } from '../configs/array/arrayof';
 import { setupUniqueConfig } from '../configs/array/unique';
 import { setupInstanceConfig } from '../configs/object/instance';
-import { setupWithConfig, setupWithoutConfig } from '../configs/object/with-without';
+import { setupWithConfig, setupWithoutConfig, setupStrictConfig } from '../configs/object/with-without-strict';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -47,7 +47,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   const nullConfigsKeys = ['avoid', 'minLength', 'maxLength', 'min', 'max'];
   const numberConfigsKeys = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
   const booleanConfigsKeys = ['sensible', 'state', 'switch'];
-  const objectConfigsKeys = ['instance', 'with', 'without'];
+  const objectConfigsKeys = ['instance', 'with', 'without', 'strict'];
   const otherConfigsKeys = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
@@ -69,6 +69,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupInstanceConfig(optionConfigs);
       setupWithConfig(optionConfigs);
       setupWithoutConfig(optionConfigs);
+      setupStrictConfig(optionConfigs);
       break;
     case String:
       strictConfigs(optionConfigs, [...stringConfigsKeys, ...generalConfigsKeys]);

@@ -6,6 +6,10 @@ export const setupWithoutConfig = (optionConfigs) => {
   if (optionConfigs.hasOwnProperty('without')) configChecker('without', optionConfigs);
 };
 
+export const setupStrictConfig = (optionConfigs) => {
+  if (optionConfigs.hasOwnProperty('strict')) configChecker('strict', optionConfigs);
+};
+
 const configChecker = (config, optionConfigs) => {
   if (!Array.isArray(optionConfigs[config])) {
     throw new TypeError(`${config} property should be an Array type`);
