@@ -1078,7 +1078,7 @@ test('Date type validation', () => {
     dateAfter: { type: Date, after: '1/1/2000' }
   });
 
-  const obj1 = { date: ['1', '2', '2404'], dateType: '1/2/1601', dateBefore: '1/1/1999', dateAfter: '1/1/2001' };
+  const obj1 = { date: [1, 2, 2404], dateType: '1/2/1601', dateBefore: '1/1/1999', dateAfter: '1/1/2001' };
   const obj2 = { dateType: '2/30/1004', date: ['33', '12', '1600'], dateType2: '12/12/800' };
   const obj3 = { dateAfter: '1/1/1999', dateBefore: '1/1/2001' };
 

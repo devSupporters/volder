@@ -2,7 +2,7 @@ import { validateInput } from './validate-input';
 import { Volder } from '../volder';
 import { deepClone } from '../utils/deep-clone';
 
-export const validator = (volderMap, input, collectErrors = true) => {
+export const validator = (volderMap, input, collectErrors = true, isSingleVolder = false) => {
   const clonedInput = deepClone(input);
   const errors = {};
   let valid = true;
@@ -57,6 +57,6 @@ export const validator = (volderMap, input, collectErrors = true) => {
     if (!validCurInput) valid = false;
   });
 
-  if (collectErrors) return { valid, errors, value: valid ? clonedInput : {} };
+  if (collectErrors) return { valid, errors, value: !valid ? {} : isSingleVolder ? clonedInput[''] : clonedInput };
   else return valid;
 };

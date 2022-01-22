@@ -19,5 +19,3 @@ export class Volder {
     };
   }
 }
-
-// export class SignleVolder() {}
