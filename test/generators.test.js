@@ -188,6 +188,9 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj25 = { type: Object, strict: ['name'], without: ['age'] };
   const wrongObj26 = { type: Object, strict: ['name'], with: ['name'] };
   const wrongObj27 = { type: Date, after: '1/1/2000', before: '1/1/1990' };
+  const wrongObj28 = { type: Date, after: '1/1/999' };
+  const wrongObj29 = { type: Date, before: '1/1/999' };
+
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
@@ -242,6 +245,8 @@ test('setupOptionWithConfigs function should work correctly', () => {
     new Error("you can't add with or without config when you use strict config")
   );
   expect(() => setupOptionWithConfigs(wrongObj27)).toThrowError(new Error('after config should be smaller than before config'));
+  expect(() => setupOptionWithConfigs(wrongObj28)).toThrowError(new Error("the Date is invalid, should be 'mm/dd/yy' fomat and 1000 <= year <= 3000 in after property"));
+  expect(() => setupOptionWithConfigs(wrongObj29)).toThrowError(new Error("the Date is invalid, should be 'mm/dd/yy' fomat and 1000 <= year <= 3000 in before property"));
 });
 
 test('configSpliter should work correctly', () => {

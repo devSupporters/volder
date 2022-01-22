@@ -8,7 +8,7 @@ export const setupAfterConfig = (optionConfigs) => {
     else assertType(optionConfigs.after, 'string', 'after property');
 
     if (!isValidDate(optionConfigs.after)) {
-      throw new Error("the Date is not valid, should be 'mm/dd/yy' fomat and 1000 <= year <= 3000 in after property");
+      throw new Error("the Date is invalid, should be 'mm/dd/yy' fomat and 1000 <= year <= 3000 in after property");
     }
   }
 };
@@ -19,7 +19,7 @@ export const setupBeforeConfig = (optionConfigs) => {
     else assertType(optionConfigs.before, 'string', 'before property');
 
     if (!isValidDate(optionConfigs.before)) {
-      throw new Error("the Date is not valid, should be 'mm/dd/yy' fomat and 1000 <= year <= 3000 in before property");
+      throw new Error("the Date is invalid, should be 'mm/dd/yy' fomat and 1000 <= year <= 3000 in before property");
     }
   }
 };

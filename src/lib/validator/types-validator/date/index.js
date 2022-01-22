@@ -15,7 +15,7 @@ export const dateCase = (input, optionName, optionConfigs, errors, collectErrors
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('after') && !validateAfter(input[optionName])) {
+  if (optionConfigs.hasOwnProperty('after') && !validateAfter(input[optionName], optionConfigs.after)) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.afterErrorMessage || `${optionName} is not after the entered date`;
     }
@@ -23,7 +23,7 @@ export const dateCase = (input, optionName, optionConfigs, errors, collectErrors
     return false;
   }
 
-  if (optionConfigs.hasOwnProperty('before') && !validateBefore(input[optionName])) {
+  if (optionConfigs.hasOwnProperty('before') && !validateBefore(input[optionName], optionConfigs.before)) {
     if (collectErrors) {
       errors[optionName] = optionConfigs.beforeErrorMessage || `${optionName} is not before the entered date`;
     }

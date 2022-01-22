@@ -1073,11 +1073,15 @@ test('Date type validation', () => {
   const DateSchema = new Volder({
     date: Date,
     dateType: { type: Date },
-    dateType2: { type: Date }
+    dateType2: { type: Date },
+    dateBefore: { type: Date, before: '1/1/2000' },
+    dateAfter: { type: Date, after: '1/1/2000' }
   });
 
-  const obj1 = { date: ['1', '2', '2404'], dateType: '1/2/1601' };
+  const obj1 = { date: ['1', '2', '2404'], dateType: '1/2/1601', dateBefore: '1/1/1999', dateAfter: '1/1/2001' };
   const obj2 = { dateType: '2/30/1004', date: ['33', '12', '1600'], dateType2: '12/12/800' };
+  const obj3 = { dateAfter: '1/1/1999', dateBefore: '1/1/2001' };
+
   expect(DateSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
   expect(DateSchema.validate(obj2)).toEqual({
     valid: false,
@@ -1088,13 +1092,24 @@ test('Date type validation', () => {
     },
     value: {}
   });
+  expect(DateSchema.validate(obj3)).toEqual({
+    valid: false,
+    errors: {
+      dateAfter: 'dateAfter is not after the entered date',
+      dateBefore: 'dateBefore is not before the entered date'
+    },
+    value: {}
+  });
 
   const DateSchemaErrorMessage = new Volder({
-    date: { type: [Date, 'is not valid Date'] }
+    date: { type: [Date, 'is not valid Date'] },
+    dateAfter: { type: Date, after: ['1/1/2000', 'is not after'] },
+    dateBefore: { type: Date, before: ['1/1/2000', 'is not before'] }
   });
 
   expect(DateSchemaErrorMessage.valid(obj1)).toBe(true);
   expect(DateSchemaErrorMessage.valid(obj2)).toBe(false);
+  expect(DateSchemaErrorMessage.valid(obj3)).toBe(false);
 
   expect(DateSchemaErrorMessage.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
   expect(DateSchemaErrorMessage.validate(obj2)).toEqual({
@@ -1104,4 +1119,14 @@ test('Date type validation', () => {
     },
     value: {}
   });
+  expect(DateSchemaErrorMessage.validate(obj3)).toEqual({
+    valid: false,
+    errors: {
+      dateAfter: 'is not after',
+      dateBefore: 'is not before'
+    },
+    value: {}
+  });
+  
+  
 });
