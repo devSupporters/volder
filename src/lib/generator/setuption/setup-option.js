@@ -28,6 +28,7 @@ import { setupArrayOfConfig } from '../configs/array/arrayof';
 import { setupUniqueConfig } from '../configs/array/unique';
 import { setupInstanceConfig } from '../configs/object/instance';
 import { setupWithConfig, setupWithoutConfig, setupStrictConfig } from '../configs/object/with-without-strict';
+import { setupAfterConfig, setupBeforeConfig } from '../configs/date/after-before';
 
 export const setupOptionWithConfigs = (optionConfigs) => {
   // if option just constructor function | null | function | volder schema
@@ -48,7 +49,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   const numberConfigsKeys = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
   const booleanConfigsKeys = ['sensible', 'state', 'switch'];
   const objectConfigsKeys = ['instance', 'with', 'without', 'strict'];
-  const dateConfigsKeys = ['min', 'max'];
+  const dateConfigsKeys = ['after', 'before'];
   const otherConfigsKeys = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
@@ -104,8 +105,9 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       break;
     case Date:
       strictConfigs(optionConfigs, [...dateConfigsKeys, ...generalConfigsKeys]);
-      setupMaxConfig(optionConfigs);
-      setupMinConfig(optionConfigs);
+      setupAfterConfig(optionConfigs);
+      setupBeforeConfig(optionConfigs);
+      break;
     case null:
       strictConfigs(optionConfigs, [...nullConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs);

@@ -15,7 +15,7 @@ test('objectToMap function should work correctly', () => {
     testCustomError: { type: [String, 'should be string'], minLength: [2, 'should 2 length'] },
     properties: Object,
     customFunction: { type: customFunction },
-    date:Date
+    date: Date
   };
 
   const generatedMap = objectToMap(obj1);
@@ -187,6 +187,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   const wrongObj24 = { type: Object, with: ['name', true] };
   const wrongObj25 = { type: Object, strict: ['name'], without: ['age'] };
   const wrongObj26 = { type: Object, strict: ['name'], with: ['name'] };
+  const wrongObj27 = { type: Date, after: '1/1/2000', before: '1/1/1990' };
   expect(() => setupOptionWithConfigs(wrongObj8)).toThrowError(
     new Error('Expected a String type value in default to properly to { type: String }')
   );
@@ -240,6 +241,7 @@ test('setupOptionWithConfigs function should work correctly', () => {
   expect(() => setupOptionWithConfigs(wrongObj26)).toThrowError(
     new Error("you can't add with or without config when you use strict config")
   );
+  expect(() => setupOptionWithConfigs(wrongObj27)).toThrowError(new Error('after config should be smaller than before config'));
 });
 
 test('configSpliter should work correctly', () => {

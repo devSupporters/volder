@@ -26,5 +26,12 @@ export const conflictsChecker = (optionConfigs) => {
     throw new Error("you can't add with or without config when you use strict config");
   }
 
-  // check for after and before config for date
+  // check if the after is bigger than before
+  if (
+    optionConfigs.hasOwnProperty('after') &&
+    optionConfigs.hasOwnProperty('before') &&
+    new Date(optionConfigs.after) > new Date(optionConfigs.before)
+  ) {
+    throw new Error('after config should be smaller than before config')
+  }
 };
