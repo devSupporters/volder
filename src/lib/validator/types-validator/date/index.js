@@ -2,14 +2,17 @@ import { isValidDate } from '../../../utils/is-valid-date';
 
 export const dateCase = (input, optionName, optionConfigs, errors, collectErrors) => {
   // check if it valid date
-  if (Array.isArray(input[optionName])) input[optionName] = input[optionName].join('/');
+  let curInput = input[optionName];
+  if (Array.isArray(curInput)) curInput = curInput.join('/');
 
-  if (!isValidDate(input[optionName])) {
+  if (!isValidDate(curInput)) {
     if (collectErrors) {
       errors[optionName] =
-        optionConfigs.typeErrorMessage || `${optionName} is not valid date, date should be in 'mm/dd/yyyy' format`;
+        optionConfigs.typeErrorMessage || `${optionName} is not valid date, date should be in 'dd/mm/yyyy' format`;
     }
 
     return false;
   }
+
+  return true;
 };

@@ -1072,6 +1072,36 @@ test('custom function type validation', () => {
 test('Date type validation', () => {
   const DateSchema = new Volder({
     date: Date,
-    dateType: { type: Date }
+    dateType: { type: Date },
+    dateType2: { type: Date }
+  });
+
+  const obj1 = { date: ['1', '2', '2000'], dateType: '1/1/1600' };
+  const obj2 = { dateType: '13/13/1000', date: ['33', '12', '1'], dateType2: '12/12/-1' };
+  expect(DateSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
+  expect(DateSchema.validate(obj2)).toEqual({
+    valid: false,
+    errors: {
+      dateType: "dateType is not valid date, date should be in 'dd/mm/yyyy' format",
+      date: "date is not valid date, date should be in 'dd/mm/yyyy' format",
+      dateType2: "dateType2 is not valid date, date should be in 'dd/mm/yyyy' format"
+    },
+    value: {}
+  });
+
+  const DateSchemaErrorMessage = new Volder({
+    date: { type: [Date, 'is not valid Date'] }
+  });
+
+  expect(DateSchemaErrorMessage.valid(obj1)).toBe(true);
+  expect(DateSchemaErrorMessage.valid(obj2)).toBe(false);
+
+  expect(DateSchemaErrorMessage.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
+  expect(DateSchemaErrorMessage.validate(obj2)).toEqual({
+    valid: false,
+    errors: {
+      date: 'is not valid Date'
+    },
+    value: {}
   });
 });
