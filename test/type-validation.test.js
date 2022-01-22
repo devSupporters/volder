@@ -1076,15 +1076,15 @@ test('Date type validation', () => {
     dateType2: { type: Date }
   });
 
-  const obj1 = { date: ['1', '2', '2000'], dateType: '1/1/1600' };
-  const obj2 = { dateType: '13/13/1000', date: ['33', '12', '1'], dateType2: '12/12/-1' };
+  const obj1 = { date: ['1', '2', '2404'], dateType: '1/2/1601' };
+  const obj2 = { dateType: '2/30/1004', date: ['33', '12', '1600'], dateType2: '12/12/800' };
   expect(DateSchema.validate(obj1)).toEqual({ valid: true, errors: {}, value: obj1 });
   expect(DateSchema.validate(obj2)).toEqual({
     valid: false,
     errors: {
-      dateType: "dateType is not valid date, date should be in 'dd/mm/yyyy' format",
-      date: "date is not valid date, date should be in 'dd/mm/yyyy' format",
-      dateType2: "dateType2 is not valid date, date should be in 'dd/mm/yyyy' format"
+      dateType: "dateType is not valid date, date should be in 'mm/dd/yyyy' format",
+      date: "date is not valid date, date should be in 'mm/dd/yyyy' format",
+      dateType2: "dateType2 is not valid date, date should be in 'mm/dd/yyyy' format"
     },
     value: {}
   });

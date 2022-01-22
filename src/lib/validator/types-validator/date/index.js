@@ -8,7 +8,7 @@ export const dateCase = (input, optionName, optionConfigs, errors, collectErrors
   if (!isValidDate(curInput)) {
     if (collectErrors) {
       errors[optionName] =
-        optionConfigs.typeErrorMessage || `${optionName} is not valid date, date should be in 'dd/mm/yyyy' format`;
+        optionConfigs.typeErrorMessage || `${optionName} is not valid date, date should be in 'mm/dd/yyyy' format`;
     }
 
     return false;
