@@ -1068,3 +1068,10 @@ test('custom function type validation', () => {
     value: {}
   });
 });
+
+test('Date type validation', () => {
+  const DateSchema = new Volder({
+    date: Date,
+    dateType: { type: Date }
+  });
+});

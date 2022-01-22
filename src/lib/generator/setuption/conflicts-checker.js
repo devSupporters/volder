@@ -25,4 +25,6 @@ export const conflictsChecker = (optionConfigs) => {
   ) {
     throw new Error("you can't add with or without config when you use strict config");
   }
+
+  // check for after and before config for date
 };

@@ -14,7 +14,8 @@ test('objectToMap function should work correctly', () => {
     test: { type: null, avoid: [], required: true },
     testCustomError: { type: [String, 'should be string'], minLength: [2, 'should 2 length'] },
     properties: Object,
-    customFunction: { type: customFunction }
+    customFunction: { type: customFunction },
+    date:Date
   };
 
   const generatedMap = objectToMap(obj1);
@@ -28,6 +29,7 @@ test('objectToMap function should work correctly', () => {
   expect(generatedMap.has('testCustomError')).toBe(true);
   expect(generatedMap.has('test')).toBe(true);
   expect(generatedMap.has('customFunction')).toBe(true);
+  expect(generatedMap.has('date')).toBe(true);
 
   expect(generatedMap.get('name')).toEqual({
     type: String,
