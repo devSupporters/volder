@@ -21,13 +21,14 @@ export function deepClone(item) {
       });
     } else if (typeof item == 'object') {
       // check that this is a literal
-      //   if (item instanceof Date) {
-      //     result = new Date(item);
-      //   } else {
-      // it is an object literal
-      result = {};
-      for (let i in item) {
-        result[i] = deepClone(item[i]);
+      if (item instanceof Date) {
+        result = new Date(item);
+      } else {
+        // it is an object literal
+        result = {};
+        for (let i in item) {
+          result[i] = deepClone(item[i]);
+        }
       }
     } else {
       result = item;

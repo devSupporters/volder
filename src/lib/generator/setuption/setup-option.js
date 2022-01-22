@@ -48,6 +48,7 @@ export const setupOptionWithConfigs = (optionConfigs) => {
   const numberConfigsKeys = ['min', 'max', 'integer', 'float', 'round', 'fixed', 'sign'];
   const booleanConfigsKeys = ['sensible', 'state', 'switch'];
   const objectConfigsKeys = ['instance', 'with', 'without', 'strict'];
+  const dateConfigsKeys = ['min', 'max'];
   const otherConfigsKeys = ['min', 'max', 'minLength', 'maxLength'];
 
   setupTypeConfig(optionConfigs);
@@ -101,6 +102,10 @@ export const setupOptionWithConfigs = (optionConfigs) => {
       setupArrayOfConfig(optionConfigs);
       setupUniqueConfig(optionConfigs);
       break;
+    case Date:
+      strictConfigs(optionConfigs, [...dateConfigsKeys, ...generalConfigsKeys]);
+      setupMaxConfig(optionConfigs);
+      setupMinConfig(optionConfigs);
     case null:
       strictConfigs(optionConfigs, [...nullConfigsKeys, ...generalConfigsKeys]);
       setupMaxConfig(optionConfigs);

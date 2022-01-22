@@ -5,6 +5,7 @@ import { arrayCase } from './types-validator/array';
 import { objectCase } from './types-validator/object';
 import { nullCase } from './types-validator/null';
 import { functionCase } from './types-validator/function';
+import { dateCase } from './types-validator/date';
 
 export const validateInput = (input, optionName, optionConfigs, errors, collectErrors, unclonedInput) => {
   switch (optionConfigs.type) {
@@ -18,6 +19,8 @@ export const validateInput = (input, optionName, optionConfigs, errors, collectE
       return arrayCase(input, optionName, optionConfigs, errors, collectErrors);
     case Object:
       return objectCase(input, optionName, optionConfigs, errors, collectErrors, unclonedInput);
+    case Date:
+      return dateCase(input, optionName, optionConfigs, errors, collectErrors);
     case null:
       return nullCase(input, optionName, optionConfigs, errors, collectErrors);
     default:
