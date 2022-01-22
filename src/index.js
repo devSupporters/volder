@@ -1,2 +1,4 @@
 import { Volder } from './lib/volder';
-export { Volder };
+import { singleVolder } from './lib/single-volder';
+
+export { Volder, singleVolder };

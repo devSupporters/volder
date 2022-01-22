@@ -57,6 +57,11 @@ export const validator = (volderMap, input, collectErrors = true, isSingleVolder
     if (!validCurInput) valid = false;
   });
 
-  if (collectErrors) return { valid, errors, value: !valid ? {} : isSingleVolder ? clonedInput[''] : clonedInput };
+  if (collectErrors)
+    return {
+      valid,
+      errors: !isSingleVolder ? errors : valid ? null : errors[''],
+      value: isSingleVolder ? clonedInput[''] : valid ? clonedInput : {}
+    };
   else return valid;
 };
