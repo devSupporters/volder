@@ -2,7 +2,8 @@ import { Email } from '../src/lib/volder-types/email';
 import { UUID } from '../src/lib/volder-types/uuid';
 import { CreditCard } from '../src/lib/volder-types/credit-card';
 import { URL } from '../src/lib/volder-types/url';
-import {IPAddress } from '../src/lib/volder-types/ip-address';
+import { IPAddress } from '../src/lib/volder-types/ip-address';
+import { Volder } from '../src/index';
 
 test('email volder type work correctly', () => {
   // valid emails
@@ -126,7 +127,7 @@ test('CreditCard volder type validation work correctly', () => {
 });
 
 test('URL volder type validation work correctly', () => {
-  const valid =[
+  const valid = [
     'foobar.com',
     'www.foobar.com',
     'foobar.com/',
@@ -145,10 +146,10 @@ test('URL volder type validation work correctly', () => {
     'http://user:@www.foobar.com/',
     'http://:pass@www.foobar.com/',
     'http://example.com/example.json#/foo/bar',
-    'http://1337.com',
-  ]
-  expect(valid.every((url => URL(url)))).toBe(true);
-})
+    'http://1337.com'
+  ];
+  expect(valid.every((url) => URL(url))).toBe(true);
+});
 
 test('IPAddress volder type validation work correctly', () => {
   const valid = [
@@ -193,7 +194,7 @@ test('IPAddress volder type validation work correctly', () => {
     'fe80::7:8%eth0',
     'fe80::7:8%1',
     '64:ff9b::192.0.2.33',
-    '0:0:0:0:0:0:10.0.0.1',
+    '0:0:0:0:0:0:10.0.0.1'
   ];
 
   expect(valid.every((ip) => IPAddress(ip))).toBe(true);
@@ -219,9 +220,27 @@ test('IPAddress volder type validation work correctly', () => {
     '11111:1:1:1:1:1:1:1',
     '2001:db8:0000:1:1:1:1::1',
     '0:0:0:0:0:0:ffff:127.0.0.1',
-    '0:0:0:0:ffff:127.0.0.1',
+    '0:0:0:0:ffff:127.0.0.1'
   ];
 
   expect(invalid.every((ip) => !IPAddress(ip))).toBe(true);
-  expect(IPAddress('255.255.255.255',10)).toBe(false);
-})
+  expect(IPAddress('255.255.255.255', 10)).toBe(false);
+});
+
+test('work with volder correctly', () => {
+  const schema = new Volder({
+    func: UUID,
+    str: { type: String, pattern: Email }
+  });
+
+  expect(schema.validate({ func: 'E034B584-7D89-11E9-9669-1AECF481A97B', str: 'test@test.com' })).toEqual({
+    valid: true,
+    errors: {},
+    value: { func: 'E034B584-7D89-11E9-9669-1AECF481A97B', str: 'test@test.com' }
+  });
+  expect(schema.validate({ func: 'E034B584-7D89-11E9-9669-1AECF481A97', str: 'testtestcom' })).toEqual({
+    valid: false,
+    errors: { func: 'func is invalid', str: 'str is not in proper pattern' },
+    value: {}
+  });
+});
