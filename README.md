@@ -1,5 +1,5 @@
 <p align="center">
-<img width="500" height="200" src="https://user-images.githubusercontent.com/75932477/150914417-176dbc5e-013e-4b4c-97d3-507fc2318f58.png"/>
+<img width="560" height="200" src="https://user-images.githubusercontent.com/75932477/150915662-e15f2856-7aab-4934-a90b-094cb4181824.png"/>
 </p>
 
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg?style=for-the-badge)](https://codecov.io/gh/devSupporters/volder/)
