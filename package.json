@@ -16,7 +16,7 @@
   "scripts": {
     "start": "rollup --watch --config rollup.config.js",
     "dev": "nodemon playing.js",
-    "build": "rollup --name Volder --config rollup.config.js",
+    "build": "rollup --config rollup.config.js",
     "test": "jest test --coverage",
     "test:ci": "jest test --ci --coverage",
     "pretty": "pretty-quick --check --ignore-path .gitignore --verbose",

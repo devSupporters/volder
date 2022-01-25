@@ -1,9 +1,11 @@
 import { isValidType } from '../src/lib/utils/is-valid-type';
 import { assertObject } from '../src/lib/utils/assert-object';
 import { assertType } from '../src/lib/utils/assert-type';
+import { deepClone } from '../src/lib/utils/deep-clone';
+import { strictConfigs } from '../src/lib/utils/strict-configs';
 import { Volder } from '../src/index';
 
-test('assertConstrucotrFunction function work correctly', () => {
+test('isValidType function work correctly', () => {
   // Entering a correct values
   expect(isValidType(String)).toBe(true);
   expect(isValidType(Number)).toBe(true);
@@ -50,19 +52,42 @@ test('assertType function work correctly', () => {
   expect(() => assertType({ name: 'max' }, 'boolean', 'person')).toThrowError(
     new TypeError('Expected a boolean but received a Object at person')
   );
-  expect(() => assertType(23, 'string', 'sea')).toThrowError(
-    new TypeError('Expected a string but received a number at sea')
-  );
+  expect(() => assertType(23, 'string', 'sea')).toThrowError(new TypeError('Expected a string but received a number at sea'));
   expect(() => assertType('test', 'number', 'house')).toThrowError(
     new TypeError('Expected a number but received a string at house')
   );
   expect(() => assertType([1, 2, 4], 'boolean', 'house')).toThrowError(
     new TypeError('Expected a boolean but received a Array at house')
   );
-  expect(() => assertType(null, 'string', 'beach')).toThrowError(
-    new TypeError('Expected a string but received a null at beach')
-  );
+  expect(() => assertType(null, 'string', 'beach')).toThrowError(new TypeError('Expected a string but received a null at beach'));
   expect(() => assertType(new String('test'), 'number', 'beach')).toThrowError(
     new TypeError('Expected a number but received a String at beach')
   );
+});
+
+test('deepCone should work correctly', () => {
+  const obj1 = { name: 'alguerocde', age: 23, address: null };
+  const obj2 = { ...obj1, user: { email: 'test@test.com', password: 'sdhgfosd232', address: null } };
+  const obj3 = { ...obj1, user: { ...obj2.user }, array: [1, 23, 23, 23, null, { ...obj1 }] };
+
+  expect(deepClone(obj1)).toEqual(obj1);
+  expect(deepClone(obj2)).toEqual(obj2);
+  expect(deepClone(obj3)).toEqual(obj3);
+
+  expect(deepClone(obj1)).not.toBe(obj1);
+  expect(deepClone(obj2)).not.toBe(obj2);
+  expect(deepClone(obj3)).not.toBe(obj3);
+
+  expect(deepClone(obj2).user).not.toBe(obj2.user);
+  expect(deepClone(obj3).array).not.toBe(obj3.array);
+});
+
+test('strictConfigs should work correctly', () => {
+  const object = { type: Object, required: true };
+  const string = { maxLength: 1, min: 1 };
+
+  expect(strictConfigs(object, ['type', 'required'])).toBeUndefined();
+  expect(() => {
+    strictConfigs(string, ['maxLength', 'minLength']);
+  }).toThrowError("min: option config not allowed, allowed keys { maxLength, minLength }");
 });
