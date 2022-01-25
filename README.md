@@ -1,4 +1,6 @@
-![volder image](https://user-images.githubusercontent.com/75932477/150914417-176dbc5e-013e-4b4c-97d3-507fc2318f58.png)
+<p align="center">
+<img width="500" height="200" src="https://user-images.githubusercontent.com/75932477/150914417-176dbc5e-013e-4b4c-97d3-507fc2318f58.png"/>
+</p>
 
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg?style=for-the-badge)](https://codecov.io/gh/devSupporters/volder/)
 [![Package Size](https://img.shields.io/bundlephobia/minzip/volder?label=package%20size&style=for-the-badge)](https://www.npmjs.com/package/volder)
