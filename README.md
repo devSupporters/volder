@@ -19,19 +19,77 @@
 $ npm install --save volder
 $ yarn add volder
 ```
+visit ** the website** for API, documentation, and contributing.
 ## Table of Contents
 
-- [⬇️ Installation](#Installation)
-- [🔍 Usage](#Usage)
-- [⚠️ Custom error messages](#Custom-error-messages)
-- [🖥️ Custom type validator](#Custom-type-validator)
-- [⚒️ Nested schemas](#Nested-schemas)
-- [🗒️ Configs table](#Configs-table)
-- [🤝 Contributing](#Contributing)
+- [Documentation and API](         ) to a website
+- [Example](#Example)
+- [Contributing](#Contributing) to a website
 
+## Example
+
+let's took one example using volder for login validation.
+
+```js
+import { Volder, Email } from "volder";
+
+// initialize using Volder constructor.
+const userSchema = new Volder({
+  username: {
+    type: String,
+    maxLength: 10,
+    // use Custom Error Message feature.
+    minLength: [4, "username should be at least 4 characters"],
+    default: "guest user",
+  },
+  email: {
+    // Email type imported for volder package, there are other types like UUID.
+    type: [Email, "is not valid email"],
+    trim: true,
+    required: true,
+  },
+  // you can just Enter the type.
+  birth_day: Date,
+  password: {
+    type: String,
+    matches: /^[a-zA-Z0-9]{3,30}$/,
+    // pattern config run and return true if value valid otherwise false.
+    pattern: [(input) => input.includes("_"), "underscore not included"],
+  },
+});
+
+const validInput = {
+  user: "max123",
+  email: "   test@gmail.test    ",
+  birth_day: "1/2/2010",
+  password: "new_Password123",
+};
+
+const { valid, errors, value } = userSchema.validate(validInput);
+// { valid: true, errors: {}, value: {...validInput, email:"test@gmail.test"}}
+
+const invalidInput = {
+  user: "1",
+  email: "test@gmail",
+  birth_day: "2010",
+  password: "newPassword123",
+};
+
+const { valid, errors, value } = userSchema.validate(invalidInput);
+// {
+//  valid: false,
+//  errors: {
+//     user: "username should be at least 4 characters"
+//     email: "is not valid email",
+//     password: "underscore not included",
+//     birth_day: "birth_day is not valid date, date should be in 'mm/dd/yyyy' format"
+// },
+//  value: {}
+//}
+```
 ## Contributing
 
-#### I appreciate to contributing in this repository [(go throw the guild lines)](/CONTRIBUTE.md)
+#### I appreciate to contributing in this repository.[(go throw the guild lines)](/CONTRIBUTE.md)
 
 ## 📝 License
 
