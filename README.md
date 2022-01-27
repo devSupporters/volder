@@ -12,6 +12,13 @@
 
  **volder** is powerful Object schema validation, it lets you describe your data using a simple and readable schema and transform a value to match the requirements, it has custom error messages, custom types and nested schemas.
 
+
+## Installation
+
+```
+$ npm install --save volder
+$ yarn add volder
+```
 ## Table of Contents
 
 - [⬇️ Installation](#Installation)
@@ -22,12 +29,6 @@
 - [🗒️ Configs table](#Configs-table)
 - [🤝 Contributing](#Contributing)
 
-## Installation
-
-```
-$ npm install --save volder
-$ yarn add volder
-```
 ## Contributing
 
 #### I appreciate to contributing in this repository [(go throw the guild lines)](/CONTRIBUTE.md)
