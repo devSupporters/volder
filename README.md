@@ -22,10 +22,26 @@ $ yarn add volder
 visit [volder.vercel.app](https://volder.vercel.app) for API, documentation, and contributing.
 ## Table of Contents
 
-- [Documentation and API](         ) to a website
+- [Documentation and API](https://volder.vercel.app)
+- [Usage](#usage)
 - [Example](#Example)
-- [Contributing](#Contributing) to a website
+- [Contributing](#Contributing)
 
+## Usage
+
+You define and create volder schema object. Schema objects are immutable, so each validate call returns a new schema object.
+
+```js
+import { Volder } from 'volder':
+
+const personSchema = new Volder({
+  name:{ type: String, required: true, maxLength: 10, trim: true },
+  age: { type: Number, min: 18, sign: 'positive' }
+})
+
+const { valid, errors, value } = personSchema({name: "max  ", age: 19});
+// { valid: true, errors: {}, value: {name: "max", age: 19}}
+```
 ## Example
 
 let's took one example using volder for login validation.
