@@ -19,7 +19,7 @@
 $ npm install --save volder
 $ yarn add volder
 ```
-visit ** the website** for API, documentation, and contributing.
+visit [volder.vercel.app](https://volder.vercel.app) for API, documentation, and contributing.
 ## Table of Contents
 
 - [Documentation and API](         ) to a website
