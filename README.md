@@ -11,16 +11,7 @@
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 
  **volder** is powerful Object schema validation, it lets you describe your data using a simple and readable schema and transform a value to match the requirements, it has custom error messages, custom types and nested schemas.
-## ⚠️ version 2.0.0 in coming soon with more features and better documents 
-## Contents
 
-- [⬇️ Installation](#Installation)
-- [🔍 Usage](#Usage)
-- [⚠️ Custom error messages](#Custom-error-messages)
-- [🖥️ Custom type validator](#Custom-type-validator)
-- [⚒️ Nested schemas](#Nested-schemas)
-- [🗒️ Configs table](#Configs-table)
-- [🤝 Contributing](#Contributing)
 
 ## Installation
 
@@ -28,120 +19,93 @@
 $ npm install --save volder
 $ yarn add volder
 ```
+visit [volder.vercel.app](https://volder.vercel.app) for API, documentation, and contributing.
+## Table of Contents
+
+- [Documentation and API](https://volder.vercel.app)
+- [Usage](#usage)
+- [Example](#Example)
+- [Contributing](#Contributing)
 
 ## Usage
 
-You can create and validate volder schema objects by:
+You define and create volder schema object. Schema objects are immutable, so each validate call returns a new schema object.
 
-import volder schema constructor:
 ```js
-import { Volder } from 'volder';
+import { Volder } from 'volder':
+
+const personSchema = new Volder({
+  name:{ type: String, required: true, maxLength: 10, trim: true },
+  age: { type: Number, min: 18, sign: 'positive' }
+})
+
+const { valid, errors, value } = personSchema({name: "max  ", age: 19});
+// { valid: true, errors: {}, value: {name: "max", age: 19}}
 ```
+## Example
 
-create schema:
+let's took one example using volder for login validation.
+
 ```js
-const person = new Volder({
-  name: {
+import { Volder, Email } from "volder";
+
+// initialize using Volder constructor.
+const userSchema = new Volder({
+  username: {
     type: String,
-    min: 4,
-    trim: true,
-    required: true
+    maxLength: 10,
+    // use Custom Error Message feature.
+    minLength: [4, "username should be at least 4 characters"],
+    default: "guest user",
   },
-  age: {
-    type: Number,
-    max: 100
-  }
-});
-```
-validate with values (Object) and return `Array` = `[isValid:Boolean, Errors:Object]` 
-```js
-const [isValidPerson, errors] = person.validate({ name: 'lion', age: 23 }); => [true, {}]
-```
-
-
-- return isValidPerson true if an object are valid otherwise false
-- if there are error or something wrong return errors object with his option name otherwise return empty object **{}**
-- throw an error if validate function paramatere other than object
-- all types: `String, Number, Boolean, Object, Array, volderSchema, null` - **null** mean everything -  
-
-## Custom error messages
-
-You Can Define you custom error messages by:
-
-```js
-import { Volder } from 'volder';
-
-const person = new Volder({
-  name: {
-    type: [String, "person name shoulde a string"],
-    min: [4, "must at least 4 characters"] ,
-    required: [true, "name is important"]
-  },
-  age: {
-    type: [Number, "your age can not be a string"],
-    max: [100, "age at most 100 years"]
-  },
-  other:  {
-    type: [null, "'other' can be anything than object and array"]
-    avoid:  [Object, Array],
-    required: false
-  }
-});
-```
-
-## Custom type validator
-
-You Can Define you custom types by adding a validator functions that returns a **boolean**:
-
-```js
-import { Volder } from 'volder';
-import isEmail from 'package';
-import isValidPassword from 'package';
-
-const user = new Volder({
-  username: String, // use this trick by just add type as option value
   email: {
-    type: [isEmail, 'Email is invalid'],
-    max: 100
+    // Email type imported for volder package, there are other types like UUID.
+    type: [Email, "is not valid email"],
+    trim: true,
+    required: true,
   },
-  password: isValidPassword
+  // you can just Enter the type.
+  birth_day: Date,
+  password: {
+    type: String,
+    matches: /^[a-zA-Z0-9]{3,30}$/,
+    // pattern config run and return true if value valid otherwise false.
+    pattern: [(input) => input.includes("_"), "underscore not included"],
+  },
 });
+
+const validInput = {
+  user: "max123",
+  email: "   test@gmail.test    ",
+  birth_day: "1/2/2010",
+  password: "new_Password123",
+};
+
+const { valid, errors, value } = userSchema.validate(validInput);
+// { valid: true, errors: {}, value: {...validInput, email:"test@gmail.test"}}
+
+const invalidInput = {
+  user: "1",
+  email: "test@gmail",
+  birth_day: "2010",
+  password: "newPassword123",
+};
+
+const { valid, errors, value } = userSchema.validate(invalidInput);
+// {
+//  valid: false,
+//  errors: {
+//     user: "username should be at least 4 characters"
+//     email: "is not valid email",
+//     password: "underscore not included",
+//     birth_day: "birth_day is not valid date, date should be in 'mm/dd/yyyy' format"
+// },
+//  value: {}
+//}
 ```
-
-## Nested schemas
-
-You Can Define Nested volder schemas by:
-
-```js
-import { Volder } from 'volder';
-
-const personSchema = new Volder({ name: String, age: Number });
-const user = new Volder({
-  email: { type: String, trim: true },
-  person: personSchema
-});
-
-const [isValid, errors] = person.validate({
-  person: { name: 'lion', age: 23 },
-  email: 'test@test.com'
-});
-```
-
-## Configs Table
-
-this table show you the **configs** you can set options
-| config | Description | default | only work in
-| --- | --- | --- | --- |
-| `type` | define the type of option, which are required to be set as `String, Number,Array, Object, Boolean, null, volder schema, Note that the null type is means everything|`undefined`| work in all options| 
-|`required`| Mark the option as required, which will not allow`false`as a value | `false` | work in all options| 
-|`min`|Set a minimum number or length limit for the`String or Array or Number`type|`undefined`|`String, Number, Array`or null if the input are that| 
-|`max`| Set a maximum number or length limit for the`String or Array or Number`type |`undefined`| `String, Number, Array`or null if the input are that| 
-|`trim`| Transforms string values by removing leading and trailing whitespace | `false`| `String`| 
-|`avoid`| avoid the types you defined in array like`[Object, Array]`|`[]`| `null`|
-
 ## Contributing
 
-#### I appreciate to contributing in this repository [(go throw the guild lines)](/CONTRIBUTE.md)
+#### I appreciate to contributing in this repository.[(go throw the guild lines)](/CONTRIBUTE.md)
 
 ## 📝 License
 
