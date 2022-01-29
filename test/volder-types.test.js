@@ -11,7 +11,7 @@ test('email volder type work correctly', () => {
   expect(Email('x@x.au')).toBe(true);
   expect(Email('foo@bar.com.au')).toBe(true);
   expect(Email('hans@mller.com')).toBe(true);
-  expect(Email('some.name.midd.leNa.me.and.localityextension@GoogleMail.com')).toBe(true);
+  expect(Email('some.name.midd.leNa.me.and.localityextension@googlemail.com')).toBe(true);
   expect(Email('foobar@example.com')).toBe(true);
   expect(Email(`adfasdfasfa@aaaaaaaaaaaaaaaaaaaaaaaaaaaaa.com`)).toBe(true);
   expect(Email(`aaaaaaaaaaa@gmail.com`)).toBe(true);
@@ -36,7 +36,7 @@ test('email volder type work correctly', () => {
     'test9@invalid.co m',
     'test10@invalid.co m',
     'test11@invalid.co m',
-    'test12@invalid.co　m',
+    'test12@invalid.c o',
     'test13@invalid.co　m',
     'test123+invalid! sub_address@gmail.com',
     'wrong()[]",:;<>@@gmail.com',
