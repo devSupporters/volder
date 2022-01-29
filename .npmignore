@@ -12,3 +12,6 @@ playing.js
 babel.config.json
 rollup.config.js
 src
+node_modules
+CONTRIBUTE.md
+README.md
