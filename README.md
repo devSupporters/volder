@@ -33,7 +33,7 @@ visit [volder.vercel.app](https://volder.vercel.app) for API, documentation, and
 You define and create volder schema object. Schema objects are immutable, so each validate call returns a new schema object.
 
 ```js
-import { Volder } from 'volder':
+import { Volder } from 'volder';
 
 const personSchema = new Volder({
   name:{ type: String, required: true, maxLength: 10, trim: true },
