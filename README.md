@@ -1,7 +1,6 @@
 <p align="center">
-<img width="560" height="200" src="https://user-images.githubusercontent.com/75932477/152961197-5ee153ab-3e15-402a-985b-514ade7d0ba5.png"/>
+<img width="560" height="200" src="https://user-images.githubusercontent.com/75932477/153735780-2f1164f5-ccf0-4bf1-ae02-46623f5fe9a5.png"/>
 </p>
-
 
 
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/devSupporters/volder/master>.svg)](https://codecov.io/gh/devSupporters/volder/)
