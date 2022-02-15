@@ -40,7 +40,7 @@ const personSchema = new Volder({
   age: { type: Number, min: 18, sign: 'positive' }
 })
 
-const { valid, errors, value } = personSchema({name: "max  ", age: 19});
+const { valid, errors, value } = personSchema.validate({name: "max  ", age: 19});
 // { valid: true, errors: {}, value: {name: "max", age: 19}}
 ```
 ## Example
