@@ -116,4 +116,4 @@ more example:
 ## 📝 License
 
 Copyright © 2021 [salah alhashmi](https://github.com/alguerocode).<br />
-This project is [MIT](https://github.com/devSupporters/volder/blob/master/LICENSE) licensed.
+This project is [GPL-3.0](https://github.com/devSupporters/volder/blob/master/LICENSE) licensed.
