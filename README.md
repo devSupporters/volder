@@ -11,7 +11,10 @@
 [![Gitter](https://badges.gitter.im/voler-community/community.svg)](https://gitter.im/voler-community/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/alhashmis28)
-[!["volder - schema builder and data validation for javascript | Product Hunt"](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332017&theme=light)](https://www.producthunt.com/posts/volder?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-volder)
+<a href="https://www.producthunt.com/posts/volder?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-volder">
+<img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332017&theme=light" alt="volder - schema builder and data validation for javascript | Product Hunt" width="180" height="40"/>
+</a>
+
 
  **volder** is powerful Object schema validation, it lets you describe your data using a simple and readable schema and transform a value to match the requirements, it has custom error messages, custom types and nested schemas.
 
