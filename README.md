@@ -111,7 +111,7 @@ more example:
 
 #### I appreciate to contributing in this repository.[(go throw the guild lines)](/CONTRIBUTE.md)
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/alhashmis28)
-<a href="https://www.producthunt.com/posts/volder?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-volder" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332017&theme=light" alt="volder  - schema builder and data validation for javascript | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+[!["volder - schema builder and data validation for javascript | Product Hunt"](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332017&theme=light)](https://www.producthunt.com/posts/volder?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-volder)
 
 ## 📝 License
 
