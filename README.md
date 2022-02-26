@@ -12,6 +12,7 @@
 [![CI](https://github.com/devSupporters/volder/actions/workflows/main.yml/badge.svg)](https://github.com/devSupporters/volder/actions/workflows/main.yml)
 [![GitHub followers](https://img.shields.io/github/followers/alguerocode?style=social)](https://github.com/alguerocode)
 
+[!["DevSupporters discord server](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/cfyQkKcd)
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/alhashmis28)
 <a href="https://www.producthunt.com/posts/volder?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-volder">
 <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=332017&theme=light" alt="volder - schema builder and data validation for javascript | Product Hunt" width="175" height="40"/>
