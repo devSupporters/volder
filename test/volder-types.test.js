@@ -3,7 +3,49 @@ import { UUID } from '../src/lib/volder-types/uuid';
 import { CreditCard } from '../src/lib/volder-types/credit-card';
 import { URL } from '../src/lib/volder-types/url';
 import { IPAddress } from '../src/lib/volder-types/ip-address';
+import { Json } from '../src/lib/volder-types/json';
 import { Volder } from '../src/index';
+
+test('json volder type work correctly', () => {
+  // Thses assertions are based on JSON grammar
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+
+  // valid jsons
+  expect(Json(`{}`)).toBe(true);
+  expect(Json(`[]`)).toBe(true);
+  expect(Json(`0`)).toBe(true);
+  expect(Json(`0.1`)).toBe(true);
+  expect(Json(`-1`)).toBe(true);
+  expect(Json(`"string"`)).toBe(true);
+  expect(Json(`"'single quote' in string"`)).toBe(true);
+  expect(Json(`true`)).toBe(true);
+  expect(Json(`false`)).toBe(true);
+  expect(Json(`null`)).toBe(true);
+  expect(Json(`[1,2,3]`)).toBe(true);
+  expect(Json(`[1,\n2,3]`)).toBe(true);
+  expect(Json(`[1,\t2,3]`)).toBe(true);
+  expect(Json(`[1,\r2,3]`)).toBe(true);
+  expect(Json(`{"list":[1,2,3]}`)).toBe(true);
+  expect(Json(`{"a":"A","b":"B"}`)).toBe(true);
+  expect(Json(`{"a":"a",\n"b":"B"}`)).toBe(true);
+  expect(Json(`{"a":"a",\t"b":"B"}`)).toBe(true);
+  expect(Json(`{"a":"a",\r"b":"B"}`)).toBe(true);
+
+  // invalid jsons
+  expect(Json(`{'a':'A'}`)).toBe(false); // Single Quote
+  expect(Json(`{"a":'A'}`)).toBe(false);
+  expect(Json(`{'a':"A"}`)).toBe(false);
+  expect(Json(`'string'`)).toBe(false);
+  expect(Json(`{"a":"A","b":"B",}`)).toBe(false); // Trailing Comma
+  expect(Json(`01`)).toBe(false); // Leading zero
+  expect(Json(`00.1`)).toBe(false);
+  expect(Json(`NaN`)).toBe(false);
+  expect(Json(`Infinity`)).toBe(false);
+  expect(Json(`undefined`)).toBe(false);
+  expect(Json(`{"a":"Str\ning"}`)).toBe(false); // Whitespace in string
+  expect(Json(`{"a":"Str\ting"}`)).toBe(false);
+  expect(Json(`{"a":"Str\ring"}`)).toBe(false);
+});
 
 test('email volder type work correctly', () => {
   // valid emails
